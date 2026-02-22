@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | SP Driving School Pune</title>
+  <meta name="description" content="See our theory classes, practical training sessions, 2-wheeler and 4-wheeler programs in action at SP Driving School Pune." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Gallery-specific placeholder cards with vivid color-coded visuals */
+    .gallery-item { background: var(--off-white); }
+    .gp-bg-1  { background: linear-gradient(135deg,#EFF6FF,#BFDBFE); }
+    .gp-bg-2  { background: linear-gradient(135deg,#F0F9FF,#BAE6FD); }
+    .gp-bg-3  { background: linear-gradient(135deg,#EEF2FF,#C7D2FE); }
+    .gp-bg-4  { background: linear-gradient(135deg,#F5F3FF,#DDD6FE); }
+    .gp-bg-5  { background: linear-gradient(135deg,#FFF7ED,#FED7AA); }
+    .gp-bg-6  { background: linear-gradient(135deg,#FFFBEB,#FDE68A); }
+    .gp-bg-7  { background: linear-gradient(135deg,#FFF1F2,#FFE4E6); }
+    .gp-bg-8  { background: linear-gradient(135deg,#FDF2F8,#F5D0FE); }
+    .gp-bg-9  { background: linear-gradient(135deg,#F0FDF4,#BBF7D0); }
+    .gp-bg-10 { background: linear-gradient(135deg,#ECFDF5,#A7F3D0); }
+    .gp-bg-11 { background: linear-gradient(135deg,#F0FDFA,#99F6E4); }
+    .gp-bg-12 { background: linear-gradient(135deg,#F7FEE7,#D9F99D); }
+    .gp-bg-13 { background: linear-gradient(135deg,#FAFAFA,#E5E7EB); }
+    .gp-bg-14 { background: linear-gradient(135deg,#F1F5F9,#CBD5E1); }
+    .gp-bg-15 { background: linear-gradient(135deg,#F8FAFC,#94A3B8); }
+    .gp-bg-16 { background: linear-gradient(135deg,#1A1A1B,#2D3748); }
+    .gp-bg-16 .gp-icon,.gp-bg-16 .gp-text { color: white; }
+    .gallery-item .gp-overlay { color: white; }
+
+    /* Upload notice */
+    .upload-notice {
+      background: var(--orange-lt); border: 2px dashed rgba(242,101,34,.4);
+      border-radius: var(--radius); padding: 2rem; text-align: center;
+      margin-bottom: 2rem;
+    }
+    .upload-notice h3 { font-family: var(--font-head); font-size: 1.4rem; margin-bottom: .4rem; color: var(--orange-dk); }
+    .upload-notice p { font-size: .88rem; color: var(--grey); }
+
+    /* Stats row */
+    .gallery-stats {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .gstat {
+      background: var(--off-white); border-radius: var(--radius-sm);
+      padding: .75rem 1.25rem; border: 1px solid var(--light);
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .gstat-icon { font-size: 1.2rem; }
+    .gstat-text { font-size: .83rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- ========== PAGE HERO ========== -->
+  <div class="page-hero">
+    <div class="page-hero-label">Our Gallery</div>
+    <h1>Theory &amp; <span class="orange">Practical</span></h1>
+    <p>Glimpses of our theory classes, practical road sessions, and students on their journey to confidence.</p>
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="sep">›</span>
+      <span class="current">Gallery</span>
+    </div>
+  </div>
+
+  <!-- ========== GALLERY SECTION ========== -->
+  <section class="gallery-page">
+    <div class="container">
+
+      <div class="upload-notice">
+        <h3>📸 Your Photos Go Here</h3>
+        <p>Replace the placeholder cards below with real images from your school — theory sessions, practical training, student success moments, ghat road sessions, and more.<br/>Simply add <code>&lt;img src="your-photo.jpg"&gt;</code> inside each <code>.gallery-item</code>.</p>
+      </div>
+
+      <div class="gallery-stats fade-in">
+        <div class="gstat"><span class="gstat-icon">📚</span><span class="gstat-text">Theory: 2-Wheeler &amp; 4-Wheeler</span></div>
+        <div class="gstat"><span class="gstat-icon">🚗</span><span class="gstat-text">Practical: On-Road Training</span></div>
+        <div class="gstat"><span class="gstat-icon">🏔️</span><span class="gstat-text">Ghat Road Sessions</span></div>
+        <div class="gstat"><span class="gstat-icon">🌙</span><span class="gstat-text">Night Sessions</span></div>
+        <div class="gstat"><span class="gstat-icon">🏅</span><span class="gstat-text">Certificate Moments</span></div>
+      </div>
+
+      <!-- TABS -->
+      <div class="gallery-tabs fade-in">
+        <button class="gallery-tab active" data-tab="all">All Photos</button>
+        <button class="gallery-tab" data-tab="theory-2w">📚 Theory · 2-Wheeler</button>
+        <button class="gallery-tab" data-tab="theory-4w">📚 Theory · 4-Wheeler</button>
+        <button class="gallery-tab" data-tab="prac-2w">🛵 Practical · 2-Wheeler</button>
+        <button class="gallery-tab" data-tab="prac-4w">🚗 Practical · 4-Wheeler</button>
+      </div>
+
+      <!-- ALL -->
+      <div class="gallery-panel active" id="all">
+        <div class="gallery-grid">
+          <div class="gallery-item gp-bg-1 fade-in">
+            <div class="gallery-img-placeholder"><div class="gp-icon">📚</div><div class="gp-text">Theory Class · 2-Wheeler</div></div>
+            <div class="gp-overlay"><span>Theory Session — 2-Wheeler Basics</span></div>
+          </div>
+          <div class="gallery-item gp-bg-5 fade-in">
+            <div class="gallery-img-placeholder"><div class="gp-icon">📖</div><div class="gp-text">Theory Class · 4-Wheeler</div></div>
+            <div class="gp-overlay"><span>Theory Session — Road Signs & Rules</span></div>
+          </div>
+          <div class="gallery-item gp-bg-9 fade-in">
+            <div class="gallery-img-placeholder"><div class="gp-icon">🛵</div><div class="gp-text">Practical · 2-Wheeler</div></div>
+            <div class="gp-overlay"><span>Scooty Practical Training</span></div>
+          </div>
+          <div class="gallery-item gp-bg-7 fade-in">
+            <div class="gallery-img-placeholder"><div class="gp-icon">🚗</div><div class="gp-text">Practical · 4-Wheeler</div></div>
+            <div class="gp-overlay"><span>Car Practical — City Road</span></div>
+          </div>
+          <div class="gallery-item gp-bg-16 fade-in">
+            <div class="gallery-img-placeholder"><div class="gp-icon">🌙</div><div class="gp-text" style="color:rgba(255,255,255,0.7)">Night Session</div></div>
+            <div class="gp-overlay"><span>Night Driving Session</span></div>
+          </div>
+          <div class="gallery-item gp-bg-3 fade-in">
+            <div class="gallery-img-placeholder"><div class="gp-icon">⛰️</div><div class="gp-text">Ghat Road Training</div></div>
+            <div class="gp-overlay"><span>Ghat Road — Advanced Session</span></div>
+          </div>
+          <div class="gallery-item gp-bg-2 fade-in">
+            <div class="gallery-img-placeholder"><div class="gp-icon">🏍️</div><div class="gp-text">Bike Training</div></div>
+            <div class="gp-overlay"><span>Gear Bike — Practical</span></div>
+          </div>
+          <div class="gallery-item gp-bg-6 fade-in">
+            <div class="gallery-img-placeholder"><div class="gp-icon">🧠</div><div class="gp-text">Theory Class</div></div>
+            <div class="gp-overlay"><span>Intellectual Theory Class</span></div>
+          </div>
+          <div class="gallery-item gp-bg-10 fade-in">
+            <div class="gallery-img-placeholder"><div class="gp-icon">🎓</div><div class="gp-text">Certificate Moment</div></div>
+            <div class="gp-overlay"><span>Student Gets Licence!</span></div>
+          </div>
+          <div class="gallery-item gp-bg-13 fade-in">
+            <div class="gallery-img-placeholder"><div class="gp-icon">🔄</div><div class="gp-text">H-Pattern Practice</div></div>
+            <div class="gp-overlay"><span>RTO Test Method — H Pattern</span></div>
+          </div>
+          <div class="gallery-item gp-bg-4 fade-in">
+            <div class="gallery-img-placeholder"><div class="gp-icon">📅</div><div class="gp-text">Weekend Batch</div></div>
+            <div class="gp-overlay"><span>Weekend Batch Training</span></div>
+          </div>
+          <div class="gallery-item gp-bg-11 fade-in">
+            <div class="gallery-img-placeholder"><div class="gp-icon">🏛️</div><div class="gp-text">Our School</div></div>
+            <div class="gp-overlay"><span>SP Driving School — Office</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- THEORY 2W -->
+      <div class="gallery-panel" id="theory-2w">
+        <div class="gallery-grid">
+          <div class="gallery-item gp-bg-1 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">📚</div><div class="gp-text">2-Wheeler Theory — Session 1</div></div><div class="gp-overlay"><span>Road Signs & 2-Wheeler Rules</span></div></div>
+          <div class="gallery-item gp-bg-2 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">📖</div><div class="gp-text">2-Wheeler Theory — Session 2</div></div><div class="gp-overlay"><span>Traffic Laws & Safety</span></div></div>
+          <div class="gallery-item gp-bg-3 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">📋</div><div class="gp-text">RTO Test Theory</div></div><div class="gp-overlay"><span>RTO Written Test Prep</span></div></div>
+          <div class="gallery-item gp-bg-4 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🧠</div><div class="gp-text">Safety Theory</div></div><div class="gp-overlay"><span>Safe Riding Techniques — Theory</span></div></div>
+          <div class="gallery-item gp-bg-1 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">✏️</div><div class="gp-text">Exam Prep</div></div><div class="gp-overlay"><span>Learner's Licence Exam Prep</span></div></div>
+          <div class="gallery-item gp-bg-2 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🎥</div><div class="gp-text">Video Theory</div></div><div class="gp-overlay"><span>Video-Aided Theory Class</span></div></div>
+        </div>
+      </div>
+
+      <!-- THEORY 4W -->
+      <div class="gallery-panel" id="theory-4w">
+        <div class="gallery-grid">
+          <div class="gallery-item gp-bg-5 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">📚</div><div class="gp-text">4-Wheeler Theory — Class 1</div></div><div class="gp-overlay"><span>Vehicle Controls & Road Rules</span></div></div>
+          <div class="gallery-item gp-bg-6 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🔦</div><div class="gp-text">Signals & Signs</div></div><div class="gp-overlay"><span>Traffic Signals — Theory</span></div></div>
+          <div class="gallery-item gp-bg-7 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">📋</div><div class="gp-text">Ghat Road Theory</div></div><div class="gp-overlay"><span>Ghat Road Rules — Theory</span></div></div>
+          <div class="gallery-item gp-bg-8 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🧠</div><div class="gp-text">Night Driving Theory</div></div><div class="gp-overlay"><span>Night Driving Safety — Theory</span></div></div>
+          <div class="gallery-item gp-bg-5 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">✏️</div><div class="gp-text">Mock Test</div></div><div class="gp-overlay"><span>Mock RTO Written Test</span></div></div>
+          <div class="gallery-item gp-bg-6 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">📐</div><div class="gp-text">8/H/Appeal Diagram</div></div><div class="gp-overlay"><span>8 / H / Appeal — Test Pattern</span></div></div>
+        </div>
+      </div>
+
+      <!-- PRACTICAL 2W -->
+      <div class="gallery-panel" id="prac-2w">
+        <div class="gallery-grid">
+          <div class="gallery-item gp-bg-9 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🛵</div><div class="gp-text">Scooty Balance Training</div></div><div class="gp-overlay"><span>Balance & Control — Scooty</span></div></div>
+          <div class="gallery-item gp-bg-10 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🏍️</div><div class="gp-text">Gear Bike — First Ride</div></div><div class="gp-overlay"><span>First Gear Bike Session</span></div></div>
+          <div class="gallery-item gp-bg-11 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🔄</div><div class="gp-text">Cornering Practice</div></div><div class="gp-overlay"><span>Safe Cornering Technique</span></div></div>
+          <div class="gallery-item gp-bg-12 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">⛰️</div><div class="gp-text">Ghat Road — 2W</div></div><div class="gp-overlay"><span>2-Wheeler Ghat Road Training</span></div></div>
+          <div class="gallery-item gp-bg-9 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🚦</div><div class="gp-text">Traffic Practice</div></div><div class="gp-overlay"><span>City Traffic — 2-Wheeler</span></div></div>
+          <div class="gallery-item gp-bg-10 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🎓</div><div class="gp-text">Test Day</div></div><div class="gp-overlay"><span>RTO Test Day — Passed!</span></div></div>
+        </div>
+      </div>
+
+      <!-- PRACTICAL 4W -->
+      <div class="gallery-panel" id="prac-4w">
+        <div class="gallery-grid">
+          <div class="gallery-item gp-bg-7 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🚗</div><div class="gp-text">First Drive</div></div><div class="gp-overlay"><span>First 4-Wheeler Drive Session</span></div></div>
+          <div class="gallery-item gp-bg-13 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🅿️</div><div class="gp-text">Parking Practice</div></div><div class="gp-overlay"><span>Parallel Parking Training</span></div></div>
+          <div class="gallery-item gp-bg-14 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">↩️</div><div class="gp-text">Reversing</div></div><div class="gp-overlay"><span>Reverse & 3-Point Turn</span></div></div>
+          <div class="gallery-item gp-bg-15 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">⛰️</div><div class="gp-text">Ghat Road — 4W</div></div><div class="gp-overlay"><span>Ghat Road — Car Training</span></div></div>
+          <div class="gallery-item gp-bg-16 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🌙</div><div class="gp-text" style="color:rgba(255,255,255,0.7)">Night Driving</div></div><div class="gp-overlay"><span>Night Driving — Practical</span></div></div>
+          <div class="gallery-item gp-bg-7 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🔢</div><div class="gp-text">8/H/Appeal Test</div></div><div class="gp-overlay"><span>RTO Test Method Practice</span></div></div>
+        </div>
+      </div>
+
+      <div class="gallery-notice fade-in">
+        📸 <strong>These are placeholder cards.</strong> To add your actual photos, replace each gallery-item's inner content with an <code>&lt;img&gt;</code> tag pointing to your image file. Contact us if you need help — we can assist in the next step!
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="cta-band">
+    <h2>Want to Experience It Yourself?</h2>
+    <p>Book a free trial session and see our training first-hand.</p>
+    <div class="cta-buttons">
+      <a href="https://wa.me/918055385572?text=Hi!%20I%20want%20to%20book%20a%20free%20trial%20lesson." class="btn-white" target="_blank">📲 Book Free Trial</a>
+      <a href="courses.html" class="btn-white-outline">View All Courses →</a>
+    </div>
+  </section>
+
+  <script src="components.js"></script>
+</body>
+</html>
