@@ -1,208 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gallery | SP Driving School Pune</title>
-  <meta name="description" content="See our theory classes, practical training sessions, 2-wheeler and 4-wheeler programs in action at SP Driving School Pune." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Gallery-specific placeholder cards with vivid color-coded visuals */
-    .gallery-item { background: var(--off-white); }
-    .gp-bg-1  { background: linear-gradient(135deg,#EFF6FF,#BFDBFE); }
-    .gp-bg-2  { background: linear-gradient(135deg,#F0F9FF,#BAE6FD); }
-    .gp-bg-3  { background: linear-gradient(135deg,#EEF2FF,#C7D2FE); }
-    .gp-bg-4  { background: linear-gradient(135deg,#F5F3FF,#DDD6FE); }
-    .gp-bg-5  { background: linear-gradient(135deg,#FFF7ED,#FED7AA); }
-    .gp-bg-6  { background: linear-gradient(135deg,#FFFBEB,#FDE68A); }
-    .gp-bg-7  { background: linear-gradient(135deg,#FFF1F2,#FFE4E6); }
-    .gp-bg-8  { background: linear-gradient(135deg,#FDF2F8,#F5D0FE); }
-    .gp-bg-9  { background: linear-gradient(135deg,#F0FDF4,#BBF7D0); }
-    .gp-bg-10 { background: linear-gradient(135deg,#ECFDF5,#A7F3D0); }
-    .gp-bg-11 { background: linear-gradient(135deg,#F0FDFA,#99F6E4); }
-    .gp-bg-12 { background: linear-gradient(135deg,#F7FEE7,#D9F99D); }
-    .gp-bg-13 { background: linear-gradient(135deg,#FAFAFA,#E5E7EB); }
-    .gp-bg-14 { background: linear-gradient(135deg,#F1F5F9,#CBD5E1); }
-    .gp-bg-15 { background: linear-gradient(135deg,#F8FAFC,#94A3B8); }
-    .gp-bg-16 { background: linear-gradient(135deg,#1A1A1B,#2D3748); }
-    .gp-bg-16 .gp-icon,.gp-bg-16 .gp-text { color: white; }
-    .gallery-item .gp-overlay { color: white; }
-
-    /* Upload notice */
-    .upload-notice {
-      background: var(--orange-lt); border: 2px dashed rgba(242,101,34,.4);
-      border-radius: var(--radius); padding: 2rem; text-align: center;
-      margin-bottom: 2rem;
-    }
-    .upload-notice h3 { font-family: var(--font-head); font-size: 1.4rem; margin-bottom: .4rem; color: var(--orange-dk); }
-    .upload-notice p { font-size: .88rem; color: var(--grey); }
-
-    /* Stats row */
-    .gallery-stats {
-      display: flex; gap: 1.5rem; flex-wrap: wrap;
-      margin-bottom: 2.5rem;
-    }
-    .gstat {
-      background: var(--off-white); border-radius: var(--radius-sm);
-      padding: .75rem 1.25rem; border: 1px solid var(--light);
-      display: flex; align-items: center; gap: .6rem;
-    }
-    .gstat-icon { font-size: 1.2rem; }
-    .gstat-text { font-size: .83rem; font-weight: 600; }
+    .gallery-item{border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;box-shadow:var(--shadow-sm);transition:var(--trans);background:var(--off-white);border:1px solid var(--light);}
+    .gallery-item:hover{transform:scale(1.02);box-shadow:var(--shadow-md);}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;}
+    .gallery-video-item{border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;position:relative;box-shadow:var(--shadow-sm);transition:var(--trans);background:var(--black);border:1px solid var(--light);}
+    .gallery-video-item:hover{transform:scale(1.02);box-shadow:var(--shadow-md);}
+    .gallery-video-item iframe,.gallery-video-item video{width:100%;height:100%;border:0;object-fit:cover;display:block;}
+    .gp-overlay-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 100%);color:white;font-size:.78rem;font-weight:600;padding:.6rem .75rem;pointer-events:none;}
+    .video-badge-corner{position:absolute;top:.5rem;left:.5rem;background:rgba(0,0,0,.75);color:white;font-size:.6rem;font-weight:800;padding:.2rem .5rem;border-radius:50px;letter-spacing:.05em;}
+    .gp-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:.85rem;}
+    .gallery-item:hover .gp-overlay{opacity:1;}
+    .gp-overlay span{color:white;font-size:.8rem;font-weight:600;line-height:1.3;}
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:9999;align-items:center;justify-content:center;padding:1.5rem;}
+    .lightbox.open{display:flex;}
+    .lb-inner{position:relative;max-width:900px;width:100%;}
+    .lb-inner img{width:100%;border-radius:var(--radius);max-height:85vh;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.6);}
+    .lb-caption{text-align:center;color:rgba(255,255,255,.65);font-size:.88rem;margin-top:.75rem;font-weight:500;}
+    .lb-close{position:absolute;top:-2.5rem;right:0;background:none;border:none;color:white;font-size:2rem;cursor:pointer;opacity:.7;transition:opacity .2s;}
+    .lb-close:hover{opacity:1;}
+    .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:white;font-size:1.5rem;cursor:pointer;padding:.6rem .9rem;border-radius:10px;transition:background .2s;}
+    .lb-nav:hover{background:rgba(255,255,255,.22);}
+    .lb-prev{left:-3.5rem;}.lb-next{right:-3.5rem;}
+    .tab-count{display:inline-flex;align-items:center;justify-content:center;background:rgba(242,101,34,.15);color:var(--orange);font-size:.65rem;font-weight:800;min-width:18px;height:18px;border-radius:50px;padding:0 .35rem;margin-left:.35rem;}
+    .gallery-tab.active .tab-count{background:rgba(255,255,255,.25);color:white;}
+    .admin-bar{background:var(--off-white);border:1px solid var(--light);border-radius:var(--radius-sm);padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:2rem;}
+    .admin-bar p{font-size:.82rem;color:var(--grey);}
+    .empty-gallery{text-align:center;padding:5rem 2rem;background:var(--off-white);border-radius:var(--radius);border:2px dashed var(--light);grid-column:1/-1;}
+    .empty-gallery .eg-icon{font-size:3.5rem;margin-bottom:1rem;}
+    .empty-gallery h3{font-family:var(--font-head);font-size:1.5rem;margin-bottom:.5rem;}
+    .empty-gallery p{font-size:.9rem;color:var(--grey);margin-bottom:1.5rem;}
+    @media(max-width:640px){.lb-prev{left:-.5rem;}.lb-next{right:-.5rem;}}
   </style>
 </head>
 <body>
-
-  <!-- ========== PAGE HERO ========== -->
   <div class="page-hero">
     <div class="page-hero-label">Our Gallery</div>
-    <h1>Theory &amp; <span class="orange">Practical</span></h1>
-    <p>Glimpses of our theory classes, practical road sessions, and students on their journey to confidence.</p>
-    <div class="breadcrumb">
-      <a href="index.html">Home</a>
-      <span class="sep">›</span>
-      <span class="current">Gallery</span>
-    </div>
+    <h1>Photos &amp; <span class="orange">Videos</span></h1>
+    <p>Theory classes, practical sessions, ghat road training and more — real moments from SP Driving School.</p>
+    <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">›</span><span class="current">Gallery</span></div>
   </div>
 
-  <!-- ========== GALLERY SECTION ========== -->
   <section class="gallery-page">
     <div class="container">
-
-      <div class="upload-notice">
-        <h3>📸 Your Photos Go Here</h3>
-        <p>Replace the placeholder cards below with real images from your school — theory sessions, practical training, student success moments, ghat road sessions, and more.<br/>Simply add <code>&lt;img src="your-photo.jpg"&gt;</code> inside each <code>.gallery-item</code>.</p>
+      <div class="admin-bar fade-in">
+        <p>📸 <strong>Want to add photos or videos?</strong> Use Gallery Manager — upload and they appear here instantly.</p>
+        <a href="gallery-manager.html" class="btn-primary" style="font-size:.83rem;padding:.55rem 1.2rem;">Open Gallery Manager →</a>
       </div>
-
-      <div class="gallery-stats fade-in">
-        <div class="gstat"><span class="gstat-icon">📚</span><span class="gstat-text">Theory: 2-Wheeler &amp; 4-Wheeler</span></div>
-        <div class="gstat"><span class="gstat-icon">🚗</span><span class="gstat-text">Practical: On-Road Training</span></div>
-        <div class="gstat"><span class="gstat-icon">🏔️</span><span class="gstat-text">Ghat Road Sessions</span></div>
-        <div class="gstat"><span class="gstat-icon">🌙</span><span class="gstat-text">Night Sessions</span></div>
-        <div class="gstat"><span class="gstat-icon">🏅</span><span class="gstat-text">Certificate Moments</span></div>
+      <div class="gallery-tabs fade-in" id="galleryTabs">
+        <button class="gallery-tab active" data-tab="all">All <span class="tab-count" id="c-all">0</span></button>
+        <button class="gallery-tab" data-tab="theory-2w">📚 Theory 2W <span class="tab-count" id="c-theory-2w">0</span></button>
+        <button class="gallery-tab" data-tab="theory-4w">📚 Theory 4W <span class="tab-count" id="c-theory-4w">0</span></button>
+        <button class="gallery-tab" data-tab="prac-2w">🛵 Practical 2W <span class="tab-count" id="c-prac-2w">0</span></button>
+        <button class="gallery-tab" data-tab="prac-4w">🚗 Practical 4W <span class="tab-count" id="c-prac-4w">0</span></button>
+        <button class="gallery-tab" data-tab="ghat">⛰️ Ghat Road <span class="tab-count" id="c-ghat">0</span></button>
+        <button class="gallery-tab" data-tab="night">🌙 Night <span class="tab-count" id="c-night">0</span></button>
+        <button class="gallery-tab" data-tab="cert">🎓 Certificates <span class="tab-count" id="c-cert">0</span></button>
       </div>
-
-      <!-- TABS -->
-      <div class="gallery-tabs fade-in">
-        <button class="gallery-tab active" data-tab="all">All Photos</button>
-        <button class="gallery-tab" data-tab="theory-2w">📚 Theory · 2-Wheeler</button>
-        <button class="gallery-tab" data-tab="theory-4w">📚 Theory · 4-Wheeler</button>
-        <button class="gallery-tab" data-tab="prac-2w">🛵 Practical · 2-Wheeler</button>
-        <button class="gallery-tab" data-tab="prac-4w">🚗 Practical · 4-Wheeler</button>
-      </div>
-
-      <!-- ALL -->
-      <div class="gallery-panel active" id="all">
-        <div class="gallery-grid">
-          <div class="gallery-item gp-bg-1 fade-in">
-            <div class="gallery-img-placeholder"><div class="gp-icon">📚</div><div class="gp-text">Theory Class · 2-Wheeler</div></div>
-            <div class="gp-overlay"><span>Theory Session — 2-Wheeler Basics</span></div>
-          </div>
-          <div class="gallery-item gp-bg-5 fade-in">
-            <div class="gallery-img-placeholder"><div class="gp-icon">📖</div><div class="gp-text">Theory Class · 4-Wheeler</div></div>
-            <div class="gp-overlay"><span>Theory Session — Road Signs & Rules</span></div>
-          </div>
-          <div class="gallery-item gp-bg-9 fade-in">
-            <div class="gallery-img-placeholder"><div class="gp-icon">🛵</div><div class="gp-text">Practical · 2-Wheeler</div></div>
-            <div class="gp-overlay"><span>Scooty Practical Training</span></div>
-          </div>
-          <div class="gallery-item gp-bg-7 fade-in">
-            <div class="gallery-img-placeholder"><div class="gp-icon">🚗</div><div class="gp-text">Practical · 4-Wheeler</div></div>
-            <div class="gp-overlay"><span>Car Practical — City Road</span></div>
-          </div>
-          <div class="gallery-item gp-bg-16 fade-in">
-            <div class="gallery-img-placeholder"><div class="gp-icon">🌙</div><div class="gp-text" style="color:rgba(255,255,255,0.7)">Night Session</div></div>
-            <div class="gp-overlay"><span>Night Driving Session</span></div>
-          </div>
-          <div class="gallery-item gp-bg-3 fade-in">
-            <div class="gallery-img-placeholder"><div class="gp-icon">⛰️</div><div class="gp-text">Ghat Road Training</div></div>
-            <div class="gp-overlay"><span>Ghat Road — Advanced Session</span></div>
-          </div>
-          <div class="gallery-item gp-bg-2 fade-in">
-            <div class="gallery-img-placeholder"><div class="gp-icon">🏍️</div><div class="gp-text">Bike Training</div></div>
-            <div class="gp-overlay"><span>Gear Bike — Practical</span></div>
-          </div>
-          <div class="gallery-item gp-bg-6 fade-in">
-            <div class="gallery-img-placeholder"><div class="gp-icon">🧠</div><div class="gp-text">Theory Class</div></div>
-            <div class="gp-overlay"><span>Intellectual Theory Class</span></div>
-          </div>
-          <div class="gallery-item gp-bg-10 fade-in">
-            <div class="gallery-img-placeholder"><div class="gp-icon">🎓</div><div class="gp-text">Certificate Moment</div></div>
-            <div class="gp-overlay"><span>Student Gets Licence!</span></div>
-          </div>
-          <div class="gallery-item gp-bg-13 fade-in">
-            <div class="gallery-img-placeholder"><div class="gp-icon">🔄</div><div class="gp-text">H-Pattern Practice</div></div>
-            <div class="gp-overlay"><span>RTO Test Method — H Pattern</span></div>
-          </div>
-          <div class="gallery-item gp-bg-4 fade-in">
-            <div class="gallery-img-placeholder"><div class="gp-icon">📅</div><div class="gp-text">Weekend Batch</div></div>
-            <div class="gp-overlay"><span>Weekend Batch Training</span></div>
-          </div>
-          <div class="gallery-item gp-bg-11 fade-in">
-            <div class="gallery-img-placeholder"><div class="gp-icon">🏛️</div><div class="gp-text">Our School</div></div>
-            <div class="gp-overlay"><span>SP Driving School — Office</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- THEORY 2W -->
-      <div class="gallery-panel" id="theory-2w">
-        <div class="gallery-grid">
-          <div class="gallery-item gp-bg-1 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">📚</div><div class="gp-text">2-Wheeler Theory — Session 1</div></div><div class="gp-overlay"><span>Road Signs & 2-Wheeler Rules</span></div></div>
-          <div class="gallery-item gp-bg-2 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">📖</div><div class="gp-text">2-Wheeler Theory — Session 2</div></div><div class="gp-overlay"><span>Traffic Laws & Safety</span></div></div>
-          <div class="gallery-item gp-bg-3 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">📋</div><div class="gp-text">RTO Test Theory</div></div><div class="gp-overlay"><span>RTO Written Test Prep</span></div></div>
-          <div class="gallery-item gp-bg-4 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🧠</div><div class="gp-text">Safety Theory</div></div><div class="gp-overlay"><span>Safe Riding Techniques — Theory</span></div></div>
-          <div class="gallery-item gp-bg-1 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">✏️</div><div class="gp-text">Exam Prep</div></div><div class="gp-overlay"><span>Learner's Licence Exam Prep</span></div></div>
-          <div class="gallery-item gp-bg-2 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🎥</div><div class="gp-text">Video Theory</div></div><div class="gp-overlay"><span>Video-Aided Theory Class</span></div></div>
-        </div>
-      </div>
-
-      <!-- THEORY 4W -->
-      <div class="gallery-panel" id="theory-4w">
-        <div class="gallery-grid">
-          <div class="gallery-item gp-bg-5 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">📚</div><div class="gp-text">4-Wheeler Theory — Class 1</div></div><div class="gp-overlay"><span>Vehicle Controls & Road Rules</span></div></div>
-          <div class="gallery-item gp-bg-6 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🔦</div><div class="gp-text">Signals & Signs</div></div><div class="gp-overlay"><span>Traffic Signals — Theory</span></div></div>
-          <div class="gallery-item gp-bg-7 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">📋</div><div class="gp-text">Ghat Road Theory</div></div><div class="gp-overlay"><span>Ghat Road Rules — Theory</span></div></div>
-          <div class="gallery-item gp-bg-8 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🧠</div><div class="gp-text">Night Driving Theory</div></div><div class="gp-overlay"><span>Night Driving Safety — Theory</span></div></div>
-          <div class="gallery-item gp-bg-5 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">✏️</div><div class="gp-text">Mock Test</div></div><div class="gp-overlay"><span>Mock RTO Written Test</span></div></div>
-          <div class="gallery-item gp-bg-6 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">📐</div><div class="gp-text">8/H/Appeal Diagram</div></div><div class="gp-overlay"><span>8 / H / Appeal — Test Pattern</span></div></div>
-        </div>
-      </div>
-
-      <!-- PRACTICAL 2W -->
-      <div class="gallery-panel" id="prac-2w">
-        <div class="gallery-grid">
-          <div class="gallery-item gp-bg-9 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🛵</div><div class="gp-text">Scooty Balance Training</div></div><div class="gp-overlay"><span>Balance & Control — Scooty</span></div></div>
-          <div class="gallery-item gp-bg-10 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🏍️</div><div class="gp-text">Gear Bike — First Ride</div></div><div class="gp-overlay"><span>First Gear Bike Session</span></div></div>
-          <div class="gallery-item gp-bg-11 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🔄</div><div class="gp-text">Cornering Practice</div></div><div class="gp-overlay"><span>Safe Cornering Technique</span></div></div>
-          <div class="gallery-item gp-bg-12 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">⛰️</div><div class="gp-text">Ghat Road — 2W</div></div><div class="gp-overlay"><span>2-Wheeler Ghat Road Training</span></div></div>
-          <div class="gallery-item gp-bg-9 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🚦</div><div class="gp-text">Traffic Practice</div></div><div class="gp-overlay"><span>City Traffic — 2-Wheeler</span></div></div>
-          <div class="gallery-item gp-bg-10 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🎓</div><div class="gp-text">Test Day</div></div><div class="gp-overlay"><span>RTO Test Day — Passed!</span></div></div>
-        </div>
-      </div>
-
-      <!-- PRACTICAL 4W -->
-      <div class="gallery-panel" id="prac-4w">
-        <div class="gallery-grid">
-          <div class="gallery-item gp-bg-7 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🚗</div><div class="gp-text">First Drive</div></div><div class="gp-overlay"><span>First 4-Wheeler Drive Session</span></div></div>
-          <div class="gallery-item gp-bg-13 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🅿️</div><div class="gp-text">Parking Practice</div></div><div class="gp-overlay"><span>Parallel Parking Training</span></div></div>
-          <div class="gallery-item gp-bg-14 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">↩️</div><div class="gp-text">Reversing</div></div><div class="gp-overlay"><span>Reverse & 3-Point Turn</span></div></div>
-          <div class="gallery-item gp-bg-15 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">⛰️</div><div class="gp-text">Ghat Road — 4W</div></div><div class="gp-overlay"><span>Ghat Road — Car Training</span></div></div>
-          <div class="gallery-item gp-bg-16 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🌙</div><div class="gp-text" style="color:rgba(255,255,255,0.7)">Night Driving</div></div><div class="gp-overlay"><span>Night Driving — Practical</span></div></div>
-          <div class="gallery-item gp-bg-7 fade-in"><div class="gallery-img-placeholder"><div class="gp-icon">🔢</div><div class="gp-text">8/H/Appeal Test</div></div><div class="gp-overlay"><span>RTO Test Method Practice</span></div></div>
-        </div>
-      </div>
-
-      <div class="gallery-notice fade-in">
-        📸 <strong>These are placeholder cards.</strong> To add your actual photos, replace each gallery-item's inner content with an <code>&lt;img&gt;</code> tag pointing to your image file. Contact us if you need help — we can assist in the next step!
-      </div>
-
+      <div class="gallery-grid fade-in" id="galleryGrid" style="margin-top:1.5rem;"></div>
     </div>
   </section>
 
-  <!-- ========== CTA ========== -->
+  <div class="lightbox" id="lightbox" onclick="lbBg(event)">
+    <div class="lb-inner">
+      <button class="lb-close" onclick="lbClose()">✕</button>
+      <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
+      <img id="lbImg" src="" alt="" />
+      <div class="lb-caption" id="lbCap"></div>
+      <button class="lb-nav lb-next" onclick="lbNav(1)">›</button>
+    </div>
+  </div>
+
   <section class="cta-band">
     <h2>Want to Experience It Yourself?</h2>
     <p>Book a free trial session and see our training first-hand.</p>
@@ -213,5 +87,56 @@
   </section>
 
   <script src="components.js"></script>
+  <script>
+    const KEY='sp_gallery_v1';
+    const CATS={'theory-2w':'📚 Theory · 2-Wheeler','theory-4w':'📚 Theory · 4-Wheeler','prac-2w':'🛵 Practical · 2-Wheeler','prac-4w':'🚗 Practical · 4-Wheeler','ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions','cert':'🎓 Certificate'};
+    const ALL_CATS=Object.keys(CATS);
+    let all=[],curFilter='all',lbPhotos=[],lbIdx=0;
+    function loadAll(){try{return JSON.parse(localStorage.getItem(KEY))||[];}catch{return[];}}
+    function updateCounts(items){
+      document.getElementById('c-all').textContent=items.length;
+      ALL_CATS.forEach(c=>{const el=document.getElementById('c-'+c);if(el)el.textContent=items.filter(p=>p.cat===c).length;});
+    }
+    function renderGrid(filter){
+      curFilter=filter;
+      const grid=document.getElementById('galleryGrid');
+      const shown=filter==='all'?all:all.filter(p=>p.cat===filter);
+      lbPhotos=shown.filter(p=>p.type==='photo'||!p.type);
+      grid.innerHTML='';
+      if(!shown.length){grid.innerHTML='<div class="empty-gallery"><div class="eg-icon">📷</div><h3>No Items Yet</h3><p>Add photos or videos using the Gallery Manager.</p><a href="gallery-manager.html" class="btn-primary">Open Gallery Manager →</a></div>';return;}
+      let pIdx=0;
+      shown.forEach((item,i)=>{
+        const div=document.createElement('div');
+        if(item.type==='video'){
+          div.className='gallery-video-item';
+          const vHTML=(item.mt==='youtube'||item.mt==='gdrive'||item.mt==='url'&&!item.src.startsWith('data:'))
+            ?`<iframe src="${item.src}" frameborder="0" allowfullscreen loading="lazy"></iframe>`
+            :`<video src="${item.src}" controls></video>`;
+          div.innerHTML=`${vHTML}<span class="video-badge-corner">🎬 Video</span><div class="gp-overlay-label">${item.caption||CATS[item.cat]||''}</div>`;
+        } else {
+          const thisIdx=pIdx++;
+          div.className='gallery-item';
+          div.innerHTML=`<img src="${item.src}" alt="${item.caption||''}" loading="lazy" onerror="this.style.display='none'"/><div class="gp-overlay"><span>${item.caption||CATS[item.cat]||''}</span></div>`;
+          div.addEventListener('click',()=>openLb(thisIdx));
+        }
+        div.style.opacity='0';div.style.transform='translateY(18px)';
+        grid.appendChild(div);
+        setTimeout(()=>{div.style.transition='opacity .4s ease,transform .4s ease';div.style.opacity='1';div.style.transform='none';},i*50);
+      });
+    }
+    document.getElementById('galleryTabs').addEventListener('click',e=>{
+      const tab=e.target.closest('.gallery-tab');if(!tab)return;
+      document.querySelectorAll('.gallery-tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');renderGrid(tab.dataset.tab);
+    });
+    function openLb(idx){lbIdx=idx;updLb();document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
+    function updLb(){const p=lbPhotos[lbIdx];if(!p)return;document.getElementById('lbImg').src=p.src;document.getElementById('lbCap').textContent=[p.caption,CATS[p.cat]].filter(Boolean).join(' · ');}
+    function lbNav(d){lbIdx=(lbIdx+d+lbPhotos.length)%lbPhotos.length;updLb();}
+    function lbClose(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
+    function lbBg(e){if(e.target===document.getElementById('lightbox'))lbClose();}
+    document.addEventListener('keydown',e=>{if(!document.getElementById('lightbox').classList.contains('open'))return;if(e.key==='ArrowRight')lbNav(1);if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='Escape')lbClose();});
+    all=loadAll();updateCounts(all);renderGrid('all');
+    window.addEventListener('focus',()=>{all=loadAll();updateCounts(all);renderGrid(curFilter);});
+  </script>
 </body>
 </html>
