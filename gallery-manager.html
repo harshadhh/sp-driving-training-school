@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery Manager — SP Driving School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--orange:#F26522;--orange-dk:#D4551A;--black:#1A1A1B;--green:#16A34A;--red:#DC2626;--blue:#0056b3;--font-h:'Bebas Neue',sans-serif;--font-b:'DM Sans',sans-serif;--radius:14px}
+    body{font-family:var(--font-b);background:#0f0f10;color:#fff;min-height:100vh}
+    .topbar{background:var(--black);border-bottom:2px solid var(--orange);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .brand-row{display:flex;align-items:center;gap:.75rem}
+    .brand-name{font-family:var(--font-h);font-size:1.3rem;letter-spacing:.08em}
+    .brand-sub{font-size:.65rem;font-weight:700;color:var(--orange);letter-spacing:.2em}
+    .topbar-actions{display:flex;gap:.75rem;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-b);font-weight:700;font-size:.85rem;padding:.6rem 1.3rem;border-radius:50px;border:none;cursor:pointer;transition:all .25s;text-decoration:none}
+    .btn-orange{background:var(--orange);color:white}.btn-orange:hover{background:var(--orange-dk);transform:translateY(-1px)}
+    .btn-outline{background:transparent;color:white;border:2px solid rgba(255,255,255,.2)}.btn-outline:hover{border-color:var(--orange);color:var(--orange)}
+    .btn-green{background:var(--green);color:white}.btn-green:hover{background:#15803d}
+    .btn-red{background:transparent;color:#f87171;border:1.5px solid #f87171;font-size:.75rem;padding:.35rem .8rem}.btn-red:hover{background:var(--red);color:white;border-color:var(--red)}
+    .main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
+    .step-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+    .step-num{width:36px;height:36px;border-radius:50%;background:var(--orange);color:white;font-family:var(--font-h);font-size:1.2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .step-title{font-family:var(--font-h);font-size:1.4rem;letter-spacing:.04em}
+    .step-sub{font-size:.8rem;color:rgba(255,255,255,.45);margin-top:.15rem}
+    .card{background:#1c1c1e;border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:1.75rem;margin-bottom:2rem}
+    /* type toggle */
+    .type-toggle{display:flex;gap:.5rem;margin-bottom:1.5rem}
+    .type-btn{flex:1;padding:.75rem;border-radius:10px;border:2px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.5);font-family:var(--font-b);font-weight:700;font-size:.9rem;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+    .type-btn:hover{border-color:var(--orange);color:var(--orange)}
+    .type-btn.active{background:var(--orange);border-color:var(--orange);color:white}
+    /* upload zone */
+    .upload-zone{border:2.5px dashed rgba(242,101,34,.4);border-radius:var(--radius);padding:3rem 2rem;text-align:center;cursor:pointer;transition:all .25s;background:rgba(242,101,34,.04);position:relative}
+    .upload-zone:hover,.upload-zone.dragover{border-color:var(--orange);background:rgba(242,101,34,.08);transform:scale(1.01)}
+    .upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .upload-icon{font-size:3rem;margin-bottom:.75rem}
+    .uz-title{font-family:var(--font-h);font-size:1.5rem;letter-spacing:.04em;margin-bottom:.4rem}
+    .uz-sub{font-size:.85rem;color:rgba(255,255,255,.45)}
+    .divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.1)}
+    .divider span{font-size:.75rem;color:rgba(255,255,255,.3);flex-shrink:0}
+    .url-row{display:flex;gap:.75rem;align-items:stretch}
+    .url-row input{flex:1;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:.75rem 1rem;color:white;font-family:var(--font-b);font-size:.92rem;outline:none;transition:border-color .2s}
+    .url-row input:focus{border-color:var(--orange)}
+    .url-row input::placeholder{color:rgba(255,255,255,.25)}
+    .hint{font-size:.75rem;color:rgba(255,255,255,.3);margin-top:.5rem;line-height:1.5}
+    .hint strong{color:rgba(255,255,255,.5)}
+    .form-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+    .fg{display:flex;flex-direction:column;gap:.4rem}
+    .fg label{font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+    .fg select,.fg input[type="text"]{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:.65rem 1rem;color:white;font-family:var(--font-b);font-size:.9rem;outline:none;transition:border-color .2s}
+    .fg select:focus,.fg input[type="text"]:focus{border-color:var(--orange)}
+    .fg select option{background:#1c1c1e;color:white}
+    /* preview */
+    .preview-strip{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.25rem}
+    .preview-thumb{position:relative;width:100px;height:75px;border-radius:8px;overflow:hidden;border:2px solid rgba(255,255,255,.1)}
+    .preview-thumb img,.preview-thumb video{width:100%;height:100%;object-fit:cover}
+    .vbadge{position:absolute;bottom:3px;left:3px;background:rgba(0,0,0,.75);color:white;font-size:.58rem;font-weight:700;padding:.15rem .4rem;border-radius:4px}
+    .rm-btn{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(220,38,38,.9);border:none;color:white;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:800}
+    .add-row{margin-top:1.25rem;display:flex;justify-content:flex-end}
+    /* manage */
+    .mtabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.5rem}
+    .mtab{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:50px;padding:.45rem 1.1rem;font-family:var(--font-b);font-weight:700;font-size:.8rem;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s}
+    .mtab:hover{border-color:var(--orange);color:var(--orange)}
+    .mtab.active{background:var(--orange);border-color:var(--orange);color:white}
+    .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:1rem}
+    .mcard{background:rgba(255,255,255,.04);border-radius:12px;border:1px solid rgba(255,255,255,.08);overflow:hidden;transition:all .25s}
+    .mcard:hover{border-color:rgba(242,101,34,.4);transform:translateY(-2px)}
+    .mcard-media{width:100%;aspect-ratio:4/3;object-fit:cover;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;overflow:hidden}
+    .mcard-media img,.mcard-media video{width:100%;height:100%;object-fit:cover}
+    .mbadge{position:absolute;top:.4rem;right:.4rem;background:rgba(0,0,0,.75);color:white;font-size:.6rem;font-weight:800;padding:.2rem .5rem;border-radius:50px;letter-spacing:.05em}
+    .mcard-info{padding:.75rem}
+    .mcard-label{font-size:.75rem;font-weight:700;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:.25rem}
+    .mcard-cat{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)}
+    .mcard-actions{display:flex;gap:.4rem;padding:0 .75rem .75rem}
+    .empty{text-align:center;padding:3rem;color:rgba(255,255,255,.25);grid-column:1/-1}
+    .stats-bar{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem}
+    .spill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:.4rem 1rem;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:.4rem}
+    .spill .n{color:var(--orange);font-family:var(--font-h);font-size:1rem}
+    .info-box{background:rgba(0,86,179,.12);border:1px solid rgba(0,86,179,.3);border-radius:10px;padding:1rem 1.25rem;font-size:.84rem;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:1.5rem}
+    .info-box strong{color:#60A5FA}
+    .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--green);color:white;padding:.85rem 1.75rem;border-radius:50px;font-weight:700;font-size:.9rem;box-shadow:0 8px 30px rgba(22,163,74,.5);transition:transform .4s cubic-bezier(.34,1.56,.64,1);z-index:9999;white-space:nowrap}
+    .toast.show{transform:translateX(-50%) translateY(0)}
+    .toast.err{background:var(--red)}
+    @media(max-width:600px){.form-2col{grid-template-columns:1fr}.url-row{flex-direction:column}.type-toggle{flex-direction:column}}
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand-row">
+    <svg width="38" height="38" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="22" stroke="#F26522" stroke-width="3" fill="none"/><circle cx="26" cy="26" r="6" fill="#F26522"/><line x1="26" y1="4" x2="26" y2="20" stroke="#F26522" stroke-width="3" stroke-linecap="round"/><line x1="26" y1="32" x2="26" y2="48" stroke="#F26522" stroke-width="3" stroke-linecap="round"/><line x1="4" y1="26" x2="20" y2="26" stroke="#F26522" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="26" x2="48" y2="26" stroke="#F26522" stroke-width="3" stroke-linecap="round"/><path d="M4 26 Q0 18 6 12 Q10 22 20 24" fill="#F26522" opacity="0.85"/><path d="M48 26 Q52 18 46 12 Q42 22 32 24" fill="#F26522" opacity="0.85"/></svg>
+    <div><div class="brand-name">SP DRIVING SCHOOL</div><div class="brand-sub">Gallery Manager · Admin</div></div>
+  </div>
+  <div class="topbar-actions">
+    <a href="gallery.html" class="btn btn-outline" target="_blank">👁 View Gallery</a>
+    <button class="btn btn-red" onclick="clearAll()">🗑 Clear All</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- STEP 1 -->
+  <div class="step-header"><div class="step-num">1</div><div><div class="step-title">Add Photo or Video</div><div class="step-sub">Drag &amp; drop from your computer, or paste a link (YouTube, Google Drive, imgbb)</div></div></div>
+
+  <div class="card">
+    <div class="type-toggle">
+      <button class="type-btn active" id="btnPhoto" onclick="setType('photo')">📸 Photo</button>
+      <button class="type-btn" id="btnVideo" onclick="setType('video')">🎬 Video</button>
+    </div>
+
+    <!-- PHOTO -->
+    <div id="modePhoto">
+      <div class="upload-zone" id="dropZone">
+        <input type="file" id="imgFile" accept="image/*" multiple />
+        <div class="upload-icon">📸</div>
+        <div class="uz-title">Drag &amp; Drop Photos Here</div>
+        <div class="uz-sub">Or click this box to pick from your phone / computer</div>
+      </div>
+      <div class="divider"><span>OR paste an image link (imgbb / Google Drive)</span></div>
+      <div class="url-row">
+        <input type="text" id="imgUrl" placeholder="Paste image link here — e.g. https://i.ibb.co/abc/photo.jpg" />
+        <button class="btn btn-orange" onclick="addImgUrl()">Add →</button>
+      </div>
+      <div class="hint">Free: upload photo at <strong>imgbb.com</strong> → copy the "Direct link" → paste above</div>
+    </div>
+
+    <!-- VIDEO -->
+    <div id="modeVideo" style="display:none">
+      <div class="upload-zone" id="vidDropZone">
+        <input type="file" id="vidFile" accept="video/*" />
+        <div class="upload-icon">🎬</div>
+        <div class="uz-title">Drag &amp; Drop a Video Here</div>
+        <div class="uz-sub">Or click to pick a video file (max 50 MB)</div>
+      </div>
+      <div class="divider"><span>OR paste a YouTube / Google Drive video link</span></div>
+      <div class="url-row">
+        <input type="text" id="vidUrl" placeholder="e.g. https://youtube.com/watch?v=ABC  or Google Drive share link" />
+        <button class="btn btn-orange" onclick="addVidUrl()">Add →</button>
+      </div>
+      <div class="hint">
+        Supports: <strong>YouTube links</strong> · <strong>Google Drive video links</strong> · <strong>Direct .mp4 URLs</strong><br/>
+        Tip: YouTube is easiest — just paste the normal video URL.
+      </div>
+    </div>
+
+    <div class="preview-strip" id="previewStrip"></div>
+
+    <div class="form-2col" id="metaForm" style="display:none">
+      <div class="fg">
+        <label>Category</label>
+        <select id="catSel">
+          <option value="theory-2w">📚 Theory — 2-Wheeler</option>
+          <option value="theory-4w">📚 Theory — 4-Wheeler</option>
+          <option value="prac-2w">🛵 Practical — 2-Wheeler</option>
+          <option value="prac-4w">🚗 Practical — 4-Wheeler</option>
+          <option value="ghat">⛰️ Ghat Road</option>
+          <option value="night">🌙 Night Sessions</option>
+          <option value="cert">🎓 Certificates &amp; Events</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Caption (optional)</label>
+        <input type="text" id="capInput" placeholder="e.g. Arvind Sir teaching ghat road" />
+      </div>
+    </div>
+    <div class="add-row" id="addRow" style="display:none">
+      <button class="btn btn-green" onclick="saveMedia()">✅ Add to Gallery</button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-header"><div class="step-num">2</div><div><div class="step-title">Manage Your Gallery</div><div class="step-sub">All photos &amp; videos — delete or keep. Updates instantly in gallery.html.</div></div></div>
+
+  <div class="card">
+    <div class="info-box">💡 Everything you add is saved in <strong>this browser</strong> and shows in <strong>gallery.html automatically</strong> when opened here. To make it live for everyone on the internet, use <strong>Step 3 Export</strong> below.</div>
+    <div class="stats-bar">
+      <div class="spill"><span class="n" id="nTotal">0</span> Total</div>
+      <div class="spill">📸 <span class="n" id="nPhoto">0</span> Photos</div>
+      <div class="spill">🎬 <span class="n" id="nVideo">0</span> Videos</div>
+    </div>
+    <div class="mtabs">
+      <div class="mtab active" onclick="filter('all',this)">All</div>
+      <div class="mtab" onclick="filter('theory-2w',this)">📚 Theory 2W</div>
+      <div class="mtab" onclick="filter('theory-4w',this)">📚 Theory 4W</div>
+      <div class="mtab" onclick="filter('prac-2w',this)">🛵 Prac 2W</div>
+      <div class="mtab" onclick="filter('prac-4w',this)">🚗 Prac 4W</div>
+      <div class="mtab" onclick="filter('ghat',this)">⛰️ Ghat</div>
+      <div class="mtab" onclick="filter('night',this)">🌙 Night</div>
+      <div class="mtab" onclick="filter('cert',this)">🎓 Certs</div>
+    </div>
+    <div class="mgrid" id="mgrid"></div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-header"><div class="step-num">3</div><div><div class="step-title">Make It Live Online</div><div class="step-sub">One-time copy-paste into gallery.html — then everyone on the web can see your photos &amp; videos.</div></div></div>
+
+  <div class="card">
+    <div class="info-box">📋 Click <strong>Generate Code</strong> → Click <strong>Copy</strong> → Open <strong>gallery.html</strong> in VS Code → Select all (Ctrl+A) → Paste → Save. Done!</div>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+      <button class="btn btn-orange" onclick="genCode()">⚙️ Generate Code</button>
+      <button class="btn btn-green" id="copyBtn" onclick="copyCode()" style="display:none">📋 Copy Code</button>
+    </div>
+    <textarea id="exportArea" readonly style="width:100%;height:240px;background:rgba(0,0,0,.4);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:1rem;color:#86efac;font-family:monospace;font-size:.75rem;resize:vertical;outline:none;display:none;margin-top:1rem;"></textarea>
+  </div>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'sp_gallery_v1';
+const CATS = {
+  'theory-2w':'📚 Theory · 2-Wheeler','theory-4w':'📚 Theory · 4-Wheeler',
+  'prac-2w':'🛵 Practical · 2-Wheeler','prac-4w':'🚗 Practical · 4-Wheeler',
+  'ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions','cert':'🎓 Certificates'
+};
+let pending = [];
+let curFilter = 'all';
+
+function toast(msg, err=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast'+(err?' err':'');
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3000);
+}
+function load() { try{return JSON.parse(localStorage.getItem(KEY))||[];}catch{return [];} }
+function save(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
+
+// Type toggle
+function setType(t) {
+  ['Photo','Video'].forEach(x=>{
+    document.getElementById('btn'+x).classList.toggle('active', t==='photo'&&x==='Photo'||t==='video'&&x==='Video');
+    document.getElementById('mode'+x).style.display = (t==='photo'&&x==='Photo'||t==='video'&&x==='Video')?'block':'none';
+  });
+  pending=[]; renderPreview();
+}
+
+// YouTube helpers
+function ytId(url){ const m=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([\w-]{11})/); return m?m[1]:null; }
+function gdId(url){ const m=url.match(/\/d\/([a-zA-Z0-9_-]+)/); return m?m[1]:null; }
+
+// Photo file drop
+const dz = document.getElementById('dropZone');
+document.getElementById('imgFile').addEventListener('change', e=>readImgFiles(e.target.files));
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('dragover');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('dragover'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('dragover');readImgFiles(e.dataTransfer.files);});
+
+function readImgFiles(files){
+  Array.from(files).forEach(f=>{
+    if(!f.type.startsWith('image/'))return;
+    const r=new FileReader();
+    r.onload=e=>{pending.push({type:'photo',src:e.target.result,mt:'base64'});renderPreview();};
+    r.readAsDataURL(f);
+  });
+}
+
+function addImgUrl(){
+  const url=document.getElementById('imgUrl').value.trim();
+  if(!url){toast('Paste a link first',true);return;}
+  const gd=gdId(url);
+  const src=gd?`https://drive.google.com/uc?export=view&id=${gd}`:url;
+  pending.push({type:'photo',src,mt:'url'});
+  document.getElementById('imgUrl').value='';
+  renderPreview();
+}
+
+// Video file drop
+const vdz = document.getElementById('vidDropZone');
+document.getElementById('vidFile').addEventListener('change',e=>readVidFile(e.target.files[0]));
+vdz.addEventListener('dragover',e=>{e.preventDefault();vdz.classList.add('dragover');});
+vdz.addEventListener('dragleave',()=>vdz.classList.remove('dragover'));
+vdz.addEventListener('drop',e=>{e.preventDefault();vdz.classList.remove('dragover');readVidFile(e.dataTransfer.files[0]);});
+
+function readVidFile(f){
+  if(!f||!f.type.startsWith('video/')){toast('Select a video file',true);return;}
+  if(f.size>50*1024*1024){toast('Video too large — use YouTube link instead',true);return;}
+  const r=new FileReader();
+  r.onload=e=>{pending.push({type:'video',src:e.target.result,mt:'file'});renderPreview();};
+  r.readAsDataURL(f);
+}
+
+function addVidUrl(){
+  const url=document.getElementById('vidUrl').value.trim();
+  if(!url){toast('Paste a link first',true);return;}
+  const id=ytId(url);
+  if(id){
+    pending.push({type:'video',src:`https://www.youtube.com/embed/${id}`,mt:'youtube',thumb:`https://img.youtube.com/vi/${id}/hqdefault.jpg`});
+    document.getElementById('vidUrl').value='';renderPreview();return;
+  }
+  const gd=gdId(url);
+  if(gd){
+    pending.push({type:'video',src:`https://drive.google.com/file/d/${gd}/preview`,mt:'gdrive'});
+    document.getElementById('vidUrl').value='';renderPreview();return;
+  }
+  pending.push({type:'video',src:url,mt:'url'});
+  document.getElementById('vidUrl').value='';renderPreview();
+}
+
+function removePending(i){pending.splice(i,1);renderPreview();}
+
+function renderPreview(){
+  const strip=document.getElementById('previewStrip');
+  const meta=document.getElementById('metaForm');
+  const addR=document.getElementById('addRow');
+  strip.innerHTML='';
+  if(!pending.length){meta.style.display='none';addR.style.display='none';return;}
+  meta.style.display='grid';addR.style.display='flex';
+  pending.forEach((item,i)=>{
+    const d=document.createElement('div');
+    d.className='preview-thumb';
+    if(item.type==='photo'){
+      d.innerHTML=`<img src="${item.src}"/><button class="rm-btn" onclick="removePending(${i})">✕</button>`;
+    } else {
+      const th=item.thumb||'';
+      d.innerHTML=th
+        ?`<img src="${th}"/><span class="vbadge">▶ YT</span><button class="rm-btn" onclick="removePending(${i})">✕</button>`
+        :`<div style="width:100%;height:100%;background:rgba(242,101,34,.15);display:flex;align-items:center;justify-content:center;font-size:1.8rem">🎬</div><span class="vbadge">VIDEO</span><button class="rm-btn" onclick="removePending(${i})">✕</button>`;
+    }
+    strip.appendChild(d);
+  });
+}
+
+function saveMedia(){
+  if(!pending.length){toast('Nothing selected',true);return;}
+  const cat=document.getElementById('catSel').value;
+  const cap=document.getElementById('capInput').value.trim();
+  const all=load();
+  pending.forEach(item=>all.push({id:Date.now()+Math.random(),...item,cat,caption:cap}));
+  save(all);
+  const n=pending.length;
+  pending=[];document.getElementById('capInput').value='';
+  renderPreview();renderGrid();updateStats();
+  toast(`✅ ${n} item${n!==1?'s':''} added!`);
+}
+
+function deleteItem(id){
+  save(load().filter(p=>String(p.id)!==String(id)));
+  renderGrid();updateStats();toast('🗑 Removed');
+}
+
+function clearAll(){
+  if(!confirm('Delete ALL photos and videos?'))return;
+  localStorage.removeItem(KEY);renderGrid();updateStats();toast('🗑 All cleared');
+}
+
+function filter(cat,el){
+  curFilter=cat;
+  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');renderGrid();
+}
+
+function renderGrid(){
+  const g=document.getElementById('mgrid');
+  const all=load();
+  const shown=curFilter==='all'?all:all.filter(p=>p.cat===curFilter);
+  g.innerHTML='';
+  if(!shown.length){g.innerHTML='<div class="empty"><div style="font-size:2.5rem">📭</div><div style="margin-top:.5rem">No items yet</div></div>';return;}
+  shown.forEach(item=>{
+    const c=document.createElement('div');c.className='mcard';
+    let med='';
+    if(item.type==='video'){
+      if(item.mt==='youtube'&&item.thumb)
+        med=`<div class="mcard-media"><img src="${item.thumb}"/><span class="mbadge">▶ YouTube</span></div>`;
+      else if(item.mt==='gdrive')
+        med=`<div class="mcard-media">🎬<span class="mbadge">Drive</span></div>`;
+      else
+        med=`<div class="mcard-media"><video src="${item.src}" muted></video><span class="mbadge">▶ Video</span></div>`;
+    } else {
+      med=`<div class="mcard-media"><img src="${item.src}" onerror="this.parentElement.innerHTML='🖼️'"/></div>`;
+    }
+    c.innerHTML=`${med}<div class="mcard-info"><div class="mcard-label">${item.caption||'No caption'}</div><div class="mcard-cat">${CATS[item.cat]||item.cat}</div></div><div class="mcard-actions"><button class="btn btn-red" onclick="deleteItem('${item.id}')">🗑 Delete</button></div>`;
+    g.appendChild(c);
+  });
+}
+
+function updateStats(){
+  const all=load();
+  document.getElementById('nTotal').textContent=all.length;
+  document.getElementById('nPhoto').textContent=all.filter(p=>p.type==='photo').length;
+  document.getElementById('nVideo').textContent=all.filter(p=>p.type==='video').length;
+}
+
+function renderItem(item){
+  if(item.type==='video'){
+    if(item.mt==='youtube'||item.mt==='gdrive'||item.mt==='url'){
+      return `<div class="gallery-item gallery-video-item fade-in"><iframe src="${item.src}" frameborder="0" allowfullscreen loading="lazy" style="width:100%;height:100%;border:0;"></iframe><div class="gp-overlay-label">${item.caption||CATS[item.cat]||''}</div></div>`;
+    }
+    return `<div class="gallery-item gallery-video-item fade-in"><video src="${item.src}" controls style="width:100%;height:100%;object-fit:cover;"></video><div class="gp-overlay-label">${item.caption||CATS[item.cat]||''}</div></div>`;
+  }
+  return `<div class="gallery-item fade-in"><img src="${item.src}" alt="${item.caption||''}" style="width:100%;height:100%;object-fit:cover;" loading="lazy"/><div class="gp-overlay"><span>${item.caption||CATS[item.cat]||''}</span></div></div>`;
+}
+
+function genCode(){
+  const all=load();
+  if(!all.length){toast('No items to export',true);return;}
+  const cats={};
+  Object.keys(CATS).forEach(c=>cats[c]=[]);
+  all.forEach(i=>{if(cats[i.cat])cats[i.cat].push(i);});
+  const allCards=all.map(renderItem).join('');
+  const catPanels=Object.entries(cats).map(([cat,list])=>`<div class="gallery-panel" id="${cat}"><div class="gallery-grid">${list.length?list.map(renderItem).join(''):'<p style="color:var(--grey);padding:2rem">No items yet.</p>'}</div></div>`).join('\n');
+  const code=`<!-- MANAGED GALLERY START -->\n<div class="gallery-panel active" id="all"><div class="gallery-grid">${allCards}</div></div>\n${catPanels}\n<!-- MANAGED GALLERY END -->`;
+  const ta=document.getElementById('exportArea');
+  const cb=document.getElementById('copyBtn');
+  ta.value=code;ta.style.display='block';cb.style.display='inline-flex';
+  toast('✅ Code ready — click Copy!');
+  ta.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function copyCode(){
+  document.getElementById('exportArea').select();
+  document.execCommand('copy');toast('📋 Copied to clipboard!');
+}
+
+document.getElementById('imgUrl').addEventListener('keydown',e=>{if(e.key==='Enter')addImgUrl();});
+document.getElementById('vidUrl').addEventListener('keydown',e=>{if(e.key==='Enter')addVidUrl();});
+
+renderGrid();updateStats();
+</script>
+</body>
+</html>
