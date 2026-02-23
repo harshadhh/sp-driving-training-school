@@ -8,7 +8,7 @@ const WA_NUM = "918055385572";
 const WA_MSG = encodeURIComponent("Hi! I want to book a free trial lesson at SP Driving School.");
 const ADDRESS = "Prasun Savoy Corner, Dhanori Road, Vishrantwadi, Pune – 411015";
 
-const LOGO_SVG = `<img src="logo.jpg" alt="SP Driving School Logo" style="width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(242,101,34,.25))" />`;
+const LOGO_SVG = `<img src="logo.jpg" alt="SP Driving School Logo" style="width:130px;height:62px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(242,101,34,.25))" />`;
 
 const NAV_ITEMS = [
   { label: "Home",     href: "index.html"   },
