@@ -7,6 +7,46 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
+    /* ── LOGIN GATE ── */
+    #loginGate {
+      position: fixed; inset: 0; background: #0f0f10;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 99999; padding: 1.5rem;
+    }
+    .login-card {
+      background: #1c1c1e; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 18px; padding: 2.5rem 2rem; max-width: 400px; width: 100%;
+      text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,.6);
+    }
+    .login-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: .1em; color: #F26522; margin-bottom: .25rem; }
+    .login-sub { font-size: .72rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 2rem; }
+    .login-icon { font-size: 2.8rem; margin-bottom: 1.25rem; }
+    .login-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: .06em; color: white; margin-bottom: .4rem; }
+    .login-desc { font-size: .82rem; color: rgba(255,255,255,.4); margin-bottom: 1.75rem; line-height: 1.5; }
+    .login-input {
+      width: 100%; background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.12);
+      border-radius: 12px; padding: .85rem 1.1rem; color: white; font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; outline: none; margin-bottom: 1rem; text-align: center; letter-spacing: .12em;
+      transition: border-color .2s; box-sizing: border-box;
+    }
+    .login-input:focus { border-color: #F26522; }
+    .login-input::placeholder { color: rgba(255,255,255,.2); letter-spacing: .04em; }
+    .login-btn {
+      width: 100%; background: #F26522; color: white; border: none; border-radius: 50px;
+      padding: .9rem; font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 1rem;
+      cursor: pointer; transition: all .25s; letter-spacing: .04em;
+    }
+    .login-btn:hover { background: #D4551A; transform: translateY(-1px); }
+    .login-error {
+      color: #f87171; font-size: .8rem; font-weight: 700; margin-top: .75rem;
+      display: none; background: rgba(220,38,38,.12); border-radius: 8px; padding: .5rem;
+    }
+    .login-attempts { font-size: .72rem; color: rgba(255,255,255,.25); margin-top: .75rem; }
+
+    /* ── MAIN APP (hidden until logged in) ── */
+    #appContent { display: none; }
+  </style>
+  <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{--orange:#F26522;--orange-dk:#D4551A;--black:#1A1A1B;--green:#16A34A;--red:#DC2626;--blue:#0056b3;--font-h:'Bebas Neue',sans-serif;--font-b:'DM Sans',sans-serif;--radius:14px}
     body{font-family:var(--font-b);background:#0f0f10;color:#fff;min-height:100vh}
@@ -88,6 +128,24 @@
   </style>
 </head>
 <body>
+
+<!-- ========== LOGIN GATE ========== -->
+<div id="loginGate">
+  <div class="login-card">
+    <div class="login-logo">SP DRIVING SCHOOL</div>
+    <div class="login-sub">Gallery Manager · Admin Access</div>
+    <div class="login-icon">🔐</div>
+    <div class="login-title">Admin Login Required</div>
+    <div class="login-desc">This area is restricted to the school owner only. Enter your password to manage photos and videos.</div>
+    <input type="password" id="pwInput" class="login-input" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')checkPw()" autocomplete="current-password" />
+    <button class="login-btn" onclick="checkPw()">🔓 Unlock Gallery Manager</button>
+    <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
+    <div class="login-attempts" id="attemptsMsg"></div>
+  </div>
+</div>
+
+<!-- ========== MAIN APP (shown after login) ========== -->
+<div id="appContent">
 
 <div class="topbar">
   <div class="brand-row">
@@ -208,6 +266,7 @@
 
 </div>
 <div class="toast" id="toast"></div>
+</div><!-- end #appContent -->
 
 <script>
 const KEY = 'sp_gallery_v1';
@@ -417,6 +476,47 @@ document.getElementById('imgUrl').addEventListener('keydown',e=>{if(e.key==='Ent
 document.getElementById('vidUrl').addEventListener('keydown',e=>{if(e.key==='Enter')addVidUrl();});
 
 renderGrid();updateStats();
+</script>
+
+<!-- ========== AUTH SCRIPT ========== -->
+<script>
+  // ── CHANGE THIS PASSWORD TO YOUR OWN ──
+  const ADMIN_PASSWORD = 'SP@Admin2025';
+  const SESSION_KEY = 'sp_admin_auth';
+  const MAX_ATTEMPTS = 5;
+  let attempts = 0;
+
+  // Check if already authenticated in this session
+  if (sessionStorage.getItem(SESSION_KEY) === 'granted') {
+    document.getElementById('loginGate').style.display = 'none';
+    document.getElementById('appContent').style.display = 'block';
+  }
+
+  function checkPw() {
+    const input = document.getElementById('pwInput').value;
+    const errEl = document.getElementById('loginError');
+    const attEl = document.getElementById('attemptsMsg');
+
+    if (input === ADMIN_PASSWORD) {
+      sessionStorage.setItem(SESSION_KEY, 'granted');
+      document.getElementById('loginGate').style.display = 'none';
+      document.getElementById('appContent').style.display = 'block';
+    } else {
+      attempts++;
+      errEl.style.display = 'block';
+      document.getElementById('pwInput').value = '';
+      const remaining = MAX_ATTEMPTS - attempts;
+      if (remaining <= 0) {
+        errEl.textContent = '🚫 Too many failed attempts. Please close and reopen the page.';
+        document.getElementById('pwInput').disabled = true;
+        document.querySelector('.login-btn').disabled = true;
+        attEl.textContent = '';
+      } else {
+        errEl.textContent = 'Incorrect password. Please try again.';
+        attEl.textContent = `${remaining} attempt${remaining !== 1 ? 's' : ''} remaining`;
+      }
+    }
+  }
 </script>
 </body>
 </html>

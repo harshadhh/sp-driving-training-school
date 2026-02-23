@@ -49,10 +49,7 @@
 
   <section class="gallery-page">
     <div class="container">
-      <div class="admin-bar fade-in">
-        <p>📸 <strong>Want to add photos or videos?</strong> Use Gallery Manager — upload and they appear here instantly.</p>
-        <a href="gallery-manager.html" class="btn-primary" style="font-size:.83rem;padding:.55rem 1.2rem;">Open Gallery Manager →</a>
-      </div>
+
       <div class="gallery-tabs fade-in" id="galleryTabs">
         <button class="gallery-tab active" data-tab="all">All <span class="tab-count" id="c-all">0</span></button>
         <button class="gallery-tab" data-tab="theory-2w">📚 Theory 2W <span class="tab-count" id="c-theory-2w">0</span></button>
@@ -103,7 +100,7 @@
       const shown=filter==='all'?all:all.filter(p=>p.cat===filter);
       lbPhotos=shown.filter(p=>p.type==='photo'||!p.type);
       grid.innerHTML='';
-      if(!shown.length){grid.innerHTML='<div class="empty-gallery"><div class="eg-icon">📷</div><h3>No Items Yet</h3><p>Add photos or videos using the Gallery Manager.</p><a href="gallery-manager.html" class="btn-primary">Open Gallery Manager →</a></div>';return;}
+      if(!shown.length){grid.innerHTML='<div class="empty-gallery"><div class="eg-icon">📷</div><h3>Photos Coming Soon</h3><p>We\'re adding photos of our sessions. Check back soon!</p></div>';return;}
       let pIdx=0;
       shown.forEach((item,i)=>{
         const div=document.createElement('div');

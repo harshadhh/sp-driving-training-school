@@ -85,6 +85,31 @@
 
     @media (max-width:900px) { .sangita-inner { grid-template-columns:1fr; } }
     @media (max-width:640px) { .hero-unlimited-block { grid-template-columns:1fr; } }
+
+    /* ── WOMEN-OWNED BADGE ── */
+    .women-owned-badge {
+      display: inline-flex; align-items: center; gap: .55rem;
+      background: linear-gradient(135deg,#fdf2f8,#fce7f3);
+      border: 1.5px solid #f9a8d4; border-radius: 50px;
+      padding: .45rem 1rem; margin-bottom: 1.1rem;
+      font-size: .75rem; font-weight: 800; color: #be185d;
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+    .women-owned-badge .wob-icon { font-size: 1rem; }
+
+    /* ── WOMEN-OWNED SECTION BANNER ── */
+    .women-owned-banner {
+      background: linear-gradient(135deg,#fdf2f8 0%,#ede9fe 100%);
+      border-top: 2px solid #f9a8d4; border-bottom: 2px solid #f9a8d4;
+      padding: 2rem 1.5rem; text-align: center;
+    }
+    .wob-inner { max-width: 780px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+    .wob-emoji { font-size: 3rem; }
+    .wob-text h2 { font-family: var(--font-head); font-size: 1.6rem; letter-spacing: .04em; color: #be185d; margin-bottom: .3rem; }
+    .wob-text p { font-size: .9rem; color: #6b21a8; line-height: 1.6; max-width: 520px; }
+    .wob-chips { display: flex; gap: .5rem; flex-wrap: wrap; justify-content: center; margin-top: .85rem; }
+    .wob-chip { background: white; border: 1.5px solid #f9a8d4; border-radius: 50px; padding: .3rem .85rem; font-size: .75rem; font-weight: 700; color: #be185d; }
+  
   </style>
 </head>
 <body>
@@ -95,6 +120,7 @@
     <div class="hero-inner">
       <div class="hero-content fade-in">
         <div class="hero-badge">🏆 Govt. A-Grade Certified · Ghat Road Specialist</div>
+        <div class="women-owned-badge"><span class="wob-icon">👩‍💼</span> Women-Owned Business</div>
 
         <h1 class="hero-headline">
           <span class="orange">Unlimited KM</span><br/>
@@ -233,6 +259,23 @@
       <div class="stat-block fade-in"><div class="stat-big">∞ KM</div><div class="stat-desc">Per 1-Hr Session</div></div>
       <div class="stat-divider"></div>
       <div class="stat-block fade-in"><div class="stat-big">★★★★★</div><div class="stat-desc">JustDial Rated</div></div>
+    </div>
+  </section>
+
+  <!-- ========== WOMEN-OWNED BANNER ========== -->
+  <section class="women-owned-banner">
+    <div class="wob-inner">
+      <div class="wob-emoji">👩‍💼</div>
+      <div class="wob-text">
+        <h2>Proudly Women-Owned &amp; Led</h2>
+        <p>SP Driving School is founded and led by women — bringing a safe, patient, and inclusive environment to every student. Sangita Ma'am and our team are especially known for helping female students and first-time riders build real confidence on the road.</p>
+        <div class="wob-chips">
+          <span class="wob-chip">👩 Women-Founded</span>
+          <span class="wob-chip">🤝 Inclusive &amp; Safe Environment</span>
+          <span class="wob-chip">💪 Empowering Female Drivers</span>
+          <span class="wob-chip">🛵 Female-Friendly 2-Wheeler Classes</span>
+        </div>
+      </div>
     </div>
   </section>
 
