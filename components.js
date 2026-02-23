@@ -8,17 +8,7 @@ const WA_NUM = "918055385572";
 const WA_MSG = encodeURIComponent("Hi! I want to book a free trial lesson at SP Driving School.");
 const ADDRESS = "Prasun Savoy Corner, Dhanori Road, Vishrantwadi, Pune – 411015";
 
-const LOGO_SVG = `
-<svg width="48" height="48" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SP Driving School Logo">
-  <circle cx="26" cy="26" r="22" stroke="#F26522" stroke-width="3" fill="none"/>
-  <circle cx="26" cy="26" r="6" fill="#F26522"/>
-  <line x1="26" y1="4" x2="26" y2="20" stroke="#F26522" stroke-width="3" stroke-linecap="round"/>
-  <line x1="26" y1="32" x2="26" y2="48" stroke="#F26522" stroke-width="3" stroke-linecap="round"/>
-  <line x1="4" y1="26" x2="20" y2="26" stroke="#F26522" stroke-width="3" stroke-linecap="round"/>
-  <line x1="32" y1="26" x2="48" y2="26" stroke="#F26522" stroke-width="3" stroke-linecap="round"/>
-  <path d="M4 26 Q0 18 6 12 Q10 22 20 24" fill="#F26522" opacity="0.85"/>
-  <path d="M48 26 Q52 18 46 12 Q42 22 32 24" fill="#F26522" opacity="0.85"/>
-</svg>`;
+const LOGO_SVG = `<img src="logo.png" alt="SP Driving School Logo" style="width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(242,101,34,.25))" />`;
 
 const NAV_ITEMS = [
   { label: "Home",     href: "index.html"   },
