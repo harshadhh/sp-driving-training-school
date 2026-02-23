@@ -86,29 +86,61 @@
     @media (max-width:900px) { .sangita-inner { grid-template-columns:1fr; } }
     @media (max-width:640px) { .hero-unlimited-block { grid-template-columns:1fr; } }
 
-    /* ── WOMEN-OWNED BADGE ── */
-    .women-owned-badge {
-      display: inline-flex; align-items: center; gap: .55rem;
-      background: linear-gradient(135deg,#fdf2f8,#fce7f3);
-      border: 1.5px solid #f9a8d4; border-radius: 50px;
-      padding: .45rem 1rem; margin-bottom: 1.1rem;
-      font-size: .75rem; font-weight: 800; color: #be185d;
-      letter-spacing: .06em; text-transform: uppercase;
-    }
-    .women-owned-badge .wob-icon { font-size: 1rem; }
-
-    /* ── WOMEN-OWNED SECTION BANNER ── */
+    /* ── WOMEN-OWNED BANNER ── */
     .women-owned-banner {
-      background: linear-gradient(135deg,#fdf2f8 0%,#ede9fe 100%);
-      border-top: 2px solid #f9a8d4; border-bottom: 2px solid #f9a8d4;
-      padding: 2rem 1.5rem; text-align: center;
+      background: linear-gradient(135deg, #fdf2f8 0%, #ede9fe 100%);
+      border-top: 3px solid #f9a8d4;
+      border-bottom: 3px solid #f9a8d4;
+      padding: 3.5rem 1.5rem;
     }
-    .wob-inner { max-width: 780px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
-    .wob-emoji { font-size: 3rem; }
-    .wob-text h2 { font-family: var(--font-head); font-size: 1.6rem; letter-spacing: .04em; color: #be185d; margin-bottom: .3rem; }
-    .wob-text p { font-size: .9rem; color: #6b21a8; line-height: 1.6; max-width: 520px; }
-    .wob-chips { display: flex; gap: .5rem; flex-wrap: wrap; justify-content: center; margin-top: .85rem; }
-    .wob-chip { background: white; border: 1.5px solid #f9a8d4; border-radius: 50px; padding: .3rem .85rem; font-size: .75rem; font-weight: 700; color: #be185d; }
+    .wob-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: auto 1fr;
+      align-items: center; gap: 3rem;
+    }
+    .wob-left {
+      display: flex; flex-direction: column; align-items: center;
+      gap: .75rem; flex-shrink: 0;
+    }
+    .wob-icon-circle {
+      width: 90px; height: 90px; border-radius: 50%;
+      background: white; border: 3px solid #f9a8d4;
+      box-shadow: 0 8px 28px rgba(190,24,93,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem;
+    }
+    .wob-badge {
+      background: #be185d; color: white;
+      font-size: .65rem; font-weight: 800;
+      letter-spacing: .14em; text-transform: uppercase;
+      padding: .3rem .85rem; border-radius: 50px;
+      white-space: nowrap;
+    }
+    .wob-right h2 {
+      font-family: var(--font-head); font-size: 2.2rem;
+      letter-spacing: .04em; color: #be185d;
+      margin-bottom: .6rem; line-height: 1.1;
+    }
+    .wob-right p {
+      font-size: .95rem; color: #6b21a8;
+      line-height: 1.7; margin-bottom: 1.25rem;
+      max-width: 580px;
+    }
+    .wob-chips {
+      display: flex; gap: .5rem; flex-wrap: wrap;
+    }
+    .wob-chip {
+      background: white; border: 1.5px solid #f9a8d4;
+      border-radius: 50px; padding: .35rem 1rem;
+      font-size: .78rem; font-weight: 700; color: #be185d;
+      white-space: nowrap;
+    }
+    @media (max-width: 700px) {
+      .wob-inner { grid-template-columns: 1fr; text-align: center; gap: 1.5rem; }
+      .wob-left { flex-direction: row; justify-content: center; }
+      .wob-chips { justify-content: center; }
+      .wob-right p { max-width: 100%; }
+    }
   
   </style>
 </head>
@@ -120,7 +152,6 @@
     <div class="hero-inner">
       <div class="hero-content fade-in">
         <div class="hero-badge">🏆 Govt. A-Grade Certified · Ghat Road Specialist</div>
-        <div class="women-owned-badge"><span class="wob-icon">👩‍💼</span> Women-Owned Business</div>
 
         <h1 class="hero-headline">
           <span class="orange">Unlimited KM</span><br/>
@@ -265,8 +296,11 @@
   <!-- ========== WOMEN-OWNED BANNER ========== -->
   <section class="women-owned-banner">
     <div class="wob-inner">
-      <div class="wob-emoji">👩‍💼</div>
-      <div class="wob-text">
+      <div class="wob-left">
+        <div class="wob-icon-circle">👩‍💼</div>
+        <div class="wob-badge">Women-Owned</div>
+      </div>
+      <div class="wob-right">
         <h2>Proudly Women-Owned &amp; Led</h2>
         <p>SP Driving School is founded and led by women — bringing a safe, patient, and inclusive environment to every student. Sangita Ma'am and our team are especially known for helping female students and first-time riders build real confidence on the road.</p>
         <div class="wob-chips">
