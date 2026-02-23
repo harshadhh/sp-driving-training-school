@@ -157,6 +157,7 @@ function injectFooter() {
         <a href="contact.html">Contact</a>
         <a href="about.html">About</a>
         <a href="courses.html">Courses</a>
+        <a href="sp-admin-panel.html" style="opacity:.2;font-size:.72rem;letter-spacing:.04em;" title="Admin">⚙</a>
       </div>
     </div>
   </footer>
