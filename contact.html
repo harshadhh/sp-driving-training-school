@@ -95,10 +95,8 @@
           <h3>Send Us a Message</h3>
           <p>Fill the form below and we'll get back to you via WhatsApp or call within a few hours.</p>
 
-          <!-- Netlify Form -->
-          <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-            <input type="hidden" name="form-name" value="contact" />
-            <p style="display:none;"><input name="bot-field" /></p>
+          <!-- EmailJS Form -->
+          <form id="contactForm" onsubmit="sendEmail(event)">
 
             <div class="form-row">
               <div class="form-group">
@@ -147,9 +145,18 @@
               <textarea id="message" name="message" placeholder="Tell us anything — prior experience, specific concerns, etc." rows="4"></textarea>
             </div>
 
-            <button type="submit" class="btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:1rem;">
+            <button type="submit" id="submitBtn" class="btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:1rem;">
               Send Message →
             </button>
+
+            <!-- Success/Error Messages -->
+            <div id="formSuccess" style="display:none;margin-top:1rem;padding:1rem 1.25rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;color:#166534;font-weight:600;font-size:.9rem;">
+              ✅ Message sent! We'll contact you shortly via WhatsApp or call.
+            </div>
+            <div id="formError" style="display:none;margin-top:1rem;padding:1rem 1.25rem;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:12px;color:#991b1b;font-weight:600;font-size:.9rem;">
+              ❌ Something went wrong. Please WhatsApp us directly instead.
+            </div>
+
             <p style="font-size:.75rem;color:var(--grey);margin-top:.75rem;text-align:center;">
               Or WhatsApp us directly at <a href="https://wa.me/918055385572" style="color:var(--orange);font-weight:700;" target="_blank">+91 80553 85572</a> for faster response.
             </p>
@@ -214,6 +221,81 @@
       </div>
     </div>
   </section>
+
+
+  <!-- ========== EMAILJS ========== -->
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    // ============================================================
+    //  EmailJS Setup for SP Driving School Contact Form
+    //  HOW TO SET UP (takes ~5 minutes):
+    //  1. Go to https://www.emailjs.com and create a free account
+    //  2. Add an Email Service: Connect your Gmail account
+    //     Dashboard → Email Services → Add New Service → Gmail
+    //     Copy your Service ID (e.g. "service_abc123")
+    //  3. Create an Email Template:
+    //     Dashboard → Email Templates → Create New Template
+    //     Set "To Email" to your Gmail address
+    //     Use these template variables in the body:
+    //       Name: {{from_name}}
+    //       Phone: {{phone}}
+    //       Interest: {{interest}}
+    //       Timing: {{timing}}
+    //       Message: {{message}}
+    //     Copy your Template ID (e.g. "template_xyz789")
+    //  4. Get your Public Key:
+    //     Dashboard → Account → General → Public Key
+    //  5. Replace the 3 placeholder values below with your real IDs
+    // ============================================================
+
+    const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";     // ← Replace this
+    const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";     // ← Replace this
+    const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";    // ← Replace this
+
+    // Initialize EmailJS
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+    function sendEmail(e) {
+      e.preventDefault();
+
+      const btn     = document.getElementById("submitBtn");
+      const success = document.getElementById("formSuccess");
+      const error   = document.getElementById("formError");
+
+      // Hide previous messages
+      success.style.display = "none";
+      error.style.display   = "none";
+
+      // Show loading state
+      btn.disabled    = true;
+      btn.textContent = "Sending…";
+
+      const templateParams = {
+        from_name : document.getElementById("name").value,
+        phone     : document.getElementById("phone").value,
+        interest  : document.getElementById("interest").value,
+        timing    : document.getElementById("timing").value || "Not specified",
+        message   : document.getElementById("message").value || "No message",
+        reply_to  : "noreply@spdriving.in"
+      };
+
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+        .then(function () {
+          // Success
+          success.style.display = "block";
+          document.getElementById("contactForm").reset();
+          btn.disabled    = false;
+          btn.textContent = "Send Message →";
+        }, function (err) {
+          // Error
+          console.error("EmailJS error:", err);
+          error.style.display = "block";
+          btn.disabled    = false;
+          btn.textContent = "Send Message →";
+        });
+    }
+  </script>
 
   <script src="components.js"></script>
 </body>

@@ -64,7 +64,7 @@ function injectNav() {
     <div class="trust-inner">
       <div class="trust-item"><span>★</span><span><strong>4.9/5</strong> Google</span></div>
       <div class="trust-sep">|</div>
-      <div class="trust-item"><span>🏆</span><span><strong>350+</strong> Reviews</span></div>
+      <div class="trust-item"><span>🏆</span><span><strong>434+</strong> Reviews</span></div>
       <div class="trust-sep">|</div>
       <div class="trust-item"><span>🎓</span><span>Govt. <strong>A-Grade</strong> Certified</span></div>
       <div class="trust-sep">|</div>
@@ -248,7 +248,7 @@ function initCounters() {
       done = true;
       strip.querySelectorAll('.stat-big').forEach(el => {
         const t = el.textContent;
-        if (t.startsWith('350')) animateCounter(el, 350, '+');
+        if (t.startsWith('350')) animateCounter(el, 434, '+');
         else if (t.startsWith('100')) animateCounter(el, 100, '%');
         else if (t.startsWith('12')) animateCounter(el, 12, '+');
       });

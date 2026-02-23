@@ -558,8 +558,11 @@ body {
   padding: 5rem 1.5rem; background: var(--off-white);
 }
 .cert-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  display: grid; grid-template-columns: repeat(2, 1fr);
   gap: 1.25rem;
+}
+@media (max-width: 700px) {
+  .cert-grid { grid-template-columns: 1fr; }
 }
 .cert-card {
   background: white; border-radius: var(--radius);
@@ -768,8 +771,8 @@ body {
 }
 .program-header p { font-size: .83rem; color: var(--grey); }
 .program-card.featured-prog .program-header p { color: rgba(255,255,255,.5); }
-.program-body { padding: 1.5rem 1.75rem; flex: 1; }
-.program-features { list-style: none; margin-bottom: 1.25rem; }
+.program-body { padding: 1.5rem 1.75rem; flex: 1; display: flex; flex-direction: column; }
+.program-features { list-style: none; margin-bottom: 1.25rem; flex: 1; }
 .program-features li {
   display: flex; align-items: flex-start; gap: .6rem;
   font-size: .87rem; color: var(--grey); padding: .35rem 0;
@@ -777,15 +780,29 @@ body {
 }
 .program-features li:last-child { border: none; }
 .program-features li .fi { color: var(--orange); font-style: normal; flex-shrink: 0; margin-top: .1rem; }
-.program-chips { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .75rem; }
+.program-chips-row {
+  display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+  margin-top: .75rem;
+}
+.program-chips-row .btn-primary {
+  margin-top: 0 !important; white-space: nowrap; flex-shrink: 0;
+  font-size: .82rem !important; padding: .55rem 1.1rem;
+}
+.program-chips { display: flex; gap: .4rem; flex-wrap: wrap; }
 
 /* Special Sessions */
 .special-sessions { padding: 5rem 1.5rem; background: var(--black); }
 .special-sessions .section-title { color: white; }
 .special-sessions .section-sub { color: rgba(255,255,255,.5); }
 .special-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: grid; grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem;
+}
+@media (max-width: 1024px) {
+  .special-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .special-grid { grid-template-columns: 1fr; }
 }
 .special-card {
   background: rgba(255,255,255,.05); border-radius: var(--radius);
