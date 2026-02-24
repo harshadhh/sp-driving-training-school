@@ -7,35 +7,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
+    /* ── photo grid items ── */
     .gallery-item{border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;box-shadow:var(--shadow-sm);transition:var(--trans);background:var(--off-white);border:1px solid var(--light);}
     .gallery-item:hover{transform:scale(1.02);box-shadow:var(--shadow-md);}
     .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;}
-    .gallery-video-item{border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;position:relative;box-shadow:var(--shadow-sm);transition:var(--trans);background:var(--black);border:1px solid var(--light);}
-    .gallery-video-item:hover{transform:scale(1.02);box-shadow:var(--shadow-md);}
-    .gallery-video-item iframe,.gallery-video-item video{width:100%;height:100%;border:0;object-fit:cover;display:block;}
-    .gp-overlay-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 100%);color:white;font-size:.78rem;font-weight:600;padding:.6rem .75rem;pointer-events:none;}
-    .video-badge-corner{position:absolute;top:.5rem;left:.5rem;background:rgba(0,0,0,.75);color:white;font-size:.6rem;font-weight:800;padding:.2rem .5rem;border-radius:50px;letter-spacing:.05em;}
     .gp-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:.85rem;}
     .gallery-item:hover .gp-overlay{opacity:1;}
     .gp-overlay span{color:white;font-size:.8rem;font-weight:600;line-height:1.3;}
+
+    /* ── photo lightbox ── */
     .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:9999;align-items:center;justify-content:center;padding:1.5rem;}
     .lightbox.open{display:flex;}
     .lb-inner{position:relative;max-width:900px;width:100%;}
     .lb-inner img{width:100%;border-radius:var(--radius);max-height:85vh;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.6);}
-    .lb-caption{text-align:center;color:rgba(255,255,255,.65);font-size:.88rem;margin-top:.75rem;font-weight:500;}
-    .lb-close{position:absolute;top:-2.5rem;right:0;background:none;border:none;color:white;font-size:2rem;cursor:pointer;opacity:.7;transition:opacity .2s;}
+    .lb-caption{text-align:center;color:rgba(255,255,255,.65);font-size:.88rem;margin-top:.75rem;}
+    .lb-close{position:absolute;top:-2.5rem;right:0;background:none;border:none;color:white;font-size:2rem;cursor:pointer;opacity:.7;}
     .lb-close:hover{opacity:1;}
     .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:white;font-size:1.5rem;cursor:pointer;padding:.6rem .9rem;border-radius:10px;transition:background .2s;}
     .lb-nav:hover{background:rgba(255,255,255,.22);}
     .lb-prev{left:-3.5rem;}.lb-next{right:-3.5rem;}
+
+    /* ── tab counts ── */
     .tab-count{display:inline-flex;align-items:center;justify-content:center;background:rgba(242,101,34,.15);color:var(--orange);font-size:.65rem;font-weight:800;min-width:18px;height:18px;border-radius:50px;padding:0 .35rem;margin-left:.35rem;}
     .gallery-tab.active .tab-count{background:rgba(255,255,255,.25);color:white;}
-    .admin-bar{background:var(--off-white);border:1px solid var(--light);border-radius:var(--radius-sm);padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:2rem;}
-    .admin-bar p{font-size:.82rem;color:var(--grey);}
+
+    /* ── empty state ── */
     .empty-gallery{text-align:center;padding:5rem 2rem;background:var(--off-white);border-radius:var(--radius);border:2px dashed var(--light);grid-column:1/-1;}
     .empty-gallery .eg-icon{font-size:3.5rem;margin-bottom:1rem;}
     .empty-gallery h3{font-family:var(--font-head);font-size:1.5rem;margin-bottom:.5rem;}
     .empty-gallery p{font-size:.9rem;color:var(--grey);margin-bottom:1.5rem;}
+
     @media(max-width:640px){.lb-prev{left:-.5rem;}.lb-next{right:-.5rem;}}
   </style>
 </head>
@@ -43,13 +44,13 @@
   <div class="page-hero">
     <div class="page-hero-label">Our Gallery</div>
     <h1>Photos &amp; <span class="orange">Videos</span></h1>
-    <p>Theory classes, practical sessions, ghat road training and more — real moments from SP Driving School.</p>
+    <p>Theory classes, practical sessions, ghat road training, student reviews and more.</p>
     <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">›</span><span class="current">Gallery</span></div>
   </div>
 
+  <!-- ═══ PHOTO/VIDEO GALLERY ═══════════════════════════════ -->
   <section class="gallery-page">
     <div class="container">
-
       <div class="gallery-tabs fade-in" id="galleryTabs">
         <button class="gallery-tab active" data-tab="all">All <span class="tab-count" id="c-all">0</span></button>
         <button class="gallery-tab" data-tab="theory-2w">📚 Theory 2W <span class="tab-count" id="c-theory-2w">0</span></button>
@@ -59,11 +60,33 @@
         <button class="gallery-tab" data-tab="ghat">⛰️ Ghat Road <span class="tab-count" id="c-ghat">0</span></button>
         <button class="gallery-tab" data-tab="night">🌙 Night <span class="tab-count" id="c-night">0</span></button>
         <button class="gallery-tab" data-tab="cert">🎓 Certificates <span class="tab-count" id="c-cert">0</span></button>
+        <button class="gallery-tab" data-tab="basic-info">ℹ️ Basic Info <span class="tab-count" id="c-basic-info">0</span></button>
       </div>
       <div class="gallery-grid fade-in" id="galleryGrid" style="margin-top:1.5rem;"></div>
     </div>
   </section>
 
+  <!-- ═══ CUSTOMER REVIEW VIDEOS ════════════════════════════ -->
+  <section class="review-videos-section" id="reviewVideos">
+    <div class="container">
+      <span class="section-label fade-in">STUDENT VOICES</span>
+      <h2 class="section-title fade-in">Customer <span class="orange">Review Videos</span></h2>
+      <p class="section-sub fade-in">Hear directly from our students — unscripted, real experiences.</p>
+
+      <div class="rv-grid fade-in" id="rvGrid">
+        <!-- Populated by JS from localStorage -->
+      </div>
+
+      <div style="text-align:center;margin-top:2.5rem;" class="fade-in">
+        <p style="color:rgba(255,255,255,.35);font-size:.85rem;margin-bottom:1rem;">Want to add a customer review video?</p>
+        <a href="gallery-manager.html" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--orange);color:white;font-weight:700;font-size:.88rem;padding:.7rem 1.5rem;border-radius:50px;text-decoration:none;transition:all .25s;">
+          ⚙️ Open Gallery Manager →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PHOTO LIGHTBOX ════════════════════════════════════ -->
   <div class="lightbox" id="lightbox" onclick="lbBg(event)">
     <div class="lb-inner">
       <button class="lb-close" onclick="lbClose()">✕</button>
@@ -74,6 +97,7 @@
     </div>
   </div>
 
+  <!-- ═══ CTA ═══════════════════════════════════════════════ -->
   <section class="cta-band">
     <h2>Want to Experience It Yourself?</h2>
     <p>Book a free trial session and see our training first-hand.</p>
@@ -85,31 +109,55 @@
 
   <script src="components.js"></script>
   <script>
-    const KEY='sp_gallery_v1';
-    const CATS={'theory-2w':'📚 Theory · 2-Wheeler','theory-4w':'📚 Theory · 4-Wheeler','prac-2w':'🛵 Practical · 2-Wheeler','prac-4w':'🚗 Practical · 4-Wheeler','ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions','cert':'🎓 Certificate'};
-    const ALL_CATS=Object.keys(CATS);
-    let all=[],curFilter='all',lbPhotos=[],lbIdx=0;
+    // ── Constants ────────────────────────────────────────────
+    const KEY = 'sp_gallery_v1';
+    const CATS = {
+      'theory-2w':'📚 Theory · 2-Wheeler','theory-4w':'📚 Theory · 4-Wheeler',
+      'prac-2w':'🛵 Practical · 2-Wheeler','prac-4w':'🚗 Practical · 4-Wheeler',
+      'ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions',
+      'cert':'🎓 Certificate','basic-info':'ℹ️ Basic Info'
+    };
+    const ALL_CATS = Object.keys(CATS);
+    let all=[], curFilter='all', lbPhotos=[], lbIdx=0;
+    const SPEEDS = [0.5,1,1.25,1.5,2];
+
     function loadAll(){try{return JSON.parse(localStorage.getItem(KEY))||[];}catch{return[];}}
+
     function updateCounts(items){
-      document.getElementById('c-all').textContent=items.length;
-      ALL_CATS.forEach(c=>{const el=document.getElementById('c-'+c);if(el)el.textContent=items.filter(p=>p.cat===c).length;});
+      document.getElementById('c-all').textContent = items.length;
+      ALL_CATS.forEach(c=>{
+        const el=document.getElementById('c-'+c);
+        if(el) el.textContent=items.filter(p=>p.cat===c).length;
+      });
     }
+
+    // ── PHOTO/VIDEO GALLERY GRID ─────────────────────────────
     function renderGrid(filter){
       curFilter=filter;
       const grid=document.getElementById('galleryGrid');
-      const shown=filter==='all'?all:all.filter(p=>p.cat===filter);
+      // Exclude review-video category from main gallery (shown separately below)
+      const shown=(filter==='all'?all:all.filter(p=>p.cat===filter))
+        .filter(p=>p.cat!=='review-video');
       lbPhotos=shown.filter(p=>p.type==='photo'||!p.type);
       grid.innerHTML='';
-      if(!shown.length){grid.innerHTML='<div class="empty-gallery"><div class="eg-icon">📷</div><h3>Photos Coming Soon</h3><p>We\'re adding photos of our sessions. Check back soon!</p></div>';return;}
+      if(!shown.length){
+        grid.innerHTML='<div class="empty-gallery"><div class="eg-icon">📷</div><h3>Photos Coming Soon</h3><p>We\'re adding photos of our sessions. Check back soon!</p></div>';
+        return;
+      }
       let pIdx=0;
       shown.forEach((item,i)=>{
         const div=document.createElement('div');
         if(item.type==='video'){
-          div.className='gallery-video-item';
-          const vHTML=(item.mt==='youtube'||item.mt==='gdrive'||item.mt==='url'&&!item.src.startsWith('data:'))
-            ?`<iframe src="${item.src}" frameborder="0" allowfullscreen loading="lazy"></iframe>`
-            :`<video src="${item.src}" controls></video>`;
-          div.innerHTML=`${vHTML}<span class="video-badge-corner">🎬 Video</span><div class="gp-overlay-label">${item.caption||CATS[item.cat]||''}</div>`;
+          div.className='gallery-item';
+          div.style.background='#111';
+          div.innerHTML=`
+            <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;background:#111;border-radius:inherit;">
+              <div style="font-size:2.5rem;">🎬</div>
+              <div style="font-size:.72rem;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.08em;text-transform:uppercase;">${item.mt==='youtube'?'YouTube Video':item.mt==='gdrive'?'Drive Video':'Video'}</div>
+              ${item.caption?`<div style="font-size:.75rem;color:rgba(255,255,255,.3);padding:.25rem .75rem;text-align:center;">${item.caption}</div>`:''}
+            </div>
+            <div style="position:absolute;top:.5rem;left:.5rem;background:rgba(242,101,34,.9);color:white;font-size:.6rem;font-weight:800;padding:.18rem .55rem;border-radius:50px;">▶ VIDEO</div>`;
+          div.addEventListener('click',()=>openVidModal(item));
         } else {
           const thisIdx=pIdx++;
           div.className='gallery-item';
@@ -118,22 +166,190 @@
         }
         div.style.opacity='0';div.style.transform='translateY(18px)';
         grid.appendChild(div);
-        setTimeout(()=>{div.style.transition='opacity .4s ease,transform .4s ease';div.style.opacity='1';div.style.transform='none';},i*50);
+        setTimeout(()=>{div.style.transition='opacity .4s ease,transform .4s ease';div.style.opacity='1';div.style.transform='none';},i*45);
       });
     }
+
+    // ── REVIEW VIDEOS SECTION ────────────────────────────────
+    function renderReviewVideos(){
+      const reviewItems = all.filter(p=>p.cat==='review-video');
+      const grid = document.getElementById('rvGrid');
+      grid.innerHTML='';
+
+      if(!reviewItems.length){
+        grid.innerHTML=`
+          <div class="rv-empty">
+            <div class="ei">🎥</div>
+            <p style="font-weight:700;color:rgba(255,255,255,.4);font-size:.95rem;">No review videos yet</p>
+            <p style="font-size:.82rem;margin-top:.35rem;">Add customer review videos in the Gallery Manager</p>
+          </div>`;
+        return;
+      }
+
+      reviewItems.forEach(item=>{
+        const card = document.createElement('div');
+        card.className = 'rv-card fade-in';
+        const isYT   = item.mt==='youtube';
+        const isGD   = item.mt==='gdrive';
+        const isDirect = !isYT && !isGD;
+
+        if(isYT || isGD){
+          // Embed iframe with overlay play button
+          card.innerHTML=`
+            <div class="rv-player-wrap">
+              <div class="rv-thumb-overlay" id="ov-${item.id}" onclick="startEmbed('${item.id}','${item.src}')">
+                <div class="play-circle">▶</div>
+                <div class="play-label">${isYT?'▶ Play YouTube Video':'▶ Play Video'}</div>
+              </div>
+              <div id="ef-${item.id}" style="display:none;">
+                <iframe class="rv-iframe" id="fr-${item.id}" src="" allowfullscreen allow="autoplay"></iframe>
+              </div>
+            </div>
+            <div class="rv-info">
+              <div class="rv-name">${item.caption||'Customer Review'}</div>
+              <div class="rv-stars">★★★★★</div>
+              <div class="rv-caption">${CATS[item.cat]||''}</div>
+            </div>`;
+        } else {
+          // Direct file — custom HTML5 player
+          const vid_id = 'vid-'+item.id;
+          card.innerHTML=`
+            <div class="rv-player-wrap">
+              <video class="rv-video" id="${vid_id}" src="${item.src}" preload="metadata"></video>
+              <div class="rv-thumb-overlay" id="ov-${item.id}" onclick="startDirectVid('${vid_id}','${item.id}')">
+                <div class="play-circle">▶</div>
+                <div class="play-label">▶ Play Video</div>
+              </div>
+            </div>
+            <div class="rv-controls" id="ctrl-${item.id}" style="display:none;">
+              <button class="rv-ctrl-btn" id="playbtn-${item.id}" onclick="togglePlay('${vid_id}','${item.id}')">⏸</button>
+              <div class="rv-progress" onclick="seekVid(event,'${vid_id}')">
+                <div class="rv-progress-fill" id="prog-${item.id}"></div>
+              </div>
+              <span class="rv-time" id="time-${item.id}">0:00 / 0:00</span>
+              <button class="rv-ctrl-btn" id="mutebtn-${item.id}" onclick="toggleMute('${vid_id}','${item.id}')">🔊</button>
+              <select class="rv-speed" onchange="setSpeed('${vid_id}',this.value)">
+                <option value="0.5">0.5×</option>
+                <option value="1" selected>1×</option>
+                <option value="1.25">1.25×</option>
+                <option value="1.5">1.5×</option>
+                <option value="2">2×</option>
+              </select>
+            </div>
+            <div class="rv-info">
+              <div class="rv-name">${item.caption||'Customer Review'}</div>
+              <div class="rv-stars">★★★★★</div>
+            </div>`;
+          // Wire up events after DOM insert
+          setTimeout(()=>{
+            const v = document.getElementById(vid_id);
+            if(!v) return;
+            v.addEventListener('timeupdate',()=>updateProgress(vid_id, item.id));
+            v.addEventListener('ended',()=>{
+              document.getElementById('playbtn-'+item.id).textContent='▶';
+            });
+          },50);
+        }
+        grid.appendChild(card);
+      });
+    }
+
+    // ── VIDEO PLAYER HELPERS ─────────────────────────────────
+    function startEmbed(id, src){
+      // Add autoplay to src
+      const autoSrc = src.includes('?') ? src+'&autoplay=1' : src+'?autoplay=1';
+      document.getElementById('ov-'+id).style.display='none';
+      const ef = document.getElementById('ef-'+id);
+      ef.style.display='block';
+      document.getElementById('fr-'+id).src = autoSrc;
+    }
+
+    function startDirectVid(vid_id, item_id){
+      const v = document.getElementById(vid_id);
+      if(!v) return;
+      document.getElementById('ov-'+item_id).style.display='none';
+      document.getElementById('ctrl-'+item_id).style.display='flex';
+      v.play();
+    }
+
+    function togglePlay(vid_id, item_id){
+      const v = document.getElementById(vid_id);
+      const btn = document.getElementById('playbtn-'+item_id);
+      if(v.paused){ v.play(); btn.textContent='⏸'; }
+      else { v.pause(); btn.textContent='▶'; }
+    }
+
+    function toggleMute(vid_id, item_id){
+      const v = document.getElementById(vid_id);
+      const btn = document.getElementById('mutebtn-'+item_id);
+      v.muted = !v.muted;
+      btn.textContent = v.muted ? '🔇' : '🔊';
+    }
+
+    function setSpeed(vid_id, speed){
+      const v = document.getElementById(vid_id);
+      if(v) v.playbackRate = parseFloat(speed);
+    }
+
+    function seekVid(e, vid_id){
+      const v = document.getElementById(vid_id);
+      if(!v || !v.duration) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const ratio = (e.clientX - rect.left) / rect.width;
+      v.currentTime = ratio * v.duration;
+    }
+
+    function updateProgress(vid_id, item_id){
+      const v = document.getElementById(vid_id);
+      const bar = document.getElementById('prog-'+item_id);
+      const time = document.getElementById('time-'+item_id);
+      if(!v || !bar) return;
+      const pct = v.duration ? (v.currentTime/v.duration)*100 : 0;
+      bar.style.width = pct+'%';
+      time.textContent = fmt(v.currentTime)+' / '+fmt(v.duration||0);
+    }
+
+    function fmt(s){
+      const m=Math.floor(s/60), sec=Math.floor(s%60);
+      return m+':'+(sec<10?'0':'')+sec;
+    }
+
+    // ── TABS ─────────────────────────────────────────────────
     document.getElementById('galleryTabs').addEventListener('click',e=>{
       const tab=e.target.closest('.gallery-tab');if(!tab)return;
       document.querySelectorAll('.gallery-tab').forEach(t=>t.classList.remove('active'));
       tab.classList.add('active');renderGrid(tab.dataset.tab);
     });
+
+    // ── LIGHTBOX ─────────────────────────────────────────────
     function openLb(idx){lbIdx=idx;updLb();document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
     function updLb(){const p=lbPhotos[lbIdx];if(!p)return;document.getElementById('lbImg').src=p.src;document.getElementById('lbCap').textContent=[p.caption,CATS[p.cat]].filter(Boolean).join(' · ');}
     function lbNav(d){lbIdx=(lbIdx+d+lbPhotos.length)%lbPhotos.length;updLb();}
     function lbClose(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
     function lbBg(e){if(e.target===document.getElementById('lightbox'))lbClose();}
     document.addEventListener('keydown',e=>{if(!document.getElementById('lightbox').classList.contains('open'))return;if(e.key==='ArrowRight')lbNav(1);if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='Escape')lbClose();});
-    all=loadAll();updateCounts(all);renderGrid('all');
-    window.addEventListener('focus',()=>{all=loadAll();updateCounts(all);renderGrid(curFilter);});
+
+    // ── VIDEO MODAL (for non-review videos in main gallery) ──
+    function openVidModal(item){
+      const modal = document.createElement('div');
+      modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.5rem;';
+      const autoSrc = item.src.includes('?') ? item.src+'&autoplay=1' : item.src+'?autoplay=1';
+      modal.innerHTML=`<div style="position:relative;max-width:860px;width:100%;">
+        <button onclick="this.closest('[style]').remove();document.body.style.overflow=''" style="position:absolute;top:-2.5rem;right:0;background:none;border:none;color:white;font-size:2rem;cursor:pointer;opacity:.7;">✕</button>
+        <iframe src="${autoSrc}" style="width:100%;aspect-ratio:16/9;border:none;border-radius:14px;" allowfullscreen allow="autoplay"></iframe>
+        ${item.caption?`<p style="text-align:center;color:rgba(255,255,255,.6);font-size:.88rem;margin-top:.75rem;">${item.caption}</p>`:''}
+      </div>`;
+      modal.addEventListener('click',e=>{if(e.target===modal){modal.remove();document.body.style.overflow='';}});
+      document.body.appendChild(modal);
+      document.body.style.overflow='hidden';
+    }
+
+    // ── INIT ─────────────────────────────────────────────────
+    all=loadAll();
+    updateCounts(all);
+    renderGrid('all');
+    renderReviewVideos();
+    window.addEventListener('focus',()=>{all=loadAll();updateCounts(all);renderGrid(curFilter);renderReviewVideos();});
   </script>
 </body>
 </html>
