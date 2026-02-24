@@ -194,21 +194,22 @@
         const isDirect = !isYT && !isGD;
 
         if(isYT || isGD){
-          // Embed iframe with overlay play button
+          // YouTube blocks iframes — open in new tab instead
+          const origUrl = item.origUrl || item.src; // use original watch URL
           card.innerHTML=`
-            <div class="rv-player-wrap">
-              <div class="rv-thumb-overlay" id="ov-${item.id}" onclick="startEmbed('${item.id}','${item.src}')">
-                <div class="play-circle">▶</div>
-                <div class="play-label">${isYT?'▶ Play YouTube Video':'▶ Play Video'}</div>
+            <div class="rv-player-wrap" style="cursor:pointer;" onclick="window.open('${origUrl}','_blank')">
+              <div class="rv-thumb-overlay" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;background:rgba(0,0,0,.55);">
+                <div class="play-circle" style="width:62px;height:62px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 6px 24px rgba(242,101,34,.5);">▶</div>
+                <div style="background:rgba(0,0,0,.55);color:white;font-size:.78rem;font-weight:700;padding:.3rem .85rem;border-radius:50px;">${isYT?'▶ Watch on YouTube':'▶ Watch Video'}</div>
               </div>
-              <div id="ef-${item.id}" style="display:none;">
-                <iframe class="rv-iframe" id="fr-${item.id}" src="" allowfullscreen allow="autoplay"></iframe>
+              <div style="width:100%;aspect-ratio:16/9;background:#111;display:flex;align-items:center;justify-content:center;">
+                <span style="font-size:3rem;">${isYT?'🎬':'📹'}</span>
               </div>
             </div>
             <div class="rv-info">
               <div class="rv-name">${item.caption||'Customer Review'}</div>
               <div class="rv-stars">★★★★★</div>
-              <div class="rv-caption">${CATS[item.cat]||''}</div>
+              <div class="rv-caption" style="color:rgba(255,255,255,.35);font-size:.75rem;">${isYT?'Opens on YouTube ↗':'Opens video ↗'}</div>
             </div>`;
         } else {
           // Direct file — custom HTML5 player
@@ -255,14 +256,6 @@
     }
 
     // ── VIDEO PLAYER HELPERS ─────────────────────────────────
-    function startEmbed(id, src){
-      // Add autoplay to src
-      const autoSrc = src.includes('?') ? src+'&autoplay=1' : src+'?autoplay=1';
-      document.getElementById('ov-'+id).style.display='none';
-      const ef = document.getElementById('ef-'+id);
-      ef.style.display='block';
-      document.getElementById('fr-'+id).src = autoSrc;
-    }
 
     function startDirectVid(vid_id, item_id){
       const v = document.getElementById(vid_id);
@@ -331,17 +324,9 @@
 
     // ── VIDEO MODAL (for non-review videos in main gallery) ──
     function openVidModal(item){
-      const modal = document.createElement('div');
-      modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.5rem;';
-      const autoSrc = item.src.includes('?') ? item.src+'&autoplay=1' : item.src+'?autoplay=1';
-      modal.innerHTML=`<div style="position:relative;max-width:860px;width:100%;">
-        <button onclick="this.closest('[style]').remove();document.body.style.overflow=''" style="position:absolute;top:-2.5rem;right:0;background:none;border:none;color:white;font-size:2rem;cursor:pointer;opacity:.7;">✕</button>
-        <iframe src="${autoSrc}" style="width:100%;aspect-ratio:16/9;border:none;border-radius:14px;" allowfullscreen allow="autoplay"></iframe>
-        ${item.caption?`<p style="text-align:center;color:rgba(255,255,255,.6);font-size:.88rem;margin-top:.75rem;">${item.caption}</p>`:''}
-      </div>`;
-      modal.addEventListener('click',e=>{if(e.target===modal){modal.remove();document.body.style.overflow='';}});
-      document.body.appendChild(modal);
-      document.body.style.overflow='hidden';
+      // YouTube blocks iframes — open directly
+      const origUrl = item.origUrl || item.src;
+      window.open(origUrl, '_blank');
     }
 
     // ── INIT ─────────────────────────────────────────────────

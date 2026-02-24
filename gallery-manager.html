@@ -217,6 +217,8 @@
           <option value="ghat">⛰️ Ghat Road</option>
           <option value="night">🌙 Night Sessions</option>
           <option value="cert">🎓 Certificates &amp; Events</option>
+              <option value="basic-info">ℹ️ Basic Info</option>
+              <option value="review-video">🌟 Customer Review Video</option>
         </select>
       </div>
       <div class="fg">
@@ -248,6 +250,8 @@
       <div class="mtab" onclick="filter('ghat',this)">⛰️ Ghat</div>
       <div class="mtab" onclick="filter('night',this)">🌙 Night</div>
       <div class="mtab" onclick="filter('cert',this)">🎓 Certs</div>
+      <div class="mtab" onclick="filter('basic-info',this)">ℹ️ Basic Info</div>
+      <div class="mtab" onclick="filter('review-video',this)">🌟 Review Videos</div>
     </div>
     <div class="mgrid" id="mgrid"></div>
   </div>
@@ -273,7 +277,7 @@ const KEY = 'sp_gallery_v1';
 const CATS = {
   'theory-2w':'📚 Theory · 2-Wheeler','theory-4w':'📚 Theory · 4-Wheeler',
   'prac-2w':'🛵 Practical · 2-Wheeler','prac-4w':'🚗 Practical · 4-Wheeler',
-  'ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions','cert':'🎓 Certificates'
+  'ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions','cert':'🎓 Certificates','basic-info':'ℹ️ Basic Info','review-video':'🌟 Customer Review Video'
 };
 let pending = [];
 let curFilter = 'all';
@@ -345,12 +349,12 @@ function addVidUrl(){
   if(!url){toast('Paste a link first',true);return;}
   const id=ytId(url);
   if(id){
-    pending.push({type:'video',src:`https://www.youtube.com/embed/${id}`,mt:'youtube',thumb:`https://img.youtube.com/vi/${id}/hqdefault.jpg`});
+    pending.push({type:'video',src:`https://www.youtube.com/embed/${id}`,origUrl:url,mt:'youtube',thumb:`https://img.youtube.com/vi/${id}/hqdefault.jpg`});
     document.getElementById('vidUrl').value='';renderPreview();return;
   }
   const gd=gdId(url);
   if(gd){
-    pending.push({type:'video',src:`https://drive.google.com/file/d/${gd}/preview`,mt:'gdrive'});
+    pending.push({type:'video',src:`https://drive.google.com/file/d/${gd}/preview`,origUrl:url,mt:'gdrive'});
     document.getElementById('vidUrl').value='';renderPreview();return;
   }
   pending.push({type:'video',src:url,mt:'url'});
