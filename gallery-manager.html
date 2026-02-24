@@ -218,6 +218,7 @@
           <option value="night">🌙 Night Sessions</option>
           <option value="cert">🎓 Certificates &amp; Events</option>
               <option value="basic-info">ℹ️ Basic Info</option>
+              <option value="experience">⭐ Experience</option>
               <option value="review-video">🌟 Customer Review Video</option>
         </select>
       </div>
@@ -251,6 +252,7 @@
       <div class="mtab" onclick="filter('night',this)">🌙 Night</div>
       <div class="mtab" onclick="filter('cert',this)">🎓 Certs</div>
       <div class="mtab" onclick="filter('basic-info',this)">ℹ️ Basic Info</div>
+      <div class="mtab" onclick="filter('experience',this)">⭐ Experience</div>
       <div class="mtab" onclick="filter('review-video',this)">🌟 Review Videos</div>
     </div>
     <div class="mgrid" id="mgrid"></div>
@@ -277,7 +279,7 @@ const KEY = 'sp_gallery_v1';
 const CATS = {
   'theory-2w':'📚 Theory · 2-Wheeler','theory-4w':'📚 Theory · 4-Wheeler',
   'prac-2w':'🛵 Practical · 2-Wheeler','prac-4w':'🚗 Practical · 4-Wheeler',
-  'ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions','cert':'🎓 Certificates','basic-info':'ℹ️ Basic Info','review-video':'🌟 Customer Review Video'
+  'ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions','cert':'🎓 Certificates','basic-info':'ℹ️ Basic Info','experience':'⭐ Experience','review-video':'🌟 Customer Review Video'
 };
 let pending = [];
 let curFilter = 'all';

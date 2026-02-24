@@ -15,6 +15,16 @@
     .gallery-item:hover .gp-overlay{opacity:1;}
     .gp-overlay span{color:white;font-size:.8rem;font-weight:600;line-height:1.3;}
 
+    /* ── video card in main grid (shows YT thumbnail) ── */
+    .vid-grid-card{border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;box-shadow:var(--shadow-sm);transition:var(--trans);background:#111;}
+    .vid-grid-card:hover{transform:scale(1.02);box-shadow:var(--shadow-md);}
+    .vid-grid-card img{width:100%;height:100%;object-fit:cover;display:block;}
+    .vid-grid-card .vgc-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;transition:background .25s;}
+    .vid-grid-card:hover .vgc-overlay{background:rgba(0,0,0,.55);}
+    .vgc-play{width:52px;height:52px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 18px rgba(242,101,34,.5);transition:transform .2s;}
+    .vid-grid-card:hover .vgc-play{transform:scale(1.12);}
+    .vgc-label{color:white;font-size:.72rem;font-weight:700;background:rgba(0,0,0,.5);padding:.2rem .65rem;border-radius:50px;}
+
     /* ── photo lightbox ── */
     .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:9999;align-items:center;justify-content:center;padding:1.5rem;}
     .lightbox.open{display:flex;}
@@ -23,7 +33,7 @@
     .lb-caption{text-align:center;color:rgba(255,255,255,.65);font-size:.88rem;margin-top:.75rem;}
     .lb-close{position:absolute;top:-2.5rem;right:0;background:none;border:none;color:white;font-size:2rem;cursor:pointer;opacity:.7;}
     .lb-close:hover{opacity:1;}
-    .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:white;font-size:1.5rem;cursor:pointer;padding:.6rem .9rem;border-radius:10px;transition:background .2s;}
+    .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:white;font-size:1.5rem;cursor:pointer;padding:.6rem .9rem;border-radius:10px;}
     .lb-nav:hover{background:rgba(255,255,255,.22);}
     .lb-prev{left:-3.5rem;}.lb-next{right:-3.5rem;}
 
@@ -37,7 +47,49 @@
     .empty-gallery h3{font-family:var(--font-head);font-size:1.5rem;margin-bottom:.5rem;}
     .empty-gallery p{font-size:.9rem;color:var(--grey);margin-bottom:1.5rem;}
 
-    @media(max-width:640px){.lb-prev{left:-.5rem;}.lb-next{right:-.5rem;}}
+    /* ── REVIEW VIDEO SECTION ── */
+    .rv-section{padding:5rem 0;background:#111;}
+    .rv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;margin-top:2rem;}
+    .rv-card{background:#1c1c1e;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.07);transition:transform .25s,border-color .25s;}
+    .rv-card:hover{transform:translateY(-4px);border-color:rgba(242,101,34,.3);}
+
+    /* YT card — thumbnail with play */
+    .rv-yt-wrap{position:relative;aspect-ratio:16/9;background:#000;cursor:pointer;}
+    .rv-yt-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+    .rv-yt-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;background:rgba(0,0,0,.3);transition:background .25s;}
+    .rv-yt-wrap:hover .rv-yt-overlay{background:rgba(0,0,0,.5);}
+    .rv-yt-play{width:60px;height:60px;border-radius:50%;background:#FF0000;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(255,0,0,.5);font-size:1.4rem;transition:transform .2s;}
+    .rv-yt-wrap:hover .rv-yt-play{transform:scale(1.1);}
+    .rv-yt-badge{color:white;font-size:.72rem;font-weight:700;background:rgba(0,0,0,.6);padding:.2rem .7rem;border-radius:50px;}
+
+    /* Direct video card */
+    .rv-vid-wrap{position:relative;aspect-ratio:16/9;background:#000;}
+    .rv-vid-wrap video{width:100%;height:100%;display:block;}
+    .rv-vid-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;background:rgba(0,0,0,.45);cursor:pointer;transition:opacity .25s;}
+    .rv-vid-overlay.hidden{opacity:0;pointer-events:none;}
+    .rv-vid-play{width:60px;height:60px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 20px rgba(242,101,34,.5);}
+
+    /* Controls bar */
+    .rv-controls{display:flex;align-items:center;gap:.55rem;background:#0d0d0d;padding:.55rem .8rem;}
+    .rvc-btn{background:none;border:none;color:rgba(255,255,255,.75);cursor:pointer;font-size:1rem;padding:.2rem .25rem;border-radius:5px;display:flex;align-items:center;transition:color .15s;}
+    .rvc-btn:hover{color:var(--orange);}
+    .rvc-bar{flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.15);cursor:pointer;position:relative;}
+    .rvc-fill{height:100%;background:var(--orange);border-radius:3px;width:0%;pointer-events:none;transition:width .1s linear;}
+    .rvc-time{font-size:.67rem;color:rgba(255,255,255,.4);white-space:nowrap;min-width:72px;text-align:right;}
+    .rvc-speed{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.68rem;font-weight:700;border-radius:5px;padding:.18rem .4rem;cursor:pointer;}
+    .rvc-speed:hover{background:var(--orange);border-color:var(--orange);color:white;}
+
+    /* Info row */
+    .rv-info{padding:.9rem 1rem 1rem;}
+    .rv-name{font-weight:700;font-size:.9rem;color:white;margin-bottom:.15rem;}
+    .rv-stars{color:#F59E0B;font-size:.78rem;margin-bottom:.3rem;}
+    .rv-sub{font-size:.75rem;color:rgba(255,255,255,.35);}
+
+    /* empty rv */
+    .rv-empty{grid-column:1/-1;text-align:center;padding:4rem 2rem;color:rgba(255,255,255,.3);}
+    .rv-empty .ei{font-size:3rem;margin-bottom:.75rem;}
+
+    @media(max-width:640px){.lb-prev{left:-.5rem;}.lb-next{right:-.5rem;}.rv-grid{grid-template-columns:1fr;}}
   </style>
 </head>
 <body>
@@ -48,7 +100,7 @@
     <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">›</span><span class="current">Gallery</span></div>
   </div>
 
-  <!-- ═══ PHOTO/VIDEO GALLERY ═══════════════════════════════ -->
+  <!-- ═══ MAIN GALLERY ═══════════════════════════════════════ -->
   <section class="gallery-page">
     <div class="container">
       <div class="gallery-tabs fade-in" id="galleryTabs">
@@ -61,26 +113,22 @@
         <button class="gallery-tab" data-tab="night">🌙 Night <span class="tab-count" id="c-night">0</span></button>
         <button class="gallery-tab" data-tab="cert">🎓 Certificates <span class="tab-count" id="c-cert">0</span></button>
         <button class="gallery-tab" data-tab="basic-info">ℹ️ Basic Info <span class="tab-count" id="c-basic-info">0</span></button>
+        <button class="gallery-tab" data-tab="experience">⭐ Experience <span class="tab-count" id="c-experience">0</span></button>
       </div>
       <div class="gallery-grid fade-in" id="galleryGrid" style="margin-top:1.5rem;"></div>
     </div>
   </section>
 
   <!-- ═══ CUSTOMER REVIEW VIDEOS ════════════════════════════ -->
-  <section class="review-videos-section" id="reviewVideos">
+  <section class="rv-section" id="reviewVideos">
     <div class="container">
-      <span class="section-label fade-in">STUDENT VOICES</span>
-      <h2 class="section-title fade-in">Customer <span class="orange">Review Videos</span></h2>
-      <p class="section-sub fade-in">Hear directly from our students — unscripted, real experiences.</p>
-
-      <div class="rv-grid fade-in" id="rvGrid">
-        <!-- Populated by JS from localStorage -->
-      </div>
-
+      <span class="section-label fade-in" style="color:var(--orange);">STUDENT VOICES</span>
+      <h2 class="section-title fade-in" style="color:white;">Customer <span class="orange">Review Videos</span></h2>
+      <p class="section-sub fade-in" style="color:rgba(255,255,255,.45);">Hear directly from our students — unscripted, real experiences.</p>
+      <div class="rv-grid fade-in" id="rvGrid"></div>
       <div style="text-align:center;margin-top:2.5rem;" class="fade-in">
-        <p style="color:rgba(255,255,255,.35);font-size:.85rem;margin-bottom:1rem;">Want to add a customer review video?</p>
-        <a href="gallery-manager.html" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--orange);color:white;font-weight:700;font-size:.88rem;padding:.7rem 1.5rem;border-radius:50px;text-decoration:none;transition:all .25s;">
-          ⚙️ Open Gallery Manager →
+        <a href="gallery-manager.html" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--orange);color:white;font-weight:700;font-size:.88rem;padding:.7rem 1.5rem;border-radius:50px;text-decoration:none;">
+          ⚙️ Add Review Video →
         </a>
       </div>
     </div>
@@ -97,7 +145,6 @@
     </div>
   </div>
 
-  <!-- ═══ CTA ═══════════════════════════════════════════════ -->
   <section class="cta-band">
     <h2>Want to Experience It Yourself?</h2>
     <p>Book a free trial session and see our training first-hand.</p>
@@ -109,203 +156,192 @@
 
   <script src="components.js"></script>
   <script>
-    // ── Constants ────────────────────────────────────────────
     const KEY = 'sp_gallery_v1';
     const CATS = {
       'theory-2w':'📚 Theory · 2-Wheeler','theory-4w':'📚 Theory · 4-Wheeler',
       'prac-2w':'🛵 Practical · 2-Wheeler','prac-4w':'🚗 Practical · 4-Wheeler',
       'ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions',
-      'cert':'🎓 Certificate','basic-info':'ℹ️ Basic Info'
+      'cert':'🎓 Certificate','basic-info':'ℹ️ Basic Info',
+      'experience':'⭐ Experience','review-video':'🌟 Customer Review'
     };
     const ALL_CATS = Object.keys(CATS);
     let all=[], curFilter='all', lbPhotos=[], lbIdx=0;
-    const SPEEDS = [0.5,1,1.25,1.5,2];
 
     function loadAll(){try{return JSON.parse(localStorage.getItem(KEY))||[];}catch{return[];}}
 
+    // ── Extract YouTube video ID ──────────────────────────────
+    function ytId(url){
+      const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      return m ? m[1] : null;
+    }
+
+    // ── Tab counts ────────────────────────────────────────────
     function updateCounts(items){
-      document.getElementById('c-all').textContent = items.length;
+      document.getElementById('c-all').textContent = items.filter(p=>p.cat!=='review-video').length;
       ALL_CATS.forEach(c=>{
         const el=document.getElementById('c-'+c);
         if(el) el.textContent=items.filter(p=>p.cat===c).length;
       });
     }
 
-    // ── PHOTO/VIDEO GALLERY GRID ─────────────────────────────
+    // ── MAIN GRID ────────────────────────────────────────────
     function renderGrid(filter){
       curFilter=filter;
       const grid=document.getElementById('galleryGrid');
-      // Exclude review-video category from main gallery (shown separately below)
       const shown=(filter==='all'?all:all.filter(p=>p.cat===filter))
         .filter(p=>p.cat!=='review-video');
-      lbPhotos=shown.filter(p=>p.type==='photo'||!p.type);
+      lbPhotos=shown.filter(p=>p.type!=='video');
       grid.innerHTML='';
+
       if(!shown.length){
-        grid.innerHTML='<div class="empty-gallery"><div class="eg-icon">📷</div><h3>Photos Coming Soon</h3><p>We\'re adding photos of our sessions. Check back soon!</p></div>';
+        grid.innerHTML='<div class="empty-gallery"><div class="eg-icon">📷</div><h3>Photos Coming Soon</h3><p>Add photos using the Gallery Manager.</p></div>';
         return;
       }
+
       let pIdx=0;
       shown.forEach((item,i)=>{
         const div=document.createElement('div');
+
         if(item.type==='video'){
-          div.className='gallery-item';
-          div.style.background='#111';
+          // Show YouTube thumbnail if available
+          const vid = ytId(item.origUrl||item.src||'');
+          const thumb = vid ? `https://img.youtube.com/vi/${vid}/hqdefault.jpg` : (item.thumb||'');
+          div.className='vid-grid-card';
           div.innerHTML=`
-            <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;background:#111;border-radius:inherit;">
-              <div style="font-size:2.5rem;">🎬</div>
-              <div style="font-size:.72rem;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.08em;text-transform:uppercase;">${item.mt==='youtube'?'YouTube Video':item.mt==='gdrive'?'Drive Video':'Video'}</div>
-              ${item.caption?`<div style="font-size:.75rem;color:rgba(255,255,255,.3);padding:.25rem .75rem;text-align:center;">${item.caption}</div>`:''}
-            </div>
-            <div style="position:absolute;top:.5rem;left:.5rem;background:rgba(242,101,34,.9);color:white;font-size:.6rem;font-weight:800;padding:.18rem .55rem;border-radius:50px;">▶ VIDEO</div>`;
-          div.addEventListener('click',()=>openVidModal(item));
+            ${thumb ? `<img src="${thumb}" alt="${item.caption||'Video'}" onerror="this.style.display='none'"/>` : ''}
+            <div class="vgc-overlay">
+              <div class="vgc-play">▶</div>
+              <div class="vgc-label">${item.mt==='youtube'?'YouTube Video':item.mt==='gdrive'?'Drive Video':'Video'}</div>
+            </div>`;
+          div.addEventListener('click',()=>{
+            const url = item.origUrl || item.src;
+            window.open(url,'_blank');
+          });
         } else {
-          const thisIdx=pIdx++;
+          const pi=pIdx++;
           div.className='gallery-item';
           div.innerHTML=`<img src="${item.src}" alt="${item.caption||''}" loading="lazy" onerror="this.style.display='none'"/><div class="gp-overlay"><span>${item.caption||CATS[item.cat]||''}</span></div>`;
-          div.addEventListener('click',()=>openLb(thisIdx));
+          div.addEventListener('click',()=>openLb(pi));
         }
+
         div.style.opacity='0';div.style.transform='translateY(18px)';
         grid.appendChild(div);
         setTimeout(()=>{div.style.transition='opacity .4s ease,transform .4s ease';div.style.opacity='1';div.style.transform='none';},i*45);
       });
     }
 
-    // ── REVIEW VIDEOS SECTION ────────────────────────────────
+    // ── REVIEW VIDEOS ────────────────────────────────────────
     function renderReviewVideos(){
-      const reviewItems = all.filter(p=>p.cat==='review-video');
-      const grid = document.getElementById('rvGrid');
+      const items = all.filter(p=>p.cat==='review-video');
+      const grid  = document.getElementById('rvGrid');
       grid.innerHTML='';
 
-      if(!reviewItems.length){
-        grid.innerHTML=`
-          <div class="rv-empty">
-            <div class="ei">🎥</div>
-            <p style="font-weight:700;color:rgba(255,255,255,.4);font-size:.95rem;">No review videos yet</p>
-            <p style="font-size:.82rem;margin-top:.35rem;">Add customer review videos in the Gallery Manager</p>
-          </div>`;
+      if(!items.length){
+        grid.innerHTML='<div class="rv-empty"><div class="ei">🎥</div><p>No review videos yet — add them in the Gallery Manager</p></div>';
         return;
       }
 
-      reviewItems.forEach(item=>{
-        const card = document.createElement('div');
-        card.className = 'rv-card fade-in';
-        const isYT   = item.mt==='youtube';
-        const isGD   = item.mt==='gdrive';
-        const isDirect = !isYT && !isGD;
+      items.forEach(item=>{
+        const card=document.createElement('div');
+        card.className='rv-card fade-in';
+        const isYT = item.mt==='youtube';
 
-        if(isYT || isGD){
-          // YouTube blocks iframes — open in new tab instead
-          const origUrl = item.origUrl || item.src; // use original watch URL
+        if(isYT || item.mt==='gdrive'){
+          // Get YT thumbnail
+          const vid  = ytId(item.origUrl||item.src||'');
+          const thumb= vid ? `https://img.youtube.com/vi/${vid}/hqdefault.jpg` : '';
+          const url  = item.origUrl || item.src;
+
           card.innerHTML=`
-            <div class="rv-player-wrap" style="cursor:pointer;" onclick="window.open('${origUrl}','_blank')">
-              <div class="rv-thumb-overlay" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;background:rgba(0,0,0,.55);">
-                <div class="play-circle" style="width:62px;height:62px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 6px 24px rgba(242,101,34,.5);">▶</div>
-                <div style="background:rgba(0,0,0,.55);color:white;font-size:.78rem;font-weight:700;padding:.3rem .85rem;border-radius:50px;">${isYT?'▶ Watch on YouTube':'▶ Watch Video'}</div>
-              </div>
-              <div style="width:100%;aspect-ratio:16/9;background:#111;display:flex;align-items:center;justify-content:center;">
-                <span style="font-size:3rem;">${isYT?'🎬':'📹'}</span>
+            <div class="rv-yt-wrap" onclick="window.open('${url}','_blank')">
+              ${thumb
+                ? `<img src="${thumb}" alt="${item.caption||'Review'}" onerror="this.src='';this.style.display='none'"/>`
+                : `<div style="width:100%;aspect-ratio:16/9;background:#222;display:flex;align-items:center;justify-content:center;font-size:3rem;">🎬</div>`}
+              <div class="rv-yt-overlay">
+                <div class="rv-yt-play">▶</div>
+                <div class="rv-yt-badge">${isYT?'Watch on YouTube ↗':'Watch Video ↗'}</div>
               </div>
             </div>
             <div class="rv-info">
               <div class="rv-name">${item.caption||'Customer Review'}</div>
               <div class="rv-stars">★★★★★</div>
-              <div class="rv-caption" style="color:rgba(255,255,255,.35);font-size:.75rem;">${isYT?'Opens on YouTube ↗':'Opens video ↗'}</div>
+              <div class="rv-sub">${isYT?'Opens on YouTube':'Opens in new tab'} ↗</div>
             </div>`;
         } else {
-          // Direct file — custom HTML5 player
-          const vid_id = 'vid-'+item.id;
+          // Direct mp4 — custom player
+          const vid_id='v'+item.id.toString().replace('.','');
           card.innerHTML=`
-            <div class="rv-player-wrap">
-              <video class="rv-video" id="${vid_id}" src="${item.src}" preload="metadata"></video>
-              <div class="rv-thumb-overlay" id="ov-${item.id}" onclick="startDirectVid('${vid_id}','${item.id}')">
-                <div class="play-circle">▶</div>
-                <div class="play-label">▶ Play Video</div>
+            <div class="rv-vid-wrap">
+              <video id="${vid_id}" src="${item.src}" preload="metadata" style="width:100%;height:100%;display:block;"></video>
+              <div class="rv-vid-overlay" id="ov${vid_id}" onclick="startVid('${vid_id}')">
+                <div class="rv-vid-play">▶</div>
               </div>
             </div>
-            <div class="rv-controls" id="ctrl-${item.id}" style="display:none;">
-              <button class="rv-ctrl-btn" id="playbtn-${item.id}" onclick="togglePlay('${vid_id}','${item.id}')">⏸</button>
-              <div class="rv-progress" onclick="seekVid(event,'${vid_id}')">
-                <div class="rv-progress-fill" id="prog-${item.id}"></div>
-              </div>
-              <span class="rv-time" id="time-${item.id}">0:00 / 0:00</span>
-              <button class="rv-ctrl-btn" id="mutebtn-${item.id}" onclick="toggleMute('${vid_id}','${item.id}')">🔊</button>
-              <select class="rv-speed" onchange="setSpeed('${vid_id}',this.value)">
-                <option value="0.5">0.5×</option>
-                <option value="1" selected>1×</option>
-                <option value="1.25">1.25×</option>
-                <option value="1.5">1.5×</option>
-                <option value="2">2×</option>
+            <div class="rv-controls">
+              <button class="rvc-btn" id="pb${vid_id}" onclick="togglePlay('${vid_id}')">⏸</button>
+              <div class="rvc-bar" onclick="seekTo(event,'${vid_id}')"><div class="rvc-fill" id="pf${vid_id}"></div></div>
+              <span class="rvc-time" id="pt${vid_id}">0:00 / 0:00</span>
+              <button class="rvc-btn" id="mb${vid_id}" onclick="toggleMute('${vid_id}')">🔊</button>
+              <select class="rvc-speed" onchange="setSpd('${vid_id}',this.value)">
+                <option value="0.5">0.5×</option><option value="1" selected>1×</option>
+                <option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
               </select>
             </div>
             <div class="rv-info">
               <div class="rv-name">${item.caption||'Customer Review'}</div>
               <div class="rv-stars">★★★★★</div>
             </div>`;
-          // Wire up events after DOM insert
+
           setTimeout(()=>{
-            const v = document.getElementById(vid_id);
-            if(!v) return;
-            v.addEventListener('timeupdate',()=>updateProgress(vid_id, item.id));
-            v.addEventListener('ended',()=>{
-              document.getElementById('playbtn-'+item.id).textContent='▶';
+            const v=document.getElementById(vid_id);
+            if(!v)return;
+            v.addEventListener('timeupdate',()=>{
+              const pct=v.duration?(v.currentTime/v.duration)*100:0;
+              const pf=document.getElementById('pf'+vid_id);
+              const pt=document.getElementById('pt'+vid_id);
+              if(pf)pf.style.width=pct+'%';
+              if(pt)pt.textContent=fmtT(v.currentTime)+' / '+fmtT(v.duration||0);
             });
-          },50);
+            v.addEventListener('ended',()=>{
+              const pb=document.getElementById('pb'+vid_id);
+              const ov=document.getElementById('ov'+vid_id);
+              if(pb)pb.textContent='▶';
+              if(ov){ov.classList.remove('hidden');}
+            });
+          },60);
         }
         grid.appendChild(card);
       });
     }
 
-    // ── VIDEO PLAYER HELPERS ─────────────────────────────────
-
-    function startDirectVid(vid_id, item_id){
-      const v = document.getElementById(vid_id);
-      if(!v) return;
-      document.getElementById('ov-'+item_id).style.display='none';
-      document.getElementById('ctrl-'+item_id).style.display='flex';
+    // ── VIDEO CONTROLS ───────────────────────────────────────
+    function startVid(id){
+      const v=document.getElementById(id);
+      const ov=document.getElementById('ov'+id);
+      if(!v)return;
+      ov.classList.add('hidden');
       v.play();
     }
-
-    function togglePlay(vid_id, item_id){
-      const v = document.getElementById(vid_id);
-      const btn = document.getElementById('playbtn-'+item_id);
-      if(v.paused){ v.play(); btn.textContent='⏸'; }
-      else { v.pause(); btn.textContent='▶'; }
+    function togglePlay(id){
+      const v=document.getElementById(id),pb=document.getElementById('pb'+id);
+      if(!v)return;
+      if(v.paused){v.play();if(pb)pb.textContent='⏸';}
+      else{v.pause();if(pb)pb.textContent='▶';}
     }
-
-    function toggleMute(vid_id, item_id){
-      const v = document.getElementById(vid_id);
-      const btn = document.getElementById('mutebtn-'+item_id);
-      v.muted = !v.muted;
-      btn.textContent = v.muted ? '🔇' : '🔊';
+    function toggleMute(id){
+      const v=document.getElementById(id),mb=document.getElementById('mb'+id);
+      if(!v)return;
+      v.muted=!v.muted;
+      if(mb)mb.textContent=v.muted?'🔇':'🔊';
     }
-
-    function setSpeed(vid_id, speed){
-      const v = document.getElementById(vid_id);
-      if(v) v.playbackRate = parseFloat(speed);
+    function setSpd(id,s){const v=document.getElementById(id);if(v)v.playbackRate=parseFloat(s);}
+    function seekTo(e,id){
+      const v=document.getElementById(id);
+      if(!v||!v.duration)return;
+      const r=e.currentTarget.getBoundingClientRect();
+      v.currentTime=((e.clientX-r.left)/r.width)*v.duration;
     }
-
-    function seekVid(e, vid_id){
-      const v = document.getElementById(vid_id);
-      if(!v || !v.duration) return;
-      const rect = e.currentTarget.getBoundingClientRect();
-      const ratio = (e.clientX - rect.left) / rect.width;
-      v.currentTime = ratio * v.duration;
-    }
-
-    function updateProgress(vid_id, item_id){
-      const v = document.getElementById(vid_id);
-      const bar = document.getElementById('prog-'+item_id);
-      const time = document.getElementById('time-'+item_id);
-      if(!v || !bar) return;
-      const pct = v.duration ? (v.currentTime/v.duration)*100 : 0;
-      bar.style.width = pct+'%';
-      time.textContent = fmt(v.currentTime)+' / '+fmt(v.duration||0);
-    }
-
-    function fmt(s){
-      const m=Math.floor(s/60), sec=Math.floor(s%60);
-      return m+':'+(sec<10?'0':'')+sec;
-    }
+    function fmtT(s){const m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
 
     // ── TABS ─────────────────────────────────────────────────
     document.getElementById('galleryTabs').addEventListener('click',e=>{
@@ -320,14 +356,10 @@
     function lbNav(d){lbIdx=(lbIdx+d+lbPhotos.length)%lbPhotos.length;updLb();}
     function lbClose(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
     function lbBg(e){if(e.target===document.getElementById('lightbox'))lbClose();}
-    document.addEventListener('keydown',e=>{if(!document.getElementById('lightbox').classList.contains('open'))return;if(e.key==='ArrowRight')lbNav(1);if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='Escape')lbClose();});
-
-    // ── VIDEO MODAL (for non-review videos in main gallery) ──
-    function openVidModal(item){
-      // YouTube blocks iframes — open directly
-      const origUrl = item.origUrl || item.src;
-      window.open(origUrl, '_blank');
-    }
+    document.addEventListener('keydown',e=>{
+      if(!document.getElementById('lightbox').classList.contains('open'))return;
+      if(e.key==='ArrowRight')lbNav(1);if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='Escape')lbClose();
+    });
 
     // ── INIT ─────────────────────────────────────────────────
     all=loadAll();
