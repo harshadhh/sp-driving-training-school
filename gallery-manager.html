@@ -302,6 +302,17 @@ function setType(t) {
 }
 
 // YouTube helpers
+async function fetchThumbAsBase64(url){
+  try{
+    const resp = await fetch(url);
+    const blob = await resp.blob();
+    return await new Promise(res=>{
+      const r=new FileReader();
+      r.onload=()=>res(r.result);
+      r.readAsDataURL(blob);
+    });
+  }catch(e){ return null; }
+}
 function ytId(url){ const m=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([\w-]{11})/); return m?m[1]:null; }
 function gdId(url){ const m=url.match(/\/d\/([a-zA-Z0-9_-]+)/); return m?m[1]:null; }
 
@@ -351,8 +362,13 @@ function addVidUrl(){
   if(!url){toast('Paste a link first',true);return;}
   const id=ytId(url);
   if(id){
-    pending.push({type:'video',src:`https://www.youtube.com/embed/${id}`,origUrl:url,mt:'youtube',thumb:`https://img.youtube.com/vi/${id}/hqdefault.jpg`});
-    document.getElementById('vidUrl').value='';renderPreview();return;
+    // Fetch thumbnail as base64 so it works on live sites without CORS issues
+    const thumbUrl = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+    fetchThumbAsBase64(thumbUrl).then(b64=>{
+      pending.push({type:'video',src:`https://www.youtube.com/embed/${id}`,origUrl:url,mt:'youtube',thumb:b64||thumbUrl});
+      document.getElementById('vidUrl').value='';renderPreview();
+    });
+    return;
   }
   const gd=gdId(url);
   if(gd){
