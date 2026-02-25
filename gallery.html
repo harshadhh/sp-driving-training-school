@@ -282,6 +282,45 @@
         const div = document.createElement('div');
 
         if(item.type==='video'){
+          // Direct/Cloudinary videos in main grid also get custom player
+          if(item.mt==='direct'||item.mt==='file'){
+            const vid='mg'+String(item.id).replace(/[^a-z0-9]/gi,'');
+            div.style.aspectRatio='16/9';
+            div.style.background='#000';
+            div.style.borderRadius='var(--radius-sm)';
+            div.style.overflow='hidden';
+            div.style.gridColumn='span 1';
+            div.innerHTML=`
+              <div class="rv-player" style="aspect-ratio:16/9;">
+                <video id="${vid}" src="${item.src}" preload="metadata" playsinline onclick="togglePlay('${vid}')"></video>
+                <div class="rv-start-overlay" id="so${vid}" onclick="startPlay('${vid}')"><div class="rv-start-btn">▶</div></div>
+              </div>
+              <div class="rv-bar">
+                <button class="rvc-btn" id="pb${vid}" onclick="togglePlay('${vid}')">▶</button>
+                <div class="rvc-progress" onclick="seekTo(event,'${vid}')"><div class="rvc-filled" id="pf${vid}"></div></div>
+                <span class="rvc-time" id="pt${vid}">0:00 / 0:00</span>
+                <button class="rvc-btn" id="mb${vid}" onclick="toggleMute('${vid}')">🔊</button>
+                <select class="rvc-spd" onchange="setSpeed('${vid}',this.value)">
+                  <option value="0.5">0.5×</option><option value="1" selected>1×</option>
+                  <option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+                </select>
+              </div>`;
+            setTimeout(()=>{
+              const v=document.getElementById(vid);
+              if(!v)return;
+              document.getElementById('pb'+vid).textContent='▶';
+              v.addEventListener('timeupdate',()=>{
+                const pf=document.getElementById('pf'+vid),pt=document.getElementById('pt'+vid);
+                if(pf)pf.style.width=(v.duration?(v.currentTime/v.duration)*100:0)+'%';
+                if(pt)pt.textContent=fmtT(v.currentTime)+' / '+fmtT(v.duration||0);
+              });
+              v.addEventListener('ended',()=>{document.getElementById('pb'+vid).textContent='▶';document.getElementById('so'+vid).classList.remove('hide');});
+            },80);
+            div.style.opacity='0';div.style.transform='translateY(16px)';
+            grid.appendChild(div);
+            setTimeout(()=>{div.style.cssText+='transition:opacity .4s,transform .4s;opacity:1;transform:none';},i*45);
+            return;
+          }
           const ytid = getYtId(item);
           const url  = item.origUrl||item.src;
           div.className = 'vid-card';
@@ -333,7 +372,7 @@
         card.className = 'rv-card fade-in';
         const isYT  = item.mt==='youtube';
         const isGD  = item.mt==='gdrive';
-        const isFile= item.mt==='file';
+        const isFile= item.mt==='file' || item.mt==='direct';
 
         if(isFile){
           /* ── Uploaded video file — full custom player ── */

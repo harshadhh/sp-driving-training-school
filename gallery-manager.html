@@ -187,30 +187,50 @@
 
     <!-- VIDEO -->
     <div id="modeVideo" style="display:none">
-      <div class="upload-zone" id="vidDropZone">
-        <input type="file" id="vidFile" accept="video/*" />
-        <div class="upload-icon">🎬</div>
-        <div class="uz-title">Drag &amp; Drop a Video Here</div>
-        <div class="uz-sub">Or click to pick a video file (max 60 MB)</div>
-      </div>
-      <!-- Upload Progress Bar -->
-      <div id="uploadProgressWrap" style="display:none;margin:1rem 0;">
-        <div style="display:flex;justify-content:space-between;margin-bottom:.4rem;">
-          <span style="font-size:.75rem;font-weight:700;color:rgba(255,255,255,.5);">Uploading video...</span>
-          <span id="uploadPct" style="font-size:.75rem;font-weight:800;color:var(--orange);">0%</span>
-        </div>
-        <div style="height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;">
-          <div id="uploadBar" style="height:100%;width:0%;background:var(--orange);border-radius:4px;transition:width .2s ease;"></div>
+
+      <!-- WHY FILE UPLOAD DOESN'T WORK explanation -->
+      <div style="background:rgba(242,101,34,.08);border:1.5px solid rgba(242,101,34,.25);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;">
+        <div style="font-weight:800;color:var(--orange);font-size:.85rem;margin-bottom:.5rem;">⚠️ Why can't I upload a video file directly?</div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.65;">
+          Browsers only allow ~5MB in local storage — video files are much bigger, so they silently fail.<br/>
+          <strong style="color:rgba(255,255,255,.75);">Solution: Upload your video to Cloudinary (free) → paste the link below. Takes 2 minutes.</strong>
         </div>
       </div>
-      <div class="divider"><span>OR paste a YouTube / Google Drive video link</span></div>
+
+      <!-- STEP BY STEP CLOUDINARY GUIDE -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;">
+        <div style="font-weight:800;color:white;font-size:.88rem;margin-bottom:1rem;">📹 How to add a video (2 minutes)</div>
+        <div style="display:flex;flex-direction:column;gap:.75rem;">
+          <div style="display:flex;gap:.85rem;align-items:flex-start;">
+            <div style="min-width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:.05rem;">1</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.65);line-height:1.55;">Go to <a href="https://cloudinary.com/users/register/free" target="_blank" style="color:var(--orange);font-weight:700;">cloudinary.com</a> → sign up free (no credit card)</div>
+          </div>
+          <div style="display:flex;gap:.85rem;align-items:flex-start;">
+            <div style="min-width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:.05rem;">2</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.65);line-height:1.55;">Click <strong style="color:white;">Media Library</strong> → <strong style="color:white;">Upload</strong> → pick your video from phone or laptop</div>
+          </div>
+          <div style="display:flex;gap:.85rem;align-items:flex-start;">
+            <div style="min-width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:.05rem;">3</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.65);line-height:1.55;">After upload, click the video → click <strong style="color:white;">Copy URL</strong> (ends in .mp4)</div>
+          </div>
+          <div style="display:flex;gap:.85rem;align-items:flex-start;">
+            <div style="min-width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:.05rem;">4</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.65);line-height:1.55;">Paste that URL below → select category → click Add ✅</div>
+          </div>
+        </div>
+        <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.07);font-size:.78rem;color:rgba(255,255,255,.35);">
+          Also works with: <strong style="color:rgba(255,255,255,.5);">YouTube links</strong> · <strong style="color:rgba(255,255,255,.5);">Google Drive links</strong> · <strong style="color:rgba(255,255,255,.5);">Any direct .mp4 URL</strong>
+        </div>
+      </div>
+
+      <!-- URL INPUT -->
+      <div style="margin-bottom:.5rem;font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);">Paste Video Link</div>
       <div class="url-row">
-        <input type="text" id="vidUrl" placeholder="e.g. https://youtube.com/watch?v=ABC  or Google Drive share link" />
+        <input type="text" id="vidUrl" placeholder="https://res.cloudinary.com/…/video.mp4  or YouTube URL" />
         <button class="btn btn-orange" onclick="addVidUrl()">Add →</button>
       </div>
-      <div class="hint">
-        Supports: <strong>YouTube links</strong> · <strong>Google Drive video links</strong> · <strong>Direct .mp4 URLs</strong><br/>
-        Tip: YouTube is easiest — just paste the normal video URL.
+      <div style="margin-top:.6rem;font-size:.75rem;color:rgba(255,255,255,.3);">
+        💡 Easiest: paste a normal <strong style="color:rgba(255,255,255,.45);">YouTube URL</strong> — no need to upload the video file
       </div>
     </div>
 
@@ -377,21 +397,28 @@ function readVidFile(f){
 function addVidUrl(){
   const url=document.getElementById('vidUrl').value.trim();
   if(!url){toast('Paste a link first',true);return;}
+
+  // YouTube
   const id=ytId(url);
   if(id){
-    // Use allorigins proxy to fetch thumbnail as base64 — bypasses CORS block
-    const thumbSrc = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(thumbSrc)}`;
-    pending.push({type:'video',src:`https://www.youtube.com/embed/${id}`,origUrl:url,mt:'youtube',thumb:thumbSrc,proxyThumb:proxyUrl,ytId:id});
+    pending.push({type:'video',src:`https://www.youtube.com/embed/${id}`,origUrl:url,mt:'youtube',ytId:id});
     document.getElementById('vidUrl').value='';renderPreview();return;
   }
+
+  // Google Drive
   const gd=gdId(url);
   if(gd){
-    pending.push({type:'video',src:`https://drive.google.com/file/d/${gd}/preview`,mt:'gdrive'});
+    pending.push({type:'video',src:`https://drive.google.com/file/d/${gd}/preview`,origUrl:url,mt:'gdrive'});
     document.getElementById('vidUrl').value='';renderPreview();return;
   }
-  pending.push({type:'video',src:url,mt:'url'});
-  document.getElementById('vidUrl').value='';renderPreview();
+
+  // Cloudinary or any direct .mp4 / video URL — plays with custom player
+  if(url.startsWith('http')){
+    pending.push({type:'video',src:url,origUrl:url,mt:'direct'});
+    document.getElementById('vidUrl').value='';renderPreview();return;
+  }
+
+  toast('Please paste a valid video URL',true);
 }
 
 function removePending(i){pending.splice(i,1);renderPreview();}
