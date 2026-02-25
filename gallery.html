@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ── photo grid items ── */
     .gallery-item{border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;box-shadow:var(--shadow-sm);transition:var(--trans);background:var(--off-white);border:1px solid var(--light);}
     .gallery-item:hover{transform:scale(1.02);box-shadow:var(--shadow-md);}
     .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;}
@@ -15,21 +14,22 @@
     .gallery-item:hover .gp-overlay{opacity:1;}
     .gp-overlay span{color:white;font-size:.8rem;font-weight:600;line-height:1.3;}
 
-    /* ── video card in main grid (shows YT thumbnail) ── */
-    .vid-grid-card{border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;box-shadow:var(--shadow-sm);transition:var(--trans);background:#111;}
-    .vid-grid-card:hover{transform:scale(1.02);box-shadow:var(--shadow-md);}
-    .vid-grid-card img{width:100%;height:100%;object-fit:cover;display:block;}
-    .vid-grid-card .vgc-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;transition:background .25s;}
-    .vid-grid-card:hover .vgc-overlay{background:rgba(0,0,0,.55);}
-    .vgc-play{width:52px;height:52px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 18px rgba(242,101,34,.5);transition:transform .2s;}
-    .vid-grid-card:hover .vgc-play{transform:scale(1.12);}
-    .vgc-label{color:white;font-size:.72rem;font-weight:700;background:rgba(0,0,0,.5);padding:.2rem .65rem;border-radius:50px;}
+    /* Video card in main grid */
+    .vid-card{border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;box-shadow:var(--shadow-sm);transition:var(--trans);background:#111;border:1px solid #222;}
+    .vid-card:hover{transform:scale(1.02);box-shadow:var(--shadow-md);}
+    .vid-card img{width:100%;height:100%;object-fit:cover;display:block;}
+    .vid-card-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;background:rgba(0,0,0,.38);transition:background .2s;}
+    .vid-card:hover .vid-card-overlay{background:rgba(0,0,0,.55);}
+    .vid-play-btn{width:54px;height:54px;border-radius:50%;background:#FF0000;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(255,0,0,.5);transition:transform .2s;font-size:1.2rem;color:white;}
+    .vid-card:hover .vid-play-btn{transform:scale(1.1);}
+    .vid-card-label{color:white;font-size:.7rem;font-weight:700;background:rgba(0,0,0,.6);padding:.2rem .65rem;border-radius:50px;letter-spacing:.04em;}
+    .vid-no-thumb{width:100%;height:100%;background:linear-gradient(135deg,#1a1a1a,#2d2d2d);display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
 
-    /* ── photo lightbox ── */
+    /* Lightbox */
     .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:9999;align-items:center;justify-content:center;padding:1.5rem;}
     .lightbox.open{display:flex;}
     .lb-inner{position:relative;max-width:900px;width:100%;}
-    .lb-inner img{width:100%;border-radius:var(--radius);max-height:85vh;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.6);}
+    .lb-inner img{width:100%;border-radius:var(--radius);max-height:85vh;object-fit:contain;}
     .lb-caption{text-align:center;color:rgba(255,255,255,.65);font-size:.88rem;margin-top:.75rem;}
     .lb-close{position:absolute;top:-2.5rem;right:0;background:none;border:none;color:white;font-size:2rem;cursor:pointer;opacity:.7;}
     .lb-close:hover{opacity:1;}
@@ -37,55 +37,52 @@
     .lb-nav:hover{background:rgba(255,255,255,.22);}
     .lb-prev{left:-3.5rem;}.lb-next{right:-3.5rem;}
 
-    /* ── tab counts ── */
+    /* Tab counts */
     .tab-count{display:inline-flex;align-items:center;justify-content:center;background:rgba(242,101,34,.15);color:var(--orange);font-size:.65rem;font-weight:800;min-width:18px;height:18px;border-radius:50px;padding:0 .35rem;margin-left:.35rem;}
     .gallery-tab.active .tab-count{background:rgba(255,255,255,.25);color:white;}
 
-    /* ── empty state ── */
+    /* Empty */
     .empty-gallery{text-align:center;padding:5rem 2rem;background:var(--off-white);border-radius:var(--radius);border:2px dashed var(--light);grid-column:1/-1;}
     .empty-gallery .eg-icon{font-size:3.5rem;margin-bottom:1rem;}
     .empty-gallery h3{font-family:var(--font-head);font-size:1.5rem;margin-bottom:.5rem;}
     .empty-gallery p{font-size:.9rem;color:var(--grey);margin-bottom:1.5rem;}
 
-    /* ── REVIEW VIDEO SECTION ── */
+    /* Review Videos Section */
     .rv-section{padding:5rem 0;background:#111;}
     .rv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;margin-top:2rem;}
+
+    /* Review card */
     .rv-card{background:#1c1c1e;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.07);transition:transform .25s,border-color .25s;}
     .rv-card:hover{transform:translateY(-4px);border-color:rgba(242,101,34,.3);}
+    .rv-thumb{position:relative;aspect-ratio:16/9;background:#000;cursor:pointer;overflow:hidden;}
+    .rv-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+    .rv-thumb-fallback{width:100%;height:100%;background:linear-gradient(135deg,#1a1a1a,#2a2a2a);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;}
+    .rv-thumb-fallback span{font-size:3rem;}
+    .rv-thumb-fallback p{color:rgba(255,255,255,.3);font-size:.75rem;font-weight:600;}
+    .rv-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.65rem;background:rgba(0,0,0,.3);transition:background .25s;}
+    .rv-thumb:hover .rv-overlay{background:rgba(0,0,0,.5);}
+    .rv-play{width:62px;height:62px;border-radius:50%;background:#FF0000;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:white;box-shadow:0 4px 24px rgba(255,0,0,.5);transition:transform .2s;}
+    .rv-thumb:hover .rv-play{transform:scale(1.1);}
+    .rv-yt-badge{color:white;font-size:.72rem;font-weight:700;background:rgba(0,0,0,.65);padding:.22rem .75rem;border-radius:50px;}
+    .rv-info{padding:.9rem 1rem 1.1rem;}
+    .rv-name{font-weight:700;font-size:.92rem;color:white;margin-bottom:.2rem;}
+    .rv-stars{color:#F59E0B;font-size:.8rem;margin-bottom:.3rem;}
+    .rv-sub{font-size:.73rem;color:rgba(255,255,255,.3);}
 
-    /* YT card — thumbnail with play */
-    .rv-yt-wrap{position:relative;aspect-ratio:16/9;background:#000;cursor:pointer;}
-    .rv-yt-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
-    .rv-yt-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;background:rgba(0,0,0,.3);transition:background .25s;}
-    .rv-yt-wrap:hover .rv-yt-overlay{background:rgba(0,0,0,.5);}
-    .rv-yt-play{width:60px;height:60px;border-radius:50%;background:#FF0000;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(255,0,0,.5);font-size:1.4rem;transition:transform .2s;}
-    .rv-yt-wrap:hover .rv-yt-play{transform:scale(1.1);}
-    .rv-yt-badge{color:white;font-size:.72rem;font-weight:700;background:rgba(0,0,0,.6);padding:.2rem .7rem;border-radius:50px;}
-
-    /* Direct video card */
+    /* Direct video player */
     .rv-vid-wrap{position:relative;aspect-ratio:16/9;background:#000;}
     .rv-vid-wrap video{width:100%;height:100%;display:block;}
-    .rv-vid-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;background:rgba(0,0,0,.45);cursor:pointer;transition:opacity .25s;}
-    .rv-vid-overlay.hidden{opacity:0;pointer-events:none;}
-    .rv-vid-play{width:60px;height:60px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 20px rgba(242,101,34,.5);}
-
-    /* Controls bar */
-    .rv-controls{display:flex;align-items:center;gap:.55rem;background:#0d0d0d;padding:.55rem .8rem;}
-    .rvc-btn{background:none;border:none;color:rgba(255,255,255,.75);cursor:pointer;font-size:1rem;padding:.2rem .25rem;border-radius:5px;display:flex;align-items:center;transition:color .15s;}
+    .rv-vid-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.4);cursor:pointer;transition:opacity .25s;}
+    .rv-vid-overlay.gone{opacity:0;pointer-events:none;}
+    .rv-controls{display:flex;align-items:center;gap:.5rem;background:#0a0a0a;padding:.55rem .8rem;}
+    .rvc-btn{background:none;border:none;color:rgba(255,255,255,.75);cursor:pointer;font-size:1rem;padding:.15rem .25rem;border-radius:4px;transition:color .15s;display:flex;align-items:center;}
     .rvc-btn:hover{color:var(--orange);}
-    .rvc-bar{flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.15);cursor:pointer;position:relative;}
-    .rvc-fill{height:100%;background:var(--orange);border-radius:3px;width:0%;pointer-events:none;transition:width .1s linear;}
-    .rvc-time{font-size:.67rem;color:rgba(255,255,255,.4);white-space:nowrap;min-width:72px;text-align:right;}
-    .rvc-speed{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.68rem;font-weight:700;border-radius:5px;padding:.18rem .4rem;cursor:pointer;}
-    .rvc-speed:hover{background:var(--orange);border-color:var(--orange);color:white;}
+    .rvc-bar{flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.12);cursor:pointer;position:relative;}
+    .rvc-fill{height:100%;background:var(--orange);border-radius:3px;width:0%;pointer-events:none;}
+    .rvc-time{font-size:.66rem;color:rgba(255,255,255,.35);white-space:nowrap;min-width:74px;text-align:right;}
+    .rvc-spd{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.55);font-size:.67rem;font-weight:700;border-radius:4px;padding:.16rem .38rem;cursor:pointer;}
+    .rvc-spd:hover{background:var(--orange);border-color:var(--orange);color:white;}
 
-    /* Info row */
-    .rv-info{padding:.9rem 1rem 1rem;}
-    .rv-name{font-weight:700;font-size:.9rem;color:white;margin-bottom:.15rem;}
-    .rv-stars{color:#F59E0B;font-size:.78rem;margin-bottom:.3rem;}
-    .rv-sub{font-size:.75rem;color:rgba(255,255,255,.35);}
-
-    /* empty rv */
     .rv-empty{grid-column:1/-1;text-align:center;padding:4rem 2rem;color:rgba(255,255,255,.3);}
     .rv-empty .ei{font-size:3rem;margin-bottom:.75rem;}
 
@@ -100,7 +97,6 @@
     <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">›</span><span class="current">Gallery</span></div>
   </div>
 
-  <!-- ═══ MAIN GALLERY ═══════════════════════════════════════ -->
   <section class="gallery-page">
     <div class="container">
       <div class="gallery-tabs fade-in" id="galleryTabs">
@@ -119,22 +115,16 @@
     </div>
   </section>
 
-  <!-- ═══ CUSTOMER REVIEW VIDEOS ════════════════════════════ -->
-  <section class="rv-section" id="reviewVideos">
+  <!-- CUSTOMER REVIEW VIDEOS -->
+  <section class="rv-section">
     <div class="container">
       <span class="section-label fade-in" style="color:var(--orange);">STUDENT VOICES</span>
       <h2 class="section-title fade-in" style="color:white;">Customer <span class="orange">Review Videos</span></h2>
-      <p class="section-sub fade-in" style="color:rgba(255,255,255,.45);">Hear directly from our students — unscripted, real experiences.</p>
+      <p class="section-sub fade-in" style="color:rgba(255,255,255,.45);">Hear directly from our students — real, unscripted experiences.</p>
       <div class="rv-grid fade-in" id="rvGrid"></div>
-      <div style="text-align:center;margin-top:2.5rem;" class="fade-in">
-        <a href="gallery-manager.html" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--orange);color:white;font-weight:700;font-size:.88rem;padding:.7rem 1.5rem;border-radius:50px;text-decoration:none;">
-          ⚙️ Add Review Video →
-        </a>
-      </div>
     </div>
   </section>
 
-  <!-- ═══ PHOTO LIGHTBOX ════════════════════════════════════ -->
   <div class="lightbox" id="lightbox" onclick="lbBg(event)">
     <div class="lb-inner">
       <button class="lb-close" onclick="lbClose()">✕</button>
@@ -156,35 +146,34 @@
 
   <script src="components.js"></script>
   <script>
-    const KEY = 'sp_gallery_v1';
-    const CATS = {
+    const KEY='sp_gallery_v1';
+    const CATS={
       'theory-2w':'📚 Theory · 2-Wheeler','theory-4w':'📚 Theory · 4-Wheeler',
       'prac-2w':'🛵 Practical · 2-Wheeler','prac-4w':'🚗 Practical · 4-Wheeler',
-      'ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions',
-      'cert':'🎓 Certificate','basic-info':'ℹ️ Basic Info',
-      'experience':'⭐ Experience','review-video':'🌟 Customer Review'
+      'ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions','cert':'🎓 Certificate',
+      'basic-info':'ℹ️ Basic Info','experience':'⭐ Experience','review-video':'🌟 Customer Review'
     };
-    const ALL_CATS = Object.keys(CATS);
-    let all=[], curFilter='all', lbPhotos=[], lbIdx=0;
+    const ALL_CATS=Object.keys(CATS);
+    let all=[],curFilter='all',lbPhotos=[],lbIdx=0;
 
     function loadAll(){try{return JSON.parse(localStorage.getItem(KEY))||[];}catch{return[];}}
 
-    // ── Extract YouTube video ID ──────────────────────────────
-    function ytId(url){
-      const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-      return m ? m[1] : null;
+    function ytIdFrom(item){
+      // Extract YT id from stored origUrl or embed src
+      const url=item.origUrl||item.src||'';
+      const m=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([a-zA-Z0-9_-]{11})/);
+      return m?m[1]:null;
     }
 
-    // ── Tab counts ────────────────────────────────────────────
     function updateCounts(items){
-      document.getElementById('c-all').textContent = items.filter(p=>p.cat!=='review-video').length;
+      document.getElementById('c-all').textContent=items.filter(p=>p.cat!=='review-video').length;
       ALL_CATS.forEach(c=>{
         const el=document.getElementById('c-'+c);
-        if(el) el.textContent=items.filter(p=>p.cat===c).length;
+        if(el)el.textContent=items.filter(p=>p.cat===c).length;
       });
     }
 
-    // ── MAIN GRID ────────────────────────────────────────────
+    // ── MAIN GRID ──────────────────────────────────────────
     function renderGrid(filter){
       curFilter=filter;
       const grid=document.getElementById('galleryGrid');
@@ -201,88 +190,94 @@
       let pIdx=0;
       shown.forEach((item,i)=>{
         const div=document.createElement('div');
-
         if(item.type==='video'){
-          // Show YouTube thumbnail if available
-          const vid = ytId(item.origUrl||item.src||'');
-          const thumb = item.thumb || (vid ? `https://i.ytimg.com/vi/${vid}/hqdefault.jpg` : '');
-          div.className='vid-grid-card';
+          const ytid=ytIdFrom(item);
+          const url=item.origUrl||item.src;
+          div.className='vid-card';
+          // Build thumbnail HTML - shows emoji fallback if image fails
+          const thumbHTML=ytid
+            ?`<img src="https://img.youtube.com/vi/${ytid}/hqdefault.jpg"
+                   onerror="this.style.display='none';this.nextSibling.style.display='flex'"
+                   alt="video thumbnail" />
+              <div class="vid-no-thumb" style="display:none;position:absolute;inset:0;">🎬</div>`
+            :`<div class="vid-no-thumb">🎬</div>`;
           div.innerHTML=`
-            ${thumb ? `<img src="${thumb}" alt="${item.caption||'Video'}" onerror="this.style.display='none'"/>` : ''}
-            <div class="vgc-overlay">
-              <div class="vgc-play">▶</div>
-              <div class="vgc-label">${item.mt==='youtube'?'YouTube Video':item.mt==='gdrive'?'Drive Video':'Video'}</div>
+            ${thumbHTML}
+            <div class="vid-card-overlay">
+              <div class="vid-play-btn">▶</div>
+              <div class="vid-card-label">${item.mt==='youtube'?'▶ YouTube':'▶ Video'}</div>
             </div>`;
-          div.addEventListener('click',()=>{
-            const url = item.origUrl || item.src;
-            window.open(url,'_blank');
-          });
+          div.addEventListener('click',()=>window.open(url,'_blank'));
         } else {
           const pi=pIdx++;
           div.className='gallery-item';
-          div.innerHTML=`<img src="${item.src}" alt="${item.caption||''}" loading="lazy" onerror="this.style.display='none'"/><div class="gp-overlay"><span>${item.caption||CATS[item.cat]||''}</span></div>`;
+          div.innerHTML=`<img src="${item.src}" alt="${item.caption||''}" loading="lazy" onerror="this.style.display='none'"/>
+            <div class="gp-overlay"><span>${item.caption||CATS[item.cat]||''}</span></div>`;
           div.addEventListener('click',()=>openLb(pi));
         }
-
-        div.style.opacity='0';div.style.transform='translateY(18px)';
+        div.style.opacity='0';div.style.transform='translateY(16px)';
         grid.appendChild(div);
-        setTimeout(()=>{div.style.transition='opacity .4s ease,transform .4s ease';div.style.opacity='1';div.style.transform='none';},i*45);
+        setTimeout(()=>{div.style.transition='opacity .4s,transform .4s';div.style.opacity='1';div.style.transform='none';},i*45);
       });
     }
 
-    // ── REVIEW VIDEOS ────────────────────────────────────────
+    // ── REVIEW VIDEOS ──────────────────────────────────────
     function renderReviewVideos(){
-      const items = all.filter(p=>p.cat==='review-video');
-      const grid  = document.getElementById('rvGrid');
+      const items=all.filter(p=>p.cat==='review-video');
+      const grid=document.getElementById('rvGrid');
       grid.innerHTML='';
 
       if(!items.length){
-        grid.innerHTML='<div class="rv-empty"><div class="ei">🎥</div><p>No review videos yet — add them in the Gallery Manager</p></div>';
+        grid.innerHTML='<div class="rv-empty"><div class="ei">🎥</div><p>No review videos yet — add them in the Gallery Manager under "Customer Review Video" category.</p></div>';
         return;
       }
 
       items.forEach(item=>{
         const card=document.createElement('div');
         card.className='rv-card fade-in';
-        const isYT = item.mt==='youtube';
+        const isYT=item.mt==='youtube';
+        const isGD=item.mt==='gdrive';
 
-        if(isYT || item.mt==='gdrive'){
-          // Get YT thumbnail
-          const vid  = ytId(item.origUrl||item.src||'');
-          const thumb= item.thumb || (vid ? `https://i.ytimg.com/vi/${vid}/hqdefault.jpg` : '');
-          const url  = item.origUrl || item.src;
-
+        if(isYT||isGD){
+          const ytid=ytIdFrom(item);
+          const url=item.origUrl||item.src;
+          // Thumbnail: try YouTube image, show fallback div if it fails
           card.innerHTML=`
-            <div class="rv-yt-wrap" onclick="window.open('${url}','_blank')">
-              ${thumb
-                ? `<img src="${thumb}" alt="${item.caption||'Review'}" crossorigin="anonymous" onerror="this.style.display='none'"/>`
-                : `<div style="width:100%;aspect-ratio:16/9;background:#222;display:flex;align-items:center;justify-content:center;font-size:3rem;">🎬</div>`}
-              <div class="rv-yt-overlay">
-                <div class="rv-yt-play">▶</div>
+            <div class="rv-thumb" onclick="window.open('${url}','_blank')">
+              ${ytid
+                ?`<img src="https://img.youtube.com/vi/${ytid}/hqdefault.jpg"
+                       alt="${item.caption||'Review'}"
+                       onerror="this.style.display='none';document.getElementById('fb-${item.id}').style.display='flex'"/>
+                  <div class="rv-thumb-fallback" id="fb-${item.id}" style="display:none;position:absolute;inset:0;">
+                    <span>🎬</span><p>${item.caption||'Customer Review'}</p>
+                  </div>`
+                :`<div class="rv-thumb-fallback"><span>📹</span><p>${item.caption||'Video'}</p></div>`}
+              <div class="rv-overlay">
+                <div class="rv-play">▶</div>
                 <div class="rv-yt-badge">${isYT?'Watch on YouTube ↗':'Watch Video ↗'}</div>
               </div>
             </div>
             <div class="rv-info">
               <div class="rv-name">${item.caption||'Customer Review'}</div>
               <div class="rv-stars">★★★★★</div>
-              <div class="rv-sub">${isYT?'Opens on YouTube':'Opens in new tab'} ↗</div>
+              <div class="rv-sub">Tap to watch ${isYT?'on YouTube':'video'} ↗</div>
             </div>`;
         } else {
-          // Direct mp4 — custom player
-          const vid_id='v'+item.id.toString().replace('.','');
+          // Direct mp4 — custom HTML5 player
+          const vid='v'+String(item.id).replace(/\D/g,'');
           card.innerHTML=`
             <div class="rv-vid-wrap">
-              <video id="${vid_id}" src="${item.src}" preload="metadata" style="width:100%;height:100%;display:block;"></video>
-              <div class="rv-vid-overlay" id="ov${vid_id}" onclick="startVid('${vid_id}')">
-                <div class="rv-vid-play">▶</div>
+              <video id="${vid}" src="${item.src}" preload="metadata" playsinline></video>
+              <div class="rv-vid-overlay" id="ov${vid}" onclick="startVid('${vid}')">
+                <div class="rv-play" style="background:var(--orange);">▶</div>
               </div>
             </div>
             <div class="rv-controls">
-              <button class="rvc-btn" id="pb${vid_id}" onclick="togglePlay('${vid_id}')">⏸</button>
-              <div class="rvc-bar" onclick="seekTo(event,'${vid_id}')"><div class="rvc-fill" id="pf${vid_id}"></div></div>
-              <span class="rvc-time" id="pt${vid_id}">0:00 / 0:00</span>
-              <button class="rvc-btn" id="mb${vid_id}" onclick="toggleMute('${vid_id}')">🔊</button>
-              <select class="rvc-speed" onchange="setSpd('${vid_id}',this.value)">
+              <button class="rvc-btn" id="pb${vid}" onclick="togPlay('${vid}')">⏸</button>
+              <div class="rvc-bar" onclick="seek(event,'${vid}')"><div class="rvc-fill" id="pf${vid}"></div></div>
+              <span class="rvc-time" id="pt${vid}">0:00 / 0:00</span>
+              <button class="rvc-btn" id="mb${vid}" onclick="togMute('${vid}')">🔊</button>
+              <select class="rvc-spd" onchange="setSpd('${vid}',this.value)">
                 <option value="0.5">0.5×</option><option value="1" selected>1×</option>
                 <option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
               </select>
@@ -291,22 +286,21 @@
               <div class="rv-name">${item.caption||'Customer Review'}</div>
               <div class="rv-stars">★★★★★</div>
             </div>`;
-
           setTimeout(()=>{
-            const v=document.getElementById(vid_id);
+            const v=document.getElementById(vid);
             if(!v)return;
             v.addEventListener('timeupdate',()=>{
               const pct=v.duration?(v.currentTime/v.duration)*100:0;
-              const pf=document.getElementById('pf'+vid_id);
-              const pt=document.getElementById('pt'+vid_id);
+              const pf=document.getElementById('pf'+vid);
+              const pt=document.getElementById('pt'+vid);
               if(pf)pf.style.width=pct+'%';
-              if(pt)pt.textContent=fmtT(v.currentTime)+' / '+fmtT(v.duration||0);
+              if(pt)pt.textContent=fmt(v.currentTime)+' / '+fmt(v.duration||0);
             });
             v.addEventListener('ended',()=>{
-              const pb=document.getElementById('pb'+vid_id);
-              const ov=document.getElementById('ov'+vid_id);
+              const pb=document.getElementById('pb'+vid);
+              const ov=document.getElementById('ov'+vid);
               if(pb)pb.textContent='▶';
-              if(ov){ov.classList.remove('hidden');}
+              if(ov)ov.classList.remove('gone');
             });
           },60);
         }
@@ -314,43 +308,40 @@
       });
     }
 
-    // ── VIDEO CONTROLS ───────────────────────────────────────
+    // ── PLAYER CONTROLS ────────────────────────────────────
     function startVid(id){
-      const v=document.getElementById(id);
-      const ov=document.getElementById('ov'+id);
-      if(!v)return;
-      ov.classList.add('hidden');
-      v.play();
+      const v=document.getElementById(id),ov=document.getElementById('ov'+id);
+      if(v){v.play();if(ov)ov.classList.add('gone');}
     }
-    function togglePlay(id){
+    function togPlay(id){
       const v=document.getElementById(id),pb=document.getElementById('pb'+id);
       if(!v)return;
       if(v.paused){v.play();if(pb)pb.textContent='⏸';}
       else{v.pause();if(pb)pb.textContent='▶';}
     }
-    function toggleMute(id){
+    function togMute(id){
       const v=document.getElementById(id),mb=document.getElementById('mb'+id);
       if(!v)return;
       v.muted=!v.muted;
       if(mb)mb.textContent=v.muted?'🔇':'🔊';
     }
     function setSpd(id,s){const v=document.getElementById(id);if(v)v.playbackRate=parseFloat(s);}
-    function seekTo(e,id){
+    function seek(e,id){
       const v=document.getElementById(id);
       if(!v||!v.duration)return;
       const r=e.currentTarget.getBoundingClientRect();
       v.currentTime=((e.clientX-r.left)/r.width)*v.duration;
     }
-    function fmtT(s){const m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+    function fmt(s){const m=Math.floor(s/60),sc=Math.floor(s%60);return m+':'+(sc<10?'0':'')+sc;}
 
-    // ── TABS ─────────────────────────────────────────────────
+    // ── TABS ───────────────────────────────────────────────
     document.getElementById('galleryTabs').addEventListener('click',e=>{
       const tab=e.target.closest('.gallery-tab');if(!tab)return;
       document.querySelectorAll('.gallery-tab').forEach(t=>t.classList.remove('active'));
       tab.classList.add('active');renderGrid(tab.dataset.tab);
     });
 
-    // ── LIGHTBOX ─────────────────────────────────────────────
+    // ── LIGHTBOX ───────────────────────────────────────────
     function openLb(idx){lbIdx=idx;updLb();document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
     function updLb(){const p=lbPhotos[lbIdx];if(!p)return;document.getElementById('lbImg').src=p.src;document.getElementById('lbCap').textContent=[p.caption,CATS[p.cat]].filter(Boolean).join(' · ');}
     function lbNav(d){lbIdx=(lbIdx+d+lbPhotos.length)%lbPhotos.length;updLb();}
@@ -361,7 +352,7 @@
       if(e.key==='ArrowRight')lbNav(1);if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='Escape')lbClose();
     });
 
-    // ── INIT ─────────────────────────────────────────────────
+    // ── INIT ───────────────────────────────────────────────
     all=loadAll();
     updateCounts(all);
     renderGrid('all');
