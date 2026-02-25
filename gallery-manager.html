@@ -191,7 +191,7 @@
         <input type="file" id="vidFile" accept="video/*" />
         <div class="upload-icon">🎬</div>
         <div class="uz-title">Drag &amp; Drop a Video Here</div>
-        <div class="uz-sub">Or click to pick a video file (max 50 MB)</div>
+        <div class="uz-sub">Or click to pick a video file (max 60 MB)</div>
       </div>
       <div class="divider"><span>OR paste a YouTube / Google Drive video link</span></div>
       <div class="url-row">
@@ -334,7 +334,7 @@ vdz.addEventListener('drop',e=>{e.preventDefault();vdz.classList.remove('dragove
 
 function readVidFile(f){
   if(!f||!f.type.startsWith('video/')){toast('Select a video file',true);return;}
-  if(f.size>50*1024*1024){toast('Video too large — use YouTube link instead',true);return;}
+  if(f.size>60*1024*1024){toast('Video too large — max 60 MB',true);return;}
   const r=new FileReader();
   r.onload=e=>{pending.push({type:'video',src:e.target.result,mt:'file'});renderPreview();};
   r.readAsDataURL(f);
