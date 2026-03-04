@@ -51,6 +51,29 @@
   </style>
 </head>
 <body>
+
+<!-- PASSWORD GATE -->
+<div id="gate" style="position:fixed;inset:0;background:#0f0f10;display:flex;align-items:center;justify-content:center;z-index:9999;padding:1.5rem;">
+  <div style="background:#1c1c1e;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:2.5rem 2rem;max-width:380px;width:100%;text-align:center;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.08em;color:#F26522;margin-bottom:.2rem;">SP DRIVING SCHOOL</div>
+    <div style="font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:2rem;">Gallery Manager · Admin</div>
+    <div style="font-size:3rem;margin-bottom:1.25rem;">🔐</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.05em;margin-bottom:.4rem;">Admin Login</div>
+    <div style="font-size:.82rem;color:rgba(255,255,255,.4);margin-bottom:1.5rem;">Enter password to manage the gallery</div>
+    <input type="password" id="pwInput" placeholder="Enter password"
+      style="width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;padding:.85rem 1rem;color:white;font-size:1rem;text-align:center;letter-spacing:.12em;outline:none;margin-bottom:.75rem;font-family:'DM Sans',sans-serif;transition:border-color .2s;"
+      onkeydown="if(event.key==='Enter')tryLogin()"
+      onfocus="this.style.borderColor='#F26522'" onblur="this.style.borderColor='rgba(255,255,255,.12)'"/>
+    <button onclick="tryLogin()"
+      style="width:100%;background:#F26522;color:white;border:none;border-radius:50px;padding:.9rem;font-family:'DM Sans',sans-serif;font-weight:800;font-size:1rem;cursor:pointer;transition:background .2s;"
+      onmouseover="this.style.background='#D4551A'" onmouseout="this.style.background='#F26522'">
+      🔓 Unlock Gallery Manager
+    </button>
+    <div id="pwErr" style="color:#f87171;font-size:.8rem;margin-top:.75rem;display:none;">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<div id="app" style="display:none;">
 <div class="wrap">
 
   <div class="hdr">
@@ -203,6 +226,20 @@
     <a href="gallery.html" target="_blank" class="blink bl-dark">👁 View Gallery</a>
   </div>
 
-</div>
+</div><!-- /wrap -->
+</div><!-- /app -->
+
+<script>
+const PASS = 'SP@Admin2025';
+if(sessionStorage.getItem('sp_auth')==='1'){unlock();}
+function tryLogin(){
+  if(document.getElementById('pwInput').value===PASS){sessionStorage.setItem('sp_auth','1');unlock();}
+  else{document.getElementById('pwErr').style.display='block';document.getElementById('pwInput').value='';document.getElementById('pwInput').focus();}
+}
+function unlock(){
+  document.getElementById('gate').style.display='none';
+  document.getElementById('app').style.display='block';
+}
+</script>
 </body>
 </html>
