@@ -202,7 +202,7 @@
 
       <div style="margin-bottom:.5rem;font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);">Paste Image Link from imgbb</div>
       <div class="url-row">
-        <input type="text" id="imgUrl" placeholder="https://i.ibb.co/xxxx/photo.jpg" onkeydown="if(event.key==='Enter')addImgUrl()" />
+        <input type="text" id="imgUrl" placeholder="https://res.cloudinary.com/…/image.jpg  or Google Drive link" onkeydown="if(event.key==='Enter')addImgUrl()" />
         <button class="btn btn-orange" onclick="addImgUrl()">Add →</button>
       </div>
       <div style="margin-top:.55rem;font-size:.75rem;color:rgba(255,255,255,.3);">🔗 The link must start with <strong style="color:rgba(255,255,255,.45);">https://</strong> so the photo is visible to everyone</div>
@@ -254,7 +254,7 @@
 
       <div style="margin-bottom:.5rem;font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);">Paste Video Link (YouTube or Cloudinary)</div>
       <div class="url-row">
-        <input type="text" id="vidUrl" placeholder="youtube.com/watch?v=…   or   https://res.cloudinary.com/…/video.mp4" onkeydown="if(event.key==='Enter')addVidUrl()" />
+        <input type="text" id="vidUrl" placeholder="https://res.cloudinary.com/…/video.mp4   or   youtube.com/watch?v=…" onkeydown="if(event.key==='Enter')addVidUrl()" />
         <button class="btn btn-orange" onclick="addVidUrl()">Add →</button>
       </div>
       <div style="margin-top:.55rem;font-size:.75rem;color:rgba(255,255,255,.3);">Both options are <strong style="color:rgba(255,255,255,.45);">100% free</strong> and visible to every visitor on every device 🌍</div>
@@ -388,13 +388,20 @@ function readImgFiles(files){
 }
 
 function addImgUrl(){
-  const url=document.getElementById('imgUrl').value.trim();
+  let url=document.getElementById('imgUrl').value.trim();
   if(!url){toast('Paste a link first',true);return;}
+
+  // Auto-convert Google Drive share link
   const gd=gdId(url);
-  const src=gd?`https://drive.google.com/uc?export=view&id=${gd}`:url;
-  pending.push({type:'photo',src,mt:'url'});
+  if(gd) url=`https://lh3.googleusercontent.com/d/${gd}`;
+
+  // Cloudinary: works as-is, just validate it's a real URL
+  if(!url.startsWith('http')){toast('Paste a full https:// link',true);return;}
+
+  pending.push({type:'photo',src:url,mt:'url'});
   document.getElementById('imgUrl').value='';
   renderPreview();
+  toast('✅ Photo added — fill category and save');
 }
 
 // Video file drop
@@ -438,13 +445,16 @@ function addVidUrl(){
     document.getElementById('vidUrl').value='';renderPreview();return;
   }
 
-  // Cloudinary or any direct .mp4 / video URL — plays with custom player
+  // Cloudinary or any direct video URL — plays with full controls on site
   if(url.startsWith('http')){
     pending.push({type:'video',src:url,origUrl:url,mt:'direct'});
-    document.getElementById('vidUrl').value='';renderPreview();return;
+    document.getElementById('vidUrl').value='';
+    renderPreview();
+    toast('✅ Video added — fill category and save');
+    return;
   }
 
-  toast('Please paste a valid video URL',true);
+  toast('Paste a full https:// link',true);
 }
 
 function removePending(i){pending.splice(i,1);renderPreview();}
