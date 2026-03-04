@@ -7,107 +7,93 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
-    /* Photo grid */
+    /* ── Photo grid ── */
     .gallery-item{border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;box-shadow:var(--shadow-sm);transition:var(--trans);background:var(--off-white);border:1px solid var(--light);}
     .gallery-item:hover{transform:scale(1.02);box-shadow:var(--shadow-md);}
     .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;}
-    .gp-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:.85rem;}
+    .gp-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6)0%,transparent 60%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:.85rem;}
     .gallery-item:hover .gp-overlay{opacity:1;}
-    .gp-overlay span{color:white;font-size:.8rem;font-weight:600;line-height:1.3;}
+    .gp-overlay span{color:white;font-size:.8rem;font-weight:600;}
 
-    /* Photo lightbox */
-    .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:9999;align-items:center;justify-content:center;padding:1.5rem;}
-    .lightbox.open{display:flex;}
-    .lb-inner{position:relative;max-width:900px;width:100%;}
-    .lb-inner img{width:100%;border-radius:var(--radius);max-height:85vh;object-fit:contain;}
-    .lb-caption{text-align:center;color:rgba(255,255,255,.65);font-size:.88rem;margin-top:.75rem;}
-    .lb-close{position:absolute;top:-2.5rem;right:0;background:none;border:none;color:white;font-size:2rem;cursor:pointer;opacity:.7;}
-    .lb-close:hover{opacity:1;}
-    .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:white;font-size:1.5rem;cursor:pointer;padding:.6rem .9rem;border-radius:10px;}
-    .lb-nav:hover{background:rgba(255,255,255,.22);}
-    .lb-prev{left:-3.5rem;}.lb-next{right:-3.5rem;}
-
-    /* Tab counts */
+    /* ── Tab counts ── */
     .tab-count{display:inline-flex;align-items:center;justify-content:center;background:rgba(242,101,34,.15);color:var(--orange);font-size:.65rem;font-weight:800;min-width:18px;height:18px;border-radius:50px;padding:0 .35rem;margin-left:.35rem;}
     .gallery-tab.active .tab-count{background:rgba(255,255,255,.25);color:white;}
 
-    /* Empty */
+    /* ── Empty / loading ── */
     .empty-gallery{text-align:center;padding:5rem 2rem;background:var(--off-white);border-radius:var(--radius);border:2px dashed var(--light);grid-column:1/-1;}
     .empty-gallery .eg-icon{font-size:3.5rem;margin-bottom:1rem;}
     .empty-gallery h3{font-family:var(--font-head);font-size:1.5rem;margin-bottom:.5rem;}
     .empty-gallery p{font-size:.9rem;color:var(--grey);}
-
-    /* Loading */
-    .loading-gallery{text-align:center;padding:4rem;grid-column:1/-1;color:var(--grey);}
-    .spin{font-size:2.5rem;animation:spin 1s linear infinite;display:inline-block;margin-bottom:1rem;}
+    .loading-gal{grid-column:1/-1;text-align:center;padding:4rem;color:var(--grey);}
+    .spin{display:inline-block;font-size:2.5rem;animation:spin 1s linear infinite;margin-bottom:.75rem;}
     @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* Review videos section */
+    /* ── Photo lightbox ── */
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:9000;align-items:center;justify-content:center;padding:1.5rem;}
+    .lightbox.open{display:flex;}
+    .lb-inner{position:relative;max-width:900px;width:100%;}
+    .lb-inner img{width:100%;border-radius:12px;max-height:85vh;object-fit:contain;}
+    .lb-caption{text-align:center;color:rgba(255,255,255,.6);font-size:.88rem;margin-top:.75rem;}
+    .lb-close{position:absolute;top:-2.5rem;right:0;background:none;border:none;color:white;font-size:2rem;cursor:pointer;opacity:.7;}
+    .lb-close:hover{opacity:1;}
+    .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:white;font-size:1.5rem;cursor:pointer;padding:.6rem .9rem;border-radius:10px;}
+    .lb-nav:hover{background:rgba(255,255,255,.25);}
+    .lb-prev{left:-3.5rem;}.lb-next{right:-3.5rem;}
+
+    /* ── Review Videos section ── */
     .rv-section{padding:5rem 0;background:#111;}
     .rv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:2rem;}
-
-    /* Review card */
     .rv-card{background:#1c1c1e;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.07);transition:transform .25s,border-color .25s;cursor:pointer;}
     .rv-card:hover{transform:translateY(-4px);border-color:rgba(242,101,34,.4);}
-    .rv-thumb{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden;}
+    .rv-thumb{position:relative;aspect-ratio:16/9;background:#1a1a1a;overflow:hidden;}
     .rv-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-    .rv-thumb-fb{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;background:linear-gradient(135deg,#1a1a1a,#2a2a2a);}
+    .rv-thumb-fb{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;}
     .rv-thumb-fb span{font-size:3rem;}
-    .rv-thumb-fb p{color:rgba(255,255,255,.35);font-size:.75rem;font-weight:600;text-align:center;padding:0 1rem;}
+    .rv-thumb-fb p{color:rgba(255,255,255,.3);font-size:.75rem;font-weight:600;text-align:center;padding:0 1rem;}
     .rv-play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);transition:background .2s;}
     .rv-card:hover .rv-play-overlay{background:rgba(0,0,0,.5);}
-    .rv-play-btn{width:60px;height:60px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:white;box-shadow:0 4px 24px rgba(242,101,34,.5);transition:transform .2s;}
+    .rv-play-btn{width:58px;height:58px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:white;box-shadow:0 4px 20px rgba(242,101,34,.55);transition:transform .2s;}
     .rv-card:hover .rv-play-btn{transform:scale(1.1);}
-    .rv-info{padding:.9rem 1rem 1rem;}
+    .rv-info{padding:.85rem 1rem 1rem;}
     .rv-name{font-weight:700;font-size:.9rem;color:white;margin-bottom:.2rem;}
     .rv-stars{color:#F59E0B;font-size:.78rem;}
     .rv-empty{grid-column:1/-1;text-align:center;padding:4rem 2rem;color:rgba(255,255,255,.3);}
     .rv-empty .ei{font-size:3rem;margin-bottom:.75rem;}
 
-    /* ═══ VIDEO POPUP PLAYER ═══ */
+    /* ── Video Popup ── */
     .vpop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:9999;align-items:center;justify-content:center;padding:1rem;}
     .vpop.open{display:flex;}
-    .vpop-inner{position:relative;width:100%;max-width:900px;}
-
-    /* Close button */
-    .vpop-close{position:absolute;top:-2.8rem;right:0;background:rgba(255,255,255,.1);border:none;color:white;font-size:1.1rem;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+    .vpop-box{position:relative;width:100%;max-width:880px;}
+    /* close */
+    .vpop-close{position:absolute;top:-3rem;right:0;background:rgba(255,255,255,.1);border:none;color:white;width:38px;height:38px;border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
     .vpop-close:hover{background:var(--orange);}
-
-    /* Video + controls */
-    .vpop-video-wrap{position:relative;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;}
-    .vpop-video-wrap video{width:100%;height:100%;display:block;}
-    .vpop-video-wrap iframe{width:100%;height:100%;border:none;display:block;}
-
-    /* Big center play/pause overlay */
-    .vpop-center-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25);opacity:0;transition:opacity .2s;pointer-events:none;}
-    .vpop-center-overlay.show{opacity:1;}
-    .vpop-center-icon{width:72px;height:72px;border-radius:50%;background:rgba(242,101,34,.9);display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:white;}
-
-    /* Controls bar */
-    .vpop-controls{display:flex;align-items:center;gap:.6rem;background:#111;border-radius:0 0 12px 12px;padding:.65rem .9rem;}
-    .vpop-btn{background:none;border:none;color:rgba(255,255,255,.8);cursor:pointer;font-size:1.1rem;padding:.2rem .25rem;border-radius:5px;display:flex;align-items:center;line-height:1;transition:color .15s;}
+    /* prev/next */
+    .vpop-nav{position:absolute;top:40%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:none;color:white;font-size:1.6rem;cursor:pointer;padding:.5rem .85rem;border-radius:10px;transition:background .2s;z-index:2;}
+    .vpop-nav:hover{background:var(--orange);}
+    .vpop-prev{left:-3.8rem;}.vpop-next{right:-3.8rem;}
+    /* video wrapper */
+    .vpop-wrap{position:relative;aspect-ratio:16/9;background:#000;border-radius:12px 12px 0 0;overflow:hidden;}
+    .vpop-wrap video{width:100%;height:100%;display:block;cursor:pointer;}
+    .vpop-wrap iframe{width:100%;height:100%;border:none;display:block;}
+    /* controls bar */
+    .vpop-bar{display:flex;align-items:center;gap:.6rem;background:#0d0d0d;border-radius:0 0 12px 12px;padding:.65rem .9rem;}
+    .vpop-btn{background:none;border:none;color:rgba(255,255,255,.8);cursor:pointer;font-size:1.05rem;padding:.2rem .25rem;border-radius:5px;line-height:1;display:flex;align-items:center;transition:color .15s;}
     .vpop-btn:hover{color:var(--orange);}
-    .vpop-progress{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.15);cursor:pointer;position:relative;}
-    .vpop-progress:hover{height:8px;}
-    .vpop-filled{height:100%;background:var(--orange);border-radius:3px;width:0%;pointer-events:none;transition:width .1s linear;}
-    .vpop-time{font-size:.72rem;color:rgba(255,255,255,.45);white-space:nowrap;min-width:82px;text-align:right;}
+    .vpop-prog{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.15);cursor:pointer;position:relative;transition:height .15s;}
+    .vpop-prog:hover{height:9px;}
+    .vpop-fill{height:100%;background:var(--orange);border-radius:3px;width:0%;pointer-events:none;}
+    .vpop-time{font-size:.72rem;color:rgba(255,255,255,.4);white-space:nowrap;min-width:84px;text-align:right;}
     .vpop-spd{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.7rem;font-weight:700;border-radius:5px;padding:.2rem .45rem;cursor:pointer;}
     .vpop-spd:hover,.vpop-spd:focus{background:var(--orange);border-color:var(--orange);color:white;outline:none;}
+    .vpop-caption{text-align:center;color:rgba(255,255,255,.45);font-size:.85rem;font-weight:600;margin-top:.8rem;}
+    /* youtube bar placeholder */
+    .yt-bar{background:#0d0d0d;border-radius:0 0 12px 12px;padding:.65rem .9rem;display:flex;align-items:center;justify-content:center;gap:.5rem;color:rgba(255,255,255,.35);font-size:.8rem;}
 
-    /* Caption under player */
-    .vpop-caption{text-align:center;color:rgba(255,255,255,.5);font-size:.85rem;margin-top:.8rem;font-weight:600;}
-
-    /* Nav buttons (prev/next review) */
-    .vpop-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:none;color:white;font-size:1.5rem;cursor:pointer;padding:.55rem .85rem;border-radius:10px;transition:background .2s;}
-    .vpop-nav:hover{background:var(--orange);}
-    .vpop-prev{left:-3.5rem;}
-    .vpop-next{right:-3.5rem;}
-
-    @media(max-width:700px){
-      .lb-prev{left:-.5rem;}.lb-next{right:-.5rem;}
+    @media(max-width:680px){
+      .lb-prev{left:-.3rem;}.lb-next{right:-.3rem;}
+      .vpop-prev{left:0;top:auto;bottom:-3.2rem;transform:none;}
+      .vpop-next{right:0;top:auto;bottom:-3.2rem;transform:none;}
       .rv-grid{grid-template-columns:1fr 1fr;}
-      .vpop-prev{left:-.2rem;}.vpop-next{right:-.2rem;}
-      .vpop-controls{gap:.35rem;}
     }
     @media(max-width:420px){.rv-grid{grid-template-columns:1fr;}}
   </style>
@@ -120,7 +106,7 @@
     <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">›</span><span class="current">Gallery</span></div>
   </div>
 
-  <!-- PHOTO GALLERY -->
+  <!-- PHOTOS -->
   <section class="gallery-page">
     <div class="container">
       <div class="gallery-tabs fade-in" id="galleryTabs">
@@ -162,15 +148,13 @@
 
   <!-- VIDEO POPUP PLAYER -->
   <div class="vpop" id="vpop" onclick="vpopBg(event)">
-    <div class="vpop-inner" id="vpopInner">
-      <button class="vpop-close" onclick="vpopClose()" title="Close">✕</button>
-      <button class="vpop-nav vpop-prev" onclick="vpopNav(-1)">‹</button>
-      <button class="vpop-nav vpop-next" onclick="vpopNav(1)">›</button>
-
-      <div class="vpop-video-wrap" id="vpopWrap">
-        <!-- filled by JS -->
-      </div>
-      <div class="vpop-caption" id="vpopCaption"></div>
+    <div class="vpop-box" id="vpopBox">
+      <button class="vpop-close" onclick="vpopClose()">✕</button>
+      <button class="vpop-nav vpop-prev" onclick="vpopNav(-1)" title="Previous">‹</button>
+      <button class="vpop-nav vpop-next" onclick="vpopNav(1)" title="Next">›</button>
+      <div class="vpop-wrap" id="vpopWrap"></div>
+      <div id="vpopBar"></div>
+      <div class="vpop-caption" id="vpopCap"></div>
     </div>
   </div>
 
@@ -185,53 +169,53 @@
 
   <script src="components.js"></script>
   <script>
-    // ── CONFIG — replace with your Google Sheet CSV URL ──────
-    const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT46OY5Zn_f8l8grYxAzOnbJOso-f5gRBudpj-uiEkQgr-B_99BZUhJaAEt0cxqPYHSx4QY8ITEeDQY/pub?gid=0&single=true&output=csv';
+    // ═══════════════════════════════════════════════
+    // PASTE YOUR GOOGLE SHEET CSV URL BELOW
+    // ═══════════════════════════════════════════════
+    const SHEET_CSV_URL = 'YOUR_SHEET_CSV_URL_HERE';
 
     const CATS = {
-      'theory-2w':'📚 Theory · 2-Wheeler','theory-4w':'📚 Theory · 4-Wheeler',
-      'prac-2w':'🛵 Practical · 2-Wheeler','prac-4w':'🚗 Practical · 4-Wheeler',
-      'ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions','cert':'🎓 Certificate',
-      'basic-info':'ℹ️ Basic Info','experience':'⭐ Experience','review-video':'🌟 Customer Review'
+      'theory-2w':'📚 Theory 2-Wheeler','theory-4w':'📚 Theory 4-Wheeler',
+      'prac-2w':'🛵 Practical 2-Wheeler','prac-4w':'🚗 Practical 4-Wheeler',
+      'ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions','cert':'🎓 Certificates',
+      'basic-info':'ℹ️ Basic Info','experience':'⭐ Experience','review-video':'🌟 Review'
     };
     const ALL_CATS = Object.keys(CATS);
-    let all=[], curFilter='all', lbPhotos=[], lbIdx=0;
-    let reviewVideos=[], rvIdx=0;
+    let all=[], curFilter='all', lbPhotos=[], lbIdx=0, rvList=[], rvIdx=0;
 
-    // ── CSV Parser ───────────────────────────────────────────
-    function parseCSV(text){
-      const lines=text.trim().split('\n');
-      const headers=lines[0].split(',').map(h=>h.trim().replace(/^"|"$/g,'').toLowerCase());
+    // ── CSV parser ─────────────────────────────────
+    function parseCSV(txt){
+      const lines=txt.trim().split('\n');
+      const hdrs=lines[0].split(',').map(h=>h.trim().replace(/^"|"$/g,'').toLowerCase());
       return lines.slice(1).map(line=>{
-        const cols=[]; let cur='',inQ=false;
-        for(let ch of line){
-          if(ch==='"')inQ=!inQ;
-          else if(ch===','&&!inQ){cols.push(cur.trim());cur='';}
+        const cols=[]; let cur='',q=false;
+        for(const ch of line){
+          if(ch==='"')q=!q;
+          else if(ch===','&&!q){cols.push(cur.trim());cur='';}
           else cur+=ch;
         }
         cols.push(cur.trim());
-        const obj={};
-        headers.forEach((h,i)=>{obj[h]=(cols[i]||'').replace(/^"|"$/g,'').trim();});
-        return obj;
+        const o={};
+        hdrs.forEach((h,i)=>o[h]=(cols[i]||'').replace(/^"|"$/g,'').trim());
+        return o;
       }).filter(r=>r.url&&r.url.startsWith('http'));
     }
 
-    function rowToItem(row,idx){
-      const url=row.url||'';
-      const type=(row.type||'photo').toLowerCase();
-      const isYT=url.includes('youtube.com')||url.includes('youtu.be');
-      const isGD=url.includes('drive.google.com');
-      let mt='url';
-      if(isYT)mt='youtube';
-      else if(isGD)mt='gdrive';
-      else if(type==='video')mt='direct';
-      const ytMatch=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/);
-      return{
-        id:idx,type:type==='video'?'video':'photo',
-        src:isYT?`https://www.youtube.com/embed/${ytMatch?ytMatch[1]:''}?autoplay=1`:url,
-        origUrl:url,mt,ytId:ytMatch?ytMatch[1]:null,
-        cat:row.category||'prac-4w',caption:row.caption||''
-      };
+    function rowToItem(row, idx){
+      const url  = row.url||'';
+      const type = (row.type||'photo').toLowerCase().trim();
+      const cat  = (row.category||'prac-4w').toLowerCase().trim();
+      const cap  = row.caption||'';
+      const isYT = url.includes('youtube.com')||url.includes('youtu.be');
+      const isGD = url.includes('drive.google.com');
+      const isMp4= url.match(/\.(mp4|mov|webm|ogg)(\?|$)/i);
+      let mt = 'url';
+      if(isYT) mt='youtube';
+      else if(isGD) mt='gdrive';
+      else if(isMp4||type==='video') mt='direct';
+      const ytM = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/);
+      return {id:idx, type:type==='video'?'video':'photo',
+              src:url, origUrl:url, mt, ytId:ytM?ytM[1]:null, cat, caption:cap};
     }
 
     function getYtId(item){
@@ -240,75 +224,76 @@
       return m?m[1]:(item.ytId||null);
     }
 
-    // ── Counts ───────────────────────────────────────────────
+    // ── Counts ─────────────────────────────────────
     function updateCounts(items){
-      // All tab shows only non-review photos
-      document.getElementById('c-all').textContent=items.filter(p=>p.cat!=='review-video'&&p.type==='photo').length;
+      document.getElementById('c-all').textContent = items.filter(p=>p.type==='photo'&&p.cat!=='review-video').length;
       ALL_CATS.forEach(c=>{
         const el=document.getElementById('c-'+c);
-        if(el)el.textContent=items.filter(p=>p.cat===c&&p.type==='photo').length;
+        if(el) el.textContent=items.filter(p=>p.cat===c&&p.type==='photo').length;
       });
     }
 
-    // ── MAIN PHOTO GRID (photos only, no videos) ─────────────
+    // ── Photo grid (photos only, no videos) ────────
     function renderGrid(filter){
       curFilter=filter;
       const grid=document.getElementById('galleryGrid');
-      // Only show PHOTOS, never videos, never review-videos
       const shown=(filter==='all'?all:all.filter(p=>p.cat===filter))
                   .filter(p=>p.type==='photo'&&p.cat!=='review-video');
       lbPhotos=shown;
       grid.innerHTML='';
       if(!shown.length){
-        grid.innerHTML='<div class="empty-gallery"><div class="eg-icon">📷</div><h3>Nothing here yet</h3><p>Add photo rows to your Google Sheet to show images here.</p></div>';
+        grid.innerHTML='<div class="empty-gallery"><div class="eg-icon">📷</div><h3>No photos yet</h3><p>Add photo rows to your Google Sheet to show here.</p></div>';
         return;
       }
       shown.forEach((item,i)=>{
-        const div=document.createElement('div');
-        div.className='gallery-item';
-        div.innerHTML=`<img src="${item.src}" alt="${item.caption||''}" loading="lazy" onerror="this.style.display='none'"/>
+        const d=document.createElement('div');
+        d.className='gallery-item';
+        d.innerHTML=`<img src="${item.src}" alt="${item.caption}" loading="lazy" onerror="this.style.display='none'"/>
           <div class="gp-overlay"><span>${item.caption||CATS[item.cat]||''}</span></div>`;
-        div.onclick=()=>openLb(i);
-        div.style.cssText='opacity:0;transform:translateY(16px)';
-        grid.appendChild(div);
-        setTimeout(()=>{div.style.cssText='transition:opacity .4s,transform .4s;opacity:1;transform:none';},i*45);
+        d.onclick=()=>openLb(i);
+        d.style.cssText='opacity:0;transform:translateY(16px)';
+        grid.appendChild(d);
+        setTimeout(()=>{d.style.cssText='transition:opacity .4s,transform .4s;opacity:1;transform:none';},i*40);
       });
     }
 
-    // ── REVIEW VIDEO CARDS ───────────────────────────────────
+    // ── Review video cards ──────────────────────────
     function renderReviewVideos(){
-      reviewVideos=all.filter(p=>p.cat==='review-video');
+      rvList=all.filter(p=>p.type==='video'&&p.cat==='review-video');
       const grid=document.getElementById('rvGrid');
       grid.innerHTML='';
-      if(!reviewVideos.length){
-        grid.innerHTML='<div class="rv-empty"><div class="ei">🎥</div><p>No review videos yet.<br/>Add rows with <strong>category = review-video</strong> and <strong>type = video</strong> in your Google Sheet.</p></div>';
+      if(!rvList.length){
+        grid.innerHTML=`<div class="rv-empty"><div class="ei">🎥</div>
+          <p style="font-size:.9rem;font-weight:600;color:rgba(255,255,255,.4);">No review videos yet</p>
+          <p style="font-size:.8rem;margin-top:.4rem;">Add a row in your Google Sheet:<br/>
+          <strong style="color:rgba(255,255,255,.6);">type = video &nbsp;·&nbsp; category = review-video</strong></p></div>`;
         return;
       }
-      reviewVideos.forEach((item,i)=>{
+      rvList.forEach((item,i)=>{
         const card=document.createElement('div');
-        card.className='rv-card fade-in';
+        card.className='rv-card';
         const ytid=getYtId(item);
         const thumb=ytid?`https://img.youtube.com/vi/${ytid}/hqdefault.jpg`:'';
         card.innerHTML=`
           <div class="rv-thumb">
             ${thumb
-              ?`<img src="${thumb}" alt="${item.caption||'Review'}" onerror="this.style.display='none';this.nextSibling.style.display='flex'"/>
-                <div class="rv-thumb-fb" style="display:none;"><span>🎬</span><p>${item.caption||'Tap to watch'}</p></div>`
+              ?`<img src="${thumb}" alt="${item.caption}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+                <div class="rv-thumb-fb" style="display:none"><span>🎬</span><p>${item.caption||'Tap to watch'}</p></div>`
               :`<div class="rv-thumb-fb"><span>🎬</span><p>${item.caption||'Tap to watch'}</p></div>`}
-            <div class="rv-play-overlay">
-              <div class="rv-play-btn">▶</div>
-            </div>
+            <div class="rv-play-overlay"><div class="rv-play-btn">▶</div></div>
           </div>
           <div class="rv-info">
             <div class="rv-name">${item.caption||'Customer Review'}</div>
             <div class="rv-stars">★★★★★</div>
           </div>`;
         card.onclick=()=>vpopOpen(i);
+        card.style.cssText='opacity:0;transform:translateY(16px)';
         grid.appendChild(card);
+        setTimeout(()=>{card.style.cssText='transition:opacity .4s,transform .4s;opacity:1;transform:none';},i*50);
       });
     }
 
-    // ── VIDEO POPUP PLAYER ───────────────────────────────────
+    // ── Video popup ─────────────────────────────────
     function vpopOpen(idx){
       rvIdx=idx;
       vpopLoad();
@@ -317,118 +302,93 @@
     }
 
     function vpopLoad(){
-      const item=reviewVideos[rvIdx];
+      const item=rvList[rvIdx];
       if(!item)return;
       const wrap=document.getElementById('vpopWrap');
-      const isYT=item.mt==='youtube';
+      const bar =document.getElementById('vpopBar');
+      const cap =document.getElementById('vpopCap');
+      cap.textContent=item.caption||'Customer Review';
+      wrap.innerHTML='';
+      bar.innerHTML='';
 
-      if(isYT){
-        // YouTube iframe — autoplay
+      if(item.mt==='youtube'){
+        // YouTube iframe
         const ytid=getYtId(item);
-        wrap.innerHTML=`<iframe src="https://www.youtube.com/embed/${ytid}?autoplay=1&rel=0" allow="autoplay;fullscreen" allowfullscreen></iframe>`;
+        wrap.innerHTML=`<iframe src="https://www.youtube.com/embed/${ytid}?autoplay=1&rel=0"
+          allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+        bar.innerHTML=`<div class="yt-bar">▶ Playing on YouTube &nbsp;·&nbsp; Use YouTube controls below the video</div>`;
+
       } else {
-        // Direct video — custom controls
-        const vid='vpv';
-        wrap.innerHTML=`
-          <video id="${vid}" src="${item.src}" preload="auto" playsinline autoplay
-                 style="width:100%;height:100%;display:block;cursor:pointer;"
-                 onclick="vpopTogglePlay()"></video>
-          <div class="vpop-center-overlay" id="vpopCenterOv">
-            <div class="vpop-center-icon" id="vpopCenterIcon">⏸</div>
-          </div>
-          <div class="vpop-controls">
-            <button class="vpop-btn" id="vpopPb" onclick="vpopTogglePlay()" title="Play/Pause">⏸</button>
-            <div class="vpop-progress" onclick="vpopSeek(event)"><div class="vpop-filled" id="vpopFill"></div></div>
-            <span class="vpop-time" id="vpopTime">0:00 / 0:00</span>
-            <button class="vpop-btn" id="vpopMb" onclick="vpopToggleMute()" title="Mute">🔊</button>
-            <select class="vpop-spd" onchange="vpopSetSpd(this.value)">
-              <option value="0.5">0.5×</option><option value="1" selected>1×</option>
-              <option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+        // Cloudinary / direct mp4 — full custom player
+        wrap.innerHTML=`<video id="vpv" src="${item.src}" autoplay playsinline preload="auto"
+          style="width:100%;height:100%;display:block;cursor:pointer;" onclick="vpopToggle()"></video>`;
+        bar.innerHTML=`
+          <div class="vpop-bar">
+            <button class="vpop-btn" id="vpb" onclick="vpopToggle()" title="Play/Pause">⏸</button>
+            <div class="vpop-prog" id="vpp" onclick="vpopSeek(event)">
+              <div class="vpop-fill" id="vpf"></div>
+            </div>
+            <span class="vpop-time" id="vpt">0:00 / 0:00</span>
+            <button class="vpop-btn" id="vpm" onclick="vpopMute()" title="Mute">🔊</button>
+            <select class="vpop-spd" onchange="vpopSpd(this.value)" title="Speed">
+              <option value="0.5">0.5×</option>
+              <option value="1" selected>1×</option>
+              <option value="1.25">1.25×</option>
+              <option value="1.5">1.5×</option>
+              <option value="2">2×</option>
             </select>
           </div>`;
         setTimeout(()=>{
-          const v=document.getElementById(vid);
+          const v=document.getElementById('vpv');
           if(!v)return;
           v.addEventListener('timeupdate',()=>{
-            const pct=v.duration?(v.currentTime/v.duration)*100:0;
-            const f=document.getElementById('vpopFill');
-            const t=document.getElementById('vpopTime');
-            if(f)f.style.width=pct+'%';
+            const f=document.getElementById('vpf'),t=document.getElementById('vpt');
+            if(f)f.style.width=(v.duration?(v.currentTime/v.duration)*100:0)+'%';
             if(t)t.textContent=fmtT(v.currentTime)+' / '+fmtT(v.duration||0);
           });
-          v.addEventListener('ended',()=>{
-            const pb=document.getElementById('vpopPb');
-            if(pb)pb.textContent='▶';
-          });
-          v.addEventListener('pause',()=>{ showCenterIcon('▶'); });
-          v.addEventListener('play',()=>{ showCenterIcon('⏸'); hideCenterIcon(); });
-        },80);
+          v.addEventListener('ended',()=>{const b=document.getElementById('vpb');if(b)b.textContent='▶';});
+          v.addEventListener('pause',()=>{const b=document.getElementById('vpb');if(b)b.textContent='▶';});
+          v.addEventListener('play', ()=>{const b=document.getElementById('vpb');if(b)b.textContent='⏸';});
+        },100);
       }
-
-      document.getElementById('vpopCaption').textContent=item.caption||'Customer Review';
     }
 
-    function showCenterIcon(icon){
-      const ov=document.getElementById('vpopCenterOv');
-      const ic=document.getElementById('vpopCenterIcon');
-      if(!ov||!ic)return;
-      ic.textContent=icon;
-      ov.classList.add('show');
+    function vpopToggle(){
+      const v=document.getElementById('vpv'); if(!v)return;
+      v.paused?v.play():v.pause();
     }
-    function hideCenterIcon(){
-      setTimeout(()=>{
-        const ov=document.getElementById('vpopCenterOv');
-        if(ov)ov.classList.remove('show');
-      },600);
+    function vpopMute(){
+      const v=document.getElementById('vpv'),b=document.getElementById('vpm'); if(!v)return;
+      v.muted=!v.muted; if(b)b.textContent=v.muted?'🔇':'🔊';
     }
-
-    function vpopTogglePlay(){
-      const v=document.getElementById('vpv');
-      const pb=document.getElementById('vpopPb');
-      if(!v)return;
-      if(v.paused){v.play();if(pb)pb.textContent='⏸';}
-      else{v.pause();if(pb)pb.textContent='▶';}
-    }
-    function vpopToggleMute(){
-      const v=document.getElementById('vpv');
-      const mb=document.getElementById('vpopMb');
-      if(!v)return;
-      v.muted=!v.muted;
-      if(mb)mb.textContent=v.muted?'🔇':'🔊';
-    }
-    function vpopSetSpd(s){const v=document.getElementById('vpv');if(v)v.playbackRate=parseFloat(s);}
+    function vpopSpd(s){const v=document.getElementById('vpv');if(v)v.playbackRate=parseFloat(s);}
     function vpopSeek(e){
-      const v=document.getElementById('vpv');
-      if(!v||!v.duration)return;
+      const v=document.getElementById('vpv'); if(!v||!v.duration)return;
       const r=e.currentTarget.getBoundingClientRect();
       v.currentTime=((e.clientX-r.left)/r.width)*v.duration;
     }
-
-    function vpopNav(dir){
-      rvIdx=(rvIdx+dir+reviewVideos.length)%reviewVideos.length;
+    function vpopNav(d){
+      rvIdx=(rvIdx+d+rvList.length)%rvList.length;
       vpopLoad();
     }
-
     function vpopClose(){
-      // Stop video/audio
       const v=document.getElementById('vpv');
       if(v){v.pause();v.src='';}
       document.getElementById('vpopWrap').innerHTML='';
+      document.getElementById('vpopBar').innerHTML='';
       document.getElementById('vpop').classList.remove('open');
       document.body.style.overflow='';
     }
+    function vpopBg(e){if(e.target===document.getElementById('vpop'))vpopClose();}
 
-    function vpopBg(e){
-      if(e.target===document.getElementById('vpop'))vpopClose();
-    }
-
-    // ── PHOTO LIGHTBOX ───────────────────────────────────────
-    function openLb(idx){lbIdx=idx;updLb();document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
+    // ── Photo lightbox ──────────────────────────────
+    function openLb(i){lbIdx=i;updLb();document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
     function updLb(){const p=lbPhotos[lbIdx];if(!p)return;document.getElementById('lbImg').src=p.src;document.getElementById('lbCap').textContent=[p.caption,CATS[p.cat]].filter(Boolean).join(' · ');}
     function lbNav(d){lbIdx=(lbIdx+d+lbPhotos.length)%lbPhotos.length;updLb();}
     function lbClose(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
     function lbBg(e){if(e.target===document.getElementById('lightbox'))lbClose();}
 
+    // ── Keyboard ────────────────────────────────────
     document.addEventListener('keydown',e=>{
       if(document.getElementById('vpop').classList.contains('open')){
         if(e.key==='Escape')vpopClose();
@@ -437,39 +397,39 @@
         return;
       }
       if(document.getElementById('lightbox').classList.contains('open')){
+        if(e.key==='Escape')lbClose();
         if(e.key==='ArrowRight')lbNav(1);
         if(e.key==='ArrowLeft')lbNav(-1);
-        if(e.key==='Escape')lbClose();
       }
     });
 
-    // ── TABS ─────────────────────────────────────────────────
+    // ── Tabs ────────────────────────────────────────
     document.getElementById('galleryTabs').addEventListener('click',e=>{
       const tab=e.target.closest('.gallery-tab');if(!tab)return;
       document.querySelectorAll('.gallery-tab').forEach(t=>t.classList.remove('active'));
-      tab.classList.add('active');renderGrid(tab.dataset.tab);
+      tab.classList.add('active');
+      renderGrid(tab.dataset.tab);
     });
 
     function fmtT(s){if(!s||isNaN(s))return'0:00';const m=Math.floor(s/60),sc=Math.floor(s%60);return m+':'+(sc<10?'0':'')+sc;}
 
-    // ── LOAD FROM GOOGLE SHEET ───────────────────────────────
-    async function loadFromSheet(){
+    // ── Load from Google Sheet ───────────────────────
+    async function init(){
       const grid=document.getElementById('galleryGrid');
-      grid.innerHTML='<div class="loading-gallery"><div class="spin">⏳</div><p>Loading gallery...</p></div>';
+      grid.innerHTML='<div class="loading-gal"><div class="spin">⏳</div><p>Loading gallery...</p></div>';
       try{
         const res=await fetch(SHEET_CSV_URL);
-        const text=await res.text();
-        const rows=parseCSV(text);
-        all=rows.map((r,i)=>rowToItem(r,i));
+        const txt=await res.text();
+        all=parseCSV(txt).map(rowToItem);
         updateCounts(all);
         renderGrid('all');
         renderReviewVideos();
-      }catch(e){
-        grid.innerHTML='<div class="empty-gallery"><div class="eg-icon">📷</div><h3>Could not load gallery</h3><p>Check your Sheet URL in gallery.html</p></div>';
+      }catch(err){
+        grid.innerHTML='<div class="empty-gallery"><div class="eg-icon">⚠️</div><h3>Could not load gallery</h3><p>Check the Sheet CSV URL in gallery.html</p></div>';
       }
     }
 
-    loadFromSheet();
+    init();
   </script>
 </body>
 </html>

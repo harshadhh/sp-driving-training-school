@@ -3,146 +3,185 @@
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Gallery Manager — SP Driving School</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'DM Sans',sans-serif;background:#0f0f10;color:#fff;min-height:100vh;padding:2rem 1.5rem 5rem}
-    .wrap{max-width:780px;margin:0 auto}
-    h1{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.06em;color:#F26522;margin-bottom:.25rem}
-    .sub{font-size:.82rem;color:rgba(255,255,255,.4);margin-bottom:2.5rem}
-    .card{background:#1c1c1e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.75rem;margin-bottom:1.5rem}
-    .card-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em;margin-bottom:.3rem;display:flex;align-items:center;gap:.6rem}
-    .card-sub{font-size:.82rem;color:rgba(255,255,255,.4);margin-bottom:1.25rem;line-height:1.6}
-    .step{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem;padding:1rem;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid rgba(255,255,255,.06)}
+    body{font-family:'DM Sans',sans-serif;background:#0f0f10;color:#fff;padding:2rem 1.5rem 6rem;min-height:100vh}
+    .wrap{max-width:760px;margin:0 auto}
+    /* Header */
+    .hdr{margin-bottom:2.5rem}
+    .hdr h1{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:.07em;color:#F26522}
+    .hdr p{font-size:.85rem;color:rgba(255,255,255,.4);margin-top:.2rem}
+    /* Card */
+    .card{background:#1c1c1e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.6rem 1.75rem;margin-bottom:1.5rem}
+    .card-hd{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
+    .card-hd h2{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.05em}
+    .badge{padding:.25rem .75rem;border-radius:50px;font-size:.68rem;font-weight:800;letter-spacing:.05em}
+    .b-orange{background:rgba(242,101,34,.15);color:#F26522;border:1px solid rgba(242,101,34,.3)}
+    .b-green{background:rgba(22,163,74,.15);color:#4ade80;border:1px solid rgba(22,163,74,.3)}
+    .b-blue{background:rgba(99,102,241,.15);color:#a5b4fc;border:1px solid rgba(99,102,241,.3)}
+    /* Steps */
+    .step{display:flex;gap:.9rem;align-items:flex-start;padding:.9rem 1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;margin-bottom:.65rem}
     .step:last-child{margin-bottom:0}
-    .snum{min-width:30px;height:30px;border-radius:50%;background:#F26522;color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:.1rem}
-    .stxt{font-size:.85rem;color:rgba(255,255,255,.7);line-height:1.65}
-    .stxt strong{color:white}
-    .stxt a{color:#F26522;font-weight:700;text-decoration:none}
-    .stxt a:hover{text-decoration:underline}
-    .stxt code{background:rgba(255,255,255,.08);padding:.15rem .5rem;border-radius:5px;font-size:.82rem;color:#F26522;font-family:monospace}
-    .badge{display:inline-block;padding:.2rem .65rem;border-radius:50px;font-size:.68rem;font-weight:800;letter-spacing:.05em}
-    .badge-orange{background:rgba(242,101,34,.2);color:#F26522;border:1px solid rgba(242,101,34,.3)}
-    .badge-green{background:rgba(22,163,74,.2);color:#4ade80;border:1px solid rgba(22,163,74,.3)}
-    .badge-red{background:rgba(239,68,68,.2);color:#f87171;border:1px solid rgba(239,68,68,.3)}
-    .badge-blue{background:rgba(59,130,246,.2);color:#93c5fd;border:1px solid rgba(59,130,246,.3)}
-    .cols{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-top:.75rem}
-    .col-item{background:rgba(255,255,255,.04);border-radius:8px;padding:.7rem .9rem;border:1px solid rgba(255,255,255,.07)}
-    .col-item .label{font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.2rem}
-    .col-item .val{font-size:.82rem;color:rgba(255,255,255,.75);font-weight:600}
-    .warn{background:rgba(242,101,34,.08);border:1.5px solid rgba(242,101,34,.25);border-radius:10px;padding:1rem 1.25rem;font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.65;margin-bottom:1.25rem}
-    .warn strong{color:white}
-    .sheet-url-box{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:1rem 1.25rem;font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.8;margin-top:.75rem;word-break:break-all}
-    .sheet-url-box strong{color:#F26522;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:.3rem}
+    .sn{min-width:26px;height:26px;border-radius:50%;background:#F26522;color:white;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:.1rem;flex-shrink:0}
+    .st{font-size:.84rem;color:rgba(255,255,255,.65);line-height:1.7}
+    .st strong{color:white}
+    .st a{color:#F26522;font-weight:700;text-decoration:none}
+    .st a:hover{text-decoration:underline}
+    code{background:rgba(255,255,255,.08);color:#F26522;padding:.1rem .45rem;border-radius:5px;font-family:monospace;font-size:.82rem}
+    /* Row example */
+    .row-eg{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:.65rem}
+    .cell{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:.55rem .7rem}
+    .cell .lbl{font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.2rem}
+    .cell .val{font-size:.78rem;color:rgba(255,255,255,.8);font-weight:600;word-break:break-all}
+    /* Categories */
     .cats{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
-    .cat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:.28rem .75rem;font-size:.75rem;color:rgba(255,255,255,.6)}
-    .big-btn{display:inline-flex;align-items:center;gap:.6rem;background:#F26522;color:white;font-weight:800;font-size:.95rem;padding:.85rem 2rem;border-radius:50px;text-decoration:none;margin-top:1.25rem;transition:background .2s}
-    .big-btn:hover{background:#D4551A}
-    @media(max-width:540px){.cols{grid-template-columns:1fr}}
+    .cat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:.25rem .75rem;font-size:.75rem;color:rgba(255,255,255,.6)}
+    /* Info box */
+    .info{background:rgba(242,101,34,.07);border:1.5px solid rgba(242,101,34,.2);border-radius:10px;padding:.9rem 1.1rem;font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.7;margin-top:1rem}
+    .info strong{color:white}
+    /* Big link buttons */
+    .btns{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+    .blink{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.6rem;border-radius:50px;font-weight:800;font-size:.9rem;text-decoration:none;transition:all .2s}
+    .bl-orange{background:#F26522;color:white}.bl-orange:hover{background:#D4551A}
+    .bl-dark{background:#1c1c1e;color:white;border:2px solid rgba(255,255,255,.15)}.bl-dark:hover{border-color:#F26522;color:#F26522}
+    /* divider */
+    .div{height:1px;background:rgba(255,255,255,.07);margin:1.25rem 0}
+    @media(max-width:540px){.row-eg{grid-template-columns:1fr 1fr}}
   </style>
 </head>
 <body>
 <div class="wrap">
 
-  <h1>🖼 Gallery Manager</h1>
-  <div class="sub">SP Driving School · Add photos & videos visible to everyone</div>
+  <div class="hdr">
+    <h1>🖼 Gallery Manager</h1>
+    <p>SP Driving School · Manage photos & videos via Google Sheets</p>
+  </div>
 
-  <!-- STEP 1 -->
+  <!-- ONE TIME SETUP -->
   <div class="card">
-    <div class="card-title">⚙️ One-Time Setup <span class="badge badge-orange">Do this once</span></div>
-    <div class="card-sub">Create a Google Sheet — this is your gallery database. Every photo/video URL you add here will appear on the website for everyone.</div>
+    <div class="card-hd">
+      <h2>⚙️ One-Time Setup</h2>
+      <span class="badge b-orange">Do once only</span>
+    </div>
 
     <div class="step">
-      <div class="snum">1</div>
-      <div class="stxt">Go to <a href="https://sheets.google.com" target="_blank">sheets.google.com</a> → click <strong>+ New spreadsheet</strong></div>
+      <div class="sn">1</div>
+      <div class="st">Go to <a href="https://sheets.google.com" target="_blank">sheets.google.com</a> → click <strong>+ Blank spreadsheet</strong></div>
     </div>
     <div class="step">
-      <div class="snum">2</div>
-      <div class="stxt">
-        In Row 1, add these exact column headers (copy-paste them):
-        <div style="margin-top:.6rem;display:flex;gap:.4rem;flex-wrap:wrap;">
+      <div class="sn">2</div>
+      <div class="st">
+        In Row 1 add these exact column headers (copy-paste exactly):
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.5rem">
           <code>url</code><code>type</code><code>category</code><code>caption</code>
         </div>
       </div>
     </div>
     <div class="step">
-      <div class="snum">3</div>
-      <div class="stxt">Click <strong>File → Share → Publish to web</strong> → choose <strong>Sheet1</strong> → format <strong>Comma-separated values (.csv)</strong> → click <strong>Publish</strong> → copy the URL it gives you</div>
+      <div class="sn">3</div>
+      <div class="st">Click <strong>File → Share → Publish to web</strong> → select <strong>Sheet1</strong> → format <strong>Comma-separated values (.csv)</strong> → click <strong>Publish</strong> → copy the URL</div>
     </div>
     <div class="step">
-      <div class="snum">4</div>
-      <div class="stxt">
-        Open <strong>gallery.html</strong> in GitHub → find this line near the top:<br/>
-        <div class="sheet-url-box"><strong>Line to find:</strong>const SHEET_CSV_URL = 'YOUR_SHEET_CSV_URL_HERE';</div>
-        Replace <code>YOUR_SHEET_CSV_URL_HERE</code> with the URL you copied → commit ✅
-      </div>
+      <div class="sn">4</div>
+      <div class="st">Open <strong>gallery.html</strong> on GitHub → find this line:<br/><code>const SHEET_CSV_URL = 'YOUR_SHEET_CSV_URL_HERE';</code><br/>Replace <code>YOUR_SHEET_CSV_URL_HERE</code> with your copied URL → commit ✅</div>
     </div>
   </div>
 
-  <!-- STEP 2: ADD PHOTOS -->
+  <!-- ADD PHOTO -->
   <div class="card">
-    <div class="card-title">📸 How to Add a Photo <span class="badge badge-green">Every time</span></div>
-    <div class="card-sub">Upload photo to Cloudinary → copy URL → paste in your Google Sheet. Done. Visible on all devices immediately.</div>
+    <div class="card-hd">
+      <h2>📸 Add a Photo</h2>
+      <span class="badge b-green">Every time</span>
+    </div>
 
     <div class="step">
-      <div class="snum">1</div>
-      <div class="stxt">Go to <a href="https://cloudinary.com/users/register/free" target="_blank">cloudinary.com</a> → sign up free → click <strong>Media Library → Upload</strong> → pick your photo</div>
+      <div class="sn">1</div>
+      <div class="st">Go to <a href="https://cloudinary.com/users/register/free" target="_blank">cloudinary.com</a> → sign up free → <strong>Media Library → Upload</strong> → pick your photo</div>
     </div>
     <div class="step">
-      <div class="snum">2</div>
-      <div class="stxt">After upload → click the photo → click <strong>Copy URL</strong> (ends in <code>.jpg</code> or <code>.png</code>)</div>
+      <div class="sn">2</div>
+      <div class="st">After upload → click the photo → click <strong>Copy URL</strong> (ends in <code>.jpg</code> or <code>.png</code>)</div>
     </div>
     <div class="step">
-      <div class="snum">3</div>
-      <div class="stxt">
-        Open your Google Sheet → add a new row:
-        <div class="cols">
-          <div class="col-item"><div class="label">url</div><div class="val">Paste the Cloudinary URL</div></div>
-          <div class="col-item"><div class="label">type</div><div class="val">photo</div></div>
-          <div class="col-item"><div class="label">category</div><div class="val">e.g. prac-2w</div></div>
-          <div class="col-item"><div class="label">caption</div><div class="val">e.g. Sangita Ma'am class</div></div>
+      <div class="sn">3</div>
+      <div class="st">
+        Open your Google Sheet → add a new row like this:
+        <div class="row-eg">
+          <div class="cell"><div class="lbl">url</div><div class="val">https://res.cloudinary.com/…/photo.jpg</div></div>
+          <div class="cell"><div class="lbl">type</div><div class="val">photo</div></div>
+          <div class="cell"><div class="lbl">category</div><div class="val">prac-2w</div></div>
+          <div class="cell"><div class="lbl">caption</div><div class="val">Sangita Ma'am class</div></div>
         </div>
       </div>
     </div>
     <div class="step">
-      <div class="snum">4</div>
-      <div class="stxt">Refresh the gallery page → photo appears for <strong>everyone on every device</strong> ✅</div>
+      <div class="sn">4</div>
+      <div class="st">Wait 1–2 minutes → refresh gallery page → photo appears for <strong>everyone on every device</strong> ✅</div>
     </div>
   </div>
 
-  <!-- STEP 3: ADD VIDEOS -->
+  <!-- ADD VIDEO -->
   <div class="card">
-    <div class="card-title">🎬 How to Add a Video <span class="badge badge-blue">Every time</span></div>
-    <div class="card-sub">Two options — YouTube (opens on YouTube) or Cloudinary (plays directly on your site with full controls).</div>
+    <div class="card-hd">
+      <h2>🎬 Add a Video</h2>
+      <span class="badge b-blue">Every time</span>
+    </div>
 
-    <div class="warn"><strong>Option A — YouTube (easiest):</strong> Upload to YouTube → set Public/Unlisted → copy the youtube.com/watch?v=… link → paste as URL in sheet → type = <code>video</code></div>
+    <div class="div"></div>
+    <div style="font-size:.8rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.65rem">Option A — YouTube (video opens on YouTube)</div>
 
     <div class="step">
-      <div class="snum">1</div>
-      <div class="stxt"><strong>Option B — Cloudinary (plays on site):</strong> Go to <a href="https://cloudinary.com" target="_blank">cloudinary.com</a> → upload video → copy URL ending in <code>.mp4</code></div>
+      <div class="sn">1</div>
+      <div class="st">Upload your video to <a href="https://youtube.com" target="_blank">youtube.com</a> → set visibility to <strong>Public</strong> or <strong>Unlisted</strong></div>
     </div>
     <div class="step">
-      <div class="snum">2</div>
-      <div class="stxt">
-        Add a row in your Google Sheet:
-        <div class="cols">
-          <div class="col-item"><div class="label">url</div><div class="val">YouTube or Cloudinary URL</div></div>
-          <div class="col-item"><div class="label">type</div><div class="val">video</div></div>
-          <div class="col-item"><div class="label">category</div><div class="val">e.g. review-video</div></div>
-          <div class="col-item"><div class="label">caption</div><div class="val">Customer name</div></div>
+      <div class="sn">2</div>
+      <div class="st">
+        Copy the YouTube URL → add row in Google Sheet:
+        <div class="row-eg">
+          <div class="cell"><div class="lbl">url</div><div class="val">https://youtube.com/watch?v=xxxx</div></div>
+          <div class="cell"><div class="lbl">type</div><div class="val">video</div></div>
+          <div class="cell"><div class="lbl">category</div><div class="val">review-video</div></div>
+          <div class="cell"><div class="lbl">caption</div><div class="val">Rahul's Review</div></div>
         </div>
       </div>
     </div>
+
+    <div class="div"></div>
+    <div style="font-size:.8rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.65rem">Option B — Cloudinary (plays directly on your site with controls)</div>
+
     <div class="step">
-      <div class="snum">3</div>
-      <div class="stxt">Refresh gallery page → video appears ✅ Cloudinary videos play with full controls. YouTube videos open on YouTube when clicked.</div>
+      <div class="sn">1</div>
+      <div class="st">Go to <a href="https://cloudinary.com" target="_blank">cloudinary.com</a> → <strong>Media Library → Upload</strong> → pick your video</div>
+    </div>
+    <div class="step">
+      <div class="sn">2</div>
+      <div class="st">After upload → click the video → click <strong>Copy URL</strong> (ends in <code>.mp4</code>)</div>
+    </div>
+    <div class="step">
+      <div class="sn">3</div>
+      <div class="st">
+        Add row in Google Sheet:
+        <div class="row-eg">
+          <div class="cell"><div class="lbl">url</div><div class="val">https://res.cloudinary.com/…/video.mp4</div></div>
+          <div class="cell"><div class="lbl">type</div><div class="val">video</div></div>
+          <div class="cell"><div class="lbl">category</div><div class="val">review-video</div></div>
+          <div class="cell"><div class="lbl">caption</div><div class="val">Priya's Review</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info">
+      <strong>Both options appear in Customer Review Videos section.</strong><br/>
+      Clicking a card opens a popup — YouTube plays in YouTube player · Cloudinary plays with full controls (play/pause/seek/mute/speed) · Use ‹ › arrows to go between videos
     </div>
   </div>
 
   <!-- CATEGORY REFERENCE -->
   <div class="card">
-    <div class="card-title">📋 Category Values</div>
-    <div class="card-sub">Use exactly these values in the <code>category</code> column of your sheet:</div>
+    <div class="card-hd"><h2>📋 Category Values</h2></div>
+    <div class="st" style="margin-bottom:.6rem">Use <strong>exactly</strong> these in the <code>category</code> column — lowercase, no spaces:</div>
     <div class="cats">
       <div class="cat">theory-2w</div>
       <div class="cat">theory-4w</div>
@@ -153,13 +192,16 @@
       <div class="cat">cert</div>
       <div class="cat">basic-info</div>
       <div class="cat">experience</div>
-      <div class="cat">review-video</div>
+      <div class="cat" style="background:rgba(242,101,34,.1);border-color:rgba(242,101,34,.3);color:#F26522;">review-video ← for videos</div>
     </div>
   </div>
 
-  <a href="https://sheets.google.com" target="_blank" class="big-btn">📊 Open Google Sheets →</a>
-  &nbsp;
-  <a href="gallery.html" target="_blank" class="big-btn" style="background:#1c1c1e;border:2px solid rgba(255,255,255,.15);">👁 View Gallery →</a>
+  <!-- QUICK LINKS -->
+  <div class="btns">
+    <a href="https://sheets.google.com" target="_blank" class="blink bl-orange">📊 Open Google Sheets</a>
+    <a href="https://cloudinary.com" target="_blank" class="blink bl-dark">☁️ Open Cloudinary</a>
+    <a href="gallery.html" target="_blank" class="blink bl-dark">👁 View Gallery</a>
+  </div>
 
 </div>
 </body>
