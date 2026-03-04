@@ -1,166 +1,525 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gallery Manager — SP Driving School</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'DM Sans',sans-serif;background:#0f0f10;color:#fff;min-height:100vh;padding:2rem 1.5rem 5rem}
-    .wrap{max-width:780px;margin:0 auto}
-    h1{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.06em;color:#F26522;margin-bottom:.25rem}
-    .sub{font-size:.82rem;color:rgba(255,255,255,.4);margin-bottom:2.5rem}
-    .card{background:#1c1c1e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.75rem;margin-bottom:1.5rem}
-    .card-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em;margin-bottom:.3rem;display:flex;align-items:center;gap:.6rem}
-    .card-sub{font-size:.82rem;color:rgba(255,255,255,.4);margin-bottom:1.25rem;line-height:1.6}
-    .step{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem;padding:1rem;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid rgba(255,255,255,.06)}
-    .step:last-child{margin-bottom:0}
-    .snum{min-width:30px;height:30px;border-radius:50%;background:#F26522;color:white;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:.1rem}
-    .stxt{font-size:.85rem;color:rgba(255,255,255,.7);line-height:1.65}
-    .stxt strong{color:white}
-    .stxt a{color:#F26522;font-weight:700;text-decoration:none}
-    .stxt a:hover{text-decoration:underline}
-    .stxt code{background:rgba(255,255,255,.08);padding:.15rem .5rem;border-radius:5px;font-size:.82rem;color:#F26522;font-family:monospace}
-    .badge{display:inline-block;padding:.2rem .65rem;border-radius:50px;font-size:.68rem;font-weight:800;letter-spacing:.05em}
-    .badge-orange{background:rgba(242,101,34,.2);color:#F26522;border:1px solid rgba(242,101,34,.3)}
-    .badge-green{background:rgba(22,163,74,.2);color:#4ade80;border:1px solid rgba(22,163,74,.3)}
-    .badge-red{background:rgba(239,68,68,.2);color:#f87171;border:1px solid rgba(239,68,68,.3)}
-    .badge-blue{background:rgba(59,130,246,.2);color:#93c5fd;border:1px solid rgba(59,130,246,.3)}
-    .cols{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-top:.75rem}
-    .col-item{background:rgba(255,255,255,.04);border-radius:8px;padding:.7rem .9rem;border:1px solid rgba(255,255,255,.07)}
-    .col-item .label{font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.2rem}
-    .col-item .val{font-size:.82rem;color:rgba(255,255,255,.75);font-weight:600}
-    .warn{background:rgba(242,101,34,.08);border:1.5px solid rgba(242,101,34,.25);border-radius:10px;padding:1rem 1.25rem;font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.65;margin-bottom:1.25rem}
-    .warn strong{color:white}
-    .sheet-url-box{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:1rem 1.25rem;font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.8;margin-top:.75rem;word-break:break-all}
-    .sheet-url-box strong{color:#F26522;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:.3rem}
-    .cats{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
-    .cat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:.28rem .75rem;font-size:.75rem;color:rgba(255,255,255,.6)}
-    .big-btn{display:inline-flex;align-items:center;gap:.6rem;background:#F26522;color:white;font-weight:800;font-size:.95rem;padding:.85rem 2rem;border-radius:50px;text-decoration:none;margin-top:1.25rem;transition:background .2s}
-    .big-btn:hover{background:#D4551A}
-    @media(max-width:540px){.cols{grid-template-columns:1fr}}
+    /* ── LOGIN GATE ── */
+    #loginGate {
+      position: fixed; inset: 0; background: #0f0f10;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 99999; padding: 1.5rem;
+    }
+    .login-card {
+      background: #1c1c1e; border: 1px solid rgba(255,255,255,.1);
+      border-radius: 18px; padding: 2.5rem 2rem; max-width: 400px; width: 100%;
+      text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,.6);
+    }
+    .login-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: .1em; color: #F26522; margin-bottom: .25rem; }
+    .login-sub { font-size: .72rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 2rem; }
+    .login-icon { font-size: 2.8rem; margin-bottom: 1.25rem; }
+    .login-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: .06em; color: white; margin-bottom: .4rem; }
+    .login-desc { font-size: .82rem; color: rgba(255,255,255,.4); margin-bottom: 1.75rem; line-height: 1.5; }
+    .login-input {
+      width: 100%; background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.12);
+      border-radius: 12px; padding: .85rem 1.1rem; color: white; font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; outline: none; margin-bottom: 1rem; text-align: center; letter-spacing: .12em;
+      transition: border-color .2s; box-sizing: border-box;
+    }
+    .login-input:focus { border-color: #F26522; }
+    .login-input::placeholder { color: rgba(255,255,255,.2); letter-spacing: .04em; }
+    .login-btn {
+      width: 100%; background: #F26522; color: white; border: none; border-radius: 50px;
+      padding: .9rem; font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 1rem;
+      cursor: pointer; transition: all .25s; letter-spacing: .04em;
+    }
+    .login-btn:hover { background: #D4551A; transform: translateY(-1px); }
+    .login-error {
+      color: #f87171; font-size: .8rem; font-weight: 700; margin-top: .75rem;
+      display: none; background: rgba(220,38,38,.12); border-radius: 8px; padding: .5rem;
+    }
+    .login-attempts { font-size: .72rem; color: rgba(255,255,255,.25); margin-top: .75rem; }
+
+    /* ── MAIN APP (hidden until logged in) ── */
+    #appContent { display: none; }
+  </style>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--orange:#F26522;--orange-dk:#D4551A;--black:#1A1A1B;--green:#16A34A;--red:#DC2626;--blue:#0056b3;--font-h:'Bebas Neue',sans-serif;--font-b:'DM Sans',sans-serif;--radius:14px}
+    body{font-family:var(--font-b);background:#0f0f10;color:#fff;min-height:100vh}
+    .topbar{background:var(--black);border-bottom:2px solid var(--orange);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .brand-row{display:flex;align-items:center;gap:.75rem}
+    .brand-name{font-family:var(--font-h);font-size:1.3rem;letter-spacing:.08em}
+    .brand-sub{font-size:.65rem;font-weight:700;color:var(--orange);letter-spacing:.2em}
+    .topbar-actions{display:flex;gap:.75rem;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-b);font-weight:700;font-size:.85rem;padding:.6rem 1.3rem;border-radius:50px;border:none;cursor:pointer;transition:all .25s;text-decoration:none}
+    .btn-orange{background:var(--orange);color:white}.btn-orange:hover{background:var(--orange-dk);transform:translateY(-1px)}
+    .btn-outline{background:transparent;color:white;border:2px solid rgba(255,255,255,.2)}.btn-outline:hover{border-color:var(--orange);color:var(--orange)}
+    .btn-green{background:var(--green);color:white}.btn-green:hover{background:#15803d}
+    .btn-red{background:transparent;color:#f87171;border:1.5px solid #f87171;font-size:.75rem;padding:.35rem .8rem}.btn-red:hover{background:var(--red);color:white;border-color:var(--red)}
+    .main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
+    .step-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+    .step-num{width:36px;height:36px;border-radius:50%;background:var(--orange);color:white;font-family:var(--font-h);font-size:1.2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .step-title{font-family:var(--font-h);font-size:1.4rem;letter-spacing:.04em}
+    .step-sub{font-size:.8rem;color:rgba(255,255,255,.45);margin-top:.15rem}
+    .card{background:#1c1c1e;border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:1.75rem;margin-bottom:2rem}
+    /* type toggle */
+    .type-toggle{display:flex;gap:.5rem;margin-bottom:1.5rem}
+    .type-btn{flex:1;padding:.75rem;border-radius:10px;border:2px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.5);font-family:var(--font-b);font-weight:700;font-size:.9rem;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+    .type-btn:hover{border-color:var(--orange);color:var(--orange)}
+    .type-btn.active{background:var(--orange);border-color:var(--orange);color:white}
+    /* upload zone */
+    .upload-zone{border:2.5px dashed rgba(242,101,34,.4);border-radius:var(--radius);padding:3rem 2rem;text-align:center;cursor:pointer;transition:all .25s;background:rgba(242,101,34,.04);position:relative}
+    .upload-zone:hover,.upload-zone.dragover{border-color:var(--orange);background:rgba(242,101,34,.08);transform:scale(1.01)}
+    .upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .upload-icon{font-size:3rem;margin-bottom:.75rem}
+    .uz-title{font-family:var(--font-h);font-size:1.5rem;letter-spacing:.04em;margin-bottom:.4rem}
+    .uz-sub{font-size:.85rem;color:rgba(255,255,255,.45)}
+    .divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.1)}
+    .divider span{font-size:.75rem;color:rgba(255,255,255,.3);flex-shrink:0}
+    .url-row{display:flex;gap:.75rem;align-items:stretch}
+    .url-row input{flex:1;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:.75rem 1rem;color:white;font-family:var(--font-b);font-size:.92rem;outline:none;transition:border-color .2s}
+    .url-row input:focus{border-color:var(--orange)}
+    .url-row input::placeholder{color:rgba(255,255,255,.25)}
+    .hint{font-size:.75rem;color:rgba(255,255,255,.3);margin-top:.5rem;line-height:1.5}
+    .hint strong{color:rgba(255,255,255,.5)}
+    .form-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+    .fg{display:flex;flex-direction:column;gap:.4rem}
+    .fg label{font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+    .fg select,.fg input[type="text"]{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:.65rem 1rem;color:white;font-family:var(--font-b);font-size:.9rem;outline:none;transition:border-color .2s}
+    .fg select:focus,.fg input[type="text"]:focus{border-color:var(--orange)}
+    .fg select option{background:#1c1c1e;color:white}
+    /* preview */
+    .preview-strip{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.25rem}
+    .preview-thumb{position:relative;width:100px;height:75px;border-radius:8px;overflow:hidden;border:2px solid rgba(255,255,255,.1)}
+    .preview-thumb img,.preview-thumb video{width:100%;height:100%;object-fit:cover}
+    .vbadge{position:absolute;bottom:3px;left:3px;background:rgba(0,0,0,.75);color:white;font-size:.58rem;font-weight:700;padding:.15rem .4rem;border-radius:4px}
+    .rm-btn{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(220,38,38,.9);border:none;color:white;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:800}
+    .add-row{margin-top:1.25rem;display:flex;justify-content:flex-end}
+    /* manage */
+    .mtabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.5rem}
+    .mtab{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:50px;padding:.45rem 1.1rem;font-family:var(--font-b);font-weight:700;font-size:.8rem;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s}
+    .mtab:hover{border-color:var(--orange);color:var(--orange)}
+    .mtab.active{background:var(--orange);border-color:var(--orange);color:white}
+    .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:1rem}
+    .mcard{background:rgba(255,255,255,.04);border-radius:12px;border:1px solid rgba(255,255,255,.08);overflow:hidden;transition:all .25s}
+    .mcard:hover{border-color:rgba(242,101,34,.4);transform:translateY(-2px)}
+    .mcard-media{width:100%;aspect-ratio:4/3;object-fit:cover;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;overflow:hidden}
+    .mcard-media img,.mcard-media video{width:100%;height:100%;object-fit:cover}
+    .mbadge{position:absolute;top:.4rem;right:.4rem;background:rgba(0,0,0,.75);color:white;font-size:.6rem;font-weight:800;padding:.2rem .5rem;border-radius:50px;letter-spacing:.05em}
+    .mcard-info{padding:.75rem}
+    .mcard-label{font-size:.75rem;font-weight:700;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:.25rem}
+    .mcard-cat{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)}
+    .mcard-actions{display:flex;gap:.4rem;padding:0 .75rem .75rem}
+    .empty{text-align:center;padding:3rem;color:rgba(255,255,255,.25);grid-column:1/-1}
+    .stats-bar{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem}
+    .spill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:.4rem 1rem;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:.4rem}
+    .spill .n{color:var(--orange);font-family:var(--font-h);font-size:1rem}
+    .info-box{background:rgba(0,86,179,.12);border:1px solid rgba(0,86,179,.3);border-radius:10px;padding:1rem 1.25rem;font-size:.84rem;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:1.5rem}
+    .info-box strong{color:#60A5FA}
+    .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--green);color:white;padding:.85rem 1.75rem;border-radius:50px;font-weight:700;font-size:.9rem;box-shadow:0 8px 30px rgba(22,163,74,.5);transition:transform .4s cubic-bezier(.34,1.56,.64,1);z-index:9999;white-space:nowrap}
+    .toast.show{transform:translateX(-50%) translateY(0)}
+    .toast.err{background:var(--red)}
+    @media(max-width:600px){.form-2col{grid-template-columns:1fr}.url-row{flex-direction:column}.type-toggle{flex-direction:column}}
   </style>
 </head>
 <body>
-<div class="wrap">
 
-  <h1>🖼 Gallery Manager</h1>
-  <div class="sub">SP Driving School · Add photos & videos visible to everyone</div>
+<!-- ========== LOGIN GATE ========== -->
+<div id="loginGate">
+  <div class="login-card">
+    <div class="login-logo">SP DRIVING SCHOOL</div>
+    <div class="login-sub">Gallery Manager · Admin Access</div>
+    <div class="login-icon">🔐</div>
+    <div class="login-title">Admin Login Required</div>
+    <div class="login-desc">This area is restricted to the school owner only. Enter your password to manage photos and videos.</div>
+    <input type="password" id="pwInput" class="login-input" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')checkPw()" autocomplete="current-password" />
+    <button class="login-btn" onclick="checkPw()">🔓 Unlock Gallery Manager</button>
+    <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
+    <div class="login-attempts" id="attemptsMsg"></div>
+  </div>
+</div>
+
+<!-- ========== MAIN APP (shown after login) ========== -->
+<div id="appContent">
+
+<div class="topbar">
+  <div class="brand-row">
+    <svg width="38" height="38" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="22" stroke="#F26522" stroke-width="3" fill="none"/><circle cx="26" cy="26" r="6" fill="#F26522"/><line x1="26" y1="4" x2="26" y2="20" stroke="#F26522" stroke-width="3" stroke-linecap="round"/><line x1="26" y1="32" x2="26" y2="48" stroke="#F26522" stroke-width="3" stroke-linecap="round"/><line x1="4" y1="26" x2="20" y2="26" stroke="#F26522" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="26" x2="48" y2="26" stroke="#F26522" stroke-width="3" stroke-linecap="round"/><path d="M4 26 Q0 18 6 12 Q10 22 20 24" fill="#F26522" opacity="0.85"/><path d="M48 26 Q52 18 46 12 Q42 22 32 24" fill="#F26522" opacity="0.85"/></svg>
+    <div><div class="brand-name">SP DRIVING SCHOOL</div><div class="brand-sub">Gallery Manager · Admin</div></div>
+  </div>
+  <div class="topbar-actions">
+    <a href="gallery.html" class="btn btn-outline" target="_blank">👁 View Gallery</a>
+    <button class="btn btn-red" onclick="clearAll()">🗑 Clear All</button>
+  </div>
+</div>
+
+<div class="main">
 
   <!-- STEP 1 -->
-  <div class="card">
-    <div class="card-title">⚙️ One-Time Setup <span class="badge badge-orange">Do this once</span></div>
-    <div class="card-sub">Create a Google Sheet — this is your gallery database. Every photo/video URL you add here will appear on the website for everyone.</div>
+  <div class="step-header"><div class="step-num">1</div><div><div class="step-title">Add Photo or Video</div><div class="step-sub">Drag &amp; drop from your computer, or paste a link (YouTube, Google Drive, imgbb)</div></div></div>
 
-    <div class="step">
-      <div class="snum">1</div>
-      <div class="stxt">Go to <a href="https://sheets.google.com" target="_blank">sheets.google.com</a> → click <strong>+ New spreadsheet</strong></div>
+  <div class="card">
+    <div class="type-toggle">
+      <button class="type-btn active" id="btnPhoto" onclick="setType('photo')">📸 Photo</button>
+      <button class="type-btn" id="btnVideo" onclick="setType('video')">🎬 Video</button>
     </div>
-    <div class="step">
-      <div class="snum">2</div>
-      <div class="stxt">
-        In Row 1, add these exact column headers (copy-paste them):
-        <div style="margin-top:.6rem;display:flex;gap:.4rem;flex-wrap:wrap;">
-          <code>url</code><code>type</code><code>category</code><code>caption</code>
-        </div>
+
+    <!-- PHOTO -->
+    <div id="modePhoto">
+      <div class="upload-zone" id="dropZone">
+        <input type="file" id="imgFile" accept="image/*" multiple />
+        <div class="upload-icon">📸</div>
+        <div class="uz-title">Drag &amp; Drop Photos Here</div>
+        <div class="uz-sub">Or click this box to pick from your phone / computer</div>
+      </div>
+      <div class="divider"><span>OR paste an image link (imgbb / Google Drive)</span></div>
+      <div class="url-row">
+        <input type="text" id="imgUrl" placeholder="Paste image link here — e.g. https://i.ibb.co/abc/photo.jpg" />
+        <button class="btn btn-orange" onclick="addImgUrl()">Add →</button>
+      </div>
+      <div class="hint">Free: upload photo at <strong>imgbb.com</strong> → copy the "Direct link" → paste above</div>
+    </div>
+
+    <!-- VIDEO -->
+    <div id="modeVideo" style="display:none">
+      <div class="upload-zone" id="vidDropZone">
+        <input type="file" id="vidFile" accept="video/*" />
+        <div class="upload-icon">🎬</div>
+        <div class="uz-title">Drag &amp; Drop a Video Here</div>
+        <div class="uz-sub">Or click to pick a video file (max 50 MB)</div>
+      </div>
+      <div class="divider"><span>OR paste a YouTube / Google Drive video link</span></div>
+      <div class="url-row">
+        <input type="text" id="vidUrl" placeholder="e.g. https://youtube.com/watch?v=ABC  or Google Drive share link" />
+        <button class="btn btn-orange" onclick="addVidUrl()">Add →</button>
+      </div>
+      <div class="hint">
+        Supports: <strong>YouTube links</strong> · <strong>Google Drive video links</strong> · <strong>Direct .mp4 URLs</strong><br/>
+        Tip: YouTube is easiest — just paste the normal video URL.
       </div>
     </div>
-    <div class="step">
-      <div class="snum">3</div>
-      <div class="stxt">Click <strong>File → Share → Publish to web</strong> → choose <strong>Sheet1</strong> → format <strong>Comma-separated values (.csv)</strong> → click <strong>Publish</strong> → copy the URL it gives you</div>
-    </div>
-    <div class="step">
-      <div class="snum">4</div>
-      <div class="stxt">
-        Open <strong>gallery.html</strong> in GitHub → find this line near the top:<br/>
-        <div class="sheet-url-box"><strong>Line to find:</strong>const SHEET_CSV_URL = 'YOUR_SHEET_CSV_URL_HERE';</div>
-        Replace <code>YOUR_SHEET_CSV_URL_HERE</code> with the URL you copied → commit ✅
+
+    <div class="preview-strip" id="previewStrip"></div>
+
+    <div class="form-2col" id="metaForm" style="display:none">
+      <div class="fg">
+        <label>Category</label>
+        <select id="catSel">
+          <option value="theory-2w">📚 Theory — 2-Wheeler</option>
+          <option value="theory-4w">📚 Theory — 4-Wheeler</option>
+          <option value="prac-2w">🛵 Practical — 2-Wheeler</option>
+          <option value="prac-4w">🚗 Practical — 4-Wheeler</option>
+          <option value="ghat">⛰️ Ghat Road</option>
+          <option value="night">🌙 Night Sessions</option>
+          <option value="cert">🎓 Certificates &amp; Events</option>
+        </select>
       </div>
+      <div class="fg">
+        <label>Caption (optional)</label>
+        <input type="text" id="capInput" placeholder="e.g. Arvind Sir teaching ghat road" />
+      </div>
+    </div>
+    <div class="add-row" id="addRow" style="display:none">
+      <button class="btn btn-green" onclick="saveMedia()">✅ Add to Gallery</button>
     </div>
   </div>
 
-  <!-- STEP 2: ADD PHOTOS -->
-  <div class="card">
-    <div class="card-title">📸 How to Add a Photo <span class="badge badge-green">Every time</span></div>
-    <div class="card-sub">Upload photo to Cloudinary → copy URL → paste in your Google Sheet. Done. Visible on all devices immediately.</div>
+  <!-- STEP 2 -->
+  <div class="step-header"><div class="step-num">2</div><div><div class="step-title">Manage Your Gallery</div><div class="step-sub">All photos &amp; videos — delete or keep. Updates instantly in gallery.html.</div></div></div>
 
-    <div class="step">
-      <div class="snum">1</div>
-      <div class="stxt">Go to <a href="https://cloudinary.com/users/register/free" target="_blank">cloudinary.com</a> → sign up free → click <strong>Media Library → Upload</strong> → pick your photo</div>
+  <div class="card">
+    <div class="info-box">💡 Everything you add is saved in <strong>this browser</strong> and shows in <strong>gallery.html automatically</strong> when opened here. To make it live for everyone on the internet, use <strong>Step 3 Export</strong> below.</div>
+    <div class="stats-bar">
+      <div class="spill"><span class="n" id="nTotal">0</span> Total</div>
+      <div class="spill">📸 <span class="n" id="nPhoto">0</span> Photos</div>
+      <div class="spill">🎬 <span class="n" id="nVideo">0</span> Videos</div>
     </div>
-    <div class="step">
-      <div class="snum">2</div>
-      <div class="stxt">After upload → click the photo → click <strong>Copy URL</strong> (ends in <code>.jpg</code> or <code>.png</code>)</div>
+    <div class="mtabs">
+      <div class="mtab active" onclick="filter('all',this)">All</div>
+      <div class="mtab" onclick="filter('theory-2w',this)">📚 Theory 2W</div>
+      <div class="mtab" onclick="filter('theory-4w',this)">📚 Theory 4W</div>
+      <div class="mtab" onclick="filter('prac-2w',this)">🛵 Prac 2W</div>
+      <div class="mtab" onclick="filter('prac-4w',this)">🚗 Prac 4W</div>
+      <div class="mtab" onclick="filter('ghat',this)">⛰️ Ghat</div>
+      <div class="mtab" onclick="filter('night',this)">🌙 Night</div>
+      <div class="mtab" onclick="filter('cert',this)">🎓 Certs</div>
     </div>
-    <div class="step">
-      <div class="snum">3</div>
-      <div class="stxt">
-        Open your Google Sheet → add a new row:
-        <div class="cols">
-          <div class="col-item"><div class="label">url</div><div class="val">Paste the Cloudinary URL</div></div>
-          <div class="col-item"><div class="label">type</div><div class="val">photo</div></div>
-          <div class="col-item"><div class="label">category</div><div class="val">e.g. prac-2w</div></div>
-          <div class="col-item"><div class="label">caption</div><div class="val">e.g. Sangita Ma'am class</div></div>
-        </div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="snum">4</div>
-      <div class="stxt">Refresh the gallery page → photo appears for <strong>everyone on every device</strong> ✅</div>
-    </div>
+    <div class="mgrid" id="mgrid"></div>
   </div>
 
-  <!-- STEP 3: ADD VIDEOS -->
+  <!-- STEP 3 -->
+  <div class="step-header"><div class="step-num">3</div><div><div class="step-title">Make It Live Online</div><div class="step-sub">One-time copy-paste into gallery.html — then everyone on the web can see your photos &amp; videos.</div></div></div>
+
   <div class="card">
-    <div class="card-title">🎬 How to Add a Video <span class="badge badge-blue">Every time</span></div>
-    <div class="card-sub">Two options — YouTube (opens on YouTube) or Cloudinary (plays directly on your site with full controls).</div>
-
-    <div class="warn"><strong>Option A — YouTube (easiest):</strong> Upload to YouTube → set Public/Unlisted → copy the youtube.com/watch?v=… link → paste as URL in sheet → type = <code>video</code></div>
-
-    <div class="step">
-      <div class="snum">1</div>
-      <div class="stxt"><strong>Option B — Cloudinary (plays on site):</strong> Go to <a href="https://cloudinary.com" target="_blank">cloudinary.com</a> → upload video → copy URL ending in <code>.mp4</code></div>
+    <div class="info-box">📋 Click <strong>Generate Code</strong> → Click <strong>Copy</strong> → Open <strong>gallery.html</strong> in VS Code → Select all (Ctrl+A) → Paste → Save. Done!</div>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+      <button class="btn btn-orange" onclick="genCode()">⚙️ Generate Code</button>
+      <button class="btn btn-green" id="copyBtn" onclick="copyCode()" style="display:none">📋 Copy Code</button>
     </div>
-    <div class="step">
-      <div class="snum">2</div>
-      <div class="stxt">
-        Add a row in your Google Sheet:
-        <div class="cols">
-          <div class="col-item"><div class="label">url</div><div class="val">YouTube or Cloudinary URL</div></div>
-          <div class="col-item"><div class="label">type</div><div class="val">video</div></div>
-          <div class="col-item"><div class="label">category</div><div class="val">e.g. review-video</div></div>
-          <div class="col-item"><div class="label">caption</div><div class="val">Customer name</div></div>
-        </div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="snum">3</div>
-      <div class="stxt">Refresh gallery page → video appears ✅ Cloudinary videos play with full controls. YouTube videos open on YouTube when clicked.</div>
-    </div>
+    <textarea id="exportArea" readonly style="width:100%;height:240px;background:rgba(0,0,0,.4);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:1rem;color:#86efac;font-family:monospace;font-size:.75rem;resize:vertical;outline:none;display:none;margin-top:1rem;"></textarea>
   </div>
-
-  <!-- CATEGORY REFERENCE -->
-  <div class="card">
-    <div class="card-title">📋 Category Values</div>
-    <div class="card-sub">Use exactly these values in the <code>category</code> column of your sheet:</div>
-    <div class="cats">
-      <div class="cat">theory-2w</div>
-      <div class="cat">theory-4w</div>
-      <div class="cat">prac-2w</div>
-      <div class="cat">prac-4w</div>
-      <div class="cat">ghat</div>
-      <div class="cat">night</div>
-      <div class="cat">cert</div>
-      <div class="cat">basic-info</div>
-      <div class="cat">experience</div>
-      <div class="cat">review-video</div>
-    </div>
-  </div>
-
-  <a href="https://sheets.google.com" target="_blank" class="big-btn">📊 Open Google Sheets →</a>
-  &nbsp;
-  <a href="gallery.html" target="_blank" class="big-btn" style="background:#1c1c1e;border:2px solid rgba(255,255,255,.15);">👁 View Gallery →</a>
 
 </div>
+<div class="toast" id="toast"></div>
+</div><!-- end #appContent -->
+
+<script>
+const KEY = 'sp_gallery_v1';
+const CATS = {
+  'theory-2w':'📚 Theory · 2-Wheeler','theory-4w':'📚 Theory · 4-Wheeler',
+  'prac-2w':'🛵 Practical · 2-Wheeler','prac-4w':'🚗 Practical · 4-Wheeler',
+  'ghat':'⛰️ Ghat Road','night':'🌙 Night Sessions','cert':'🎓 Certificates'
+};
+let pending = [];
+let curFilter = 'all';
+
+function toast(msg, err=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast'+(err?' err':'');
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3000);
+}
+function load() { try{return JSON.parse(localStorage.getItem(KEY))||[];}catch{return [];} }
+function save(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
+
+// Type toggle
+function setType(t) {
+  ['Photo','Video'].forEach(x=>{
+    document.getElementById('btn'+x).classList.toggle('active', t==='photo'&&x==='Photo'||t==='video'&&x==='Video');
+    document.getElementById('mode'+x).style.display = (t==='photo'&&x==='Photo'||t==='video'&&x==='Video')?'block':'none';
+  });
+  pending=[]; renderPreview();
+}
+
+// YouTube helpers
+function ytId(url){ const m=url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([\w-]{11})/); return m?m[1]:null; }
+function gdId(url){ const m=url.match(/\/d\/([a-zA-Z0-9_-]+)/); return m?m[1]:null; }
+
+// Photo file drop
+const dz = document.getElementById('dropZone');
+document.getElementById('imgFile').addEventListener('change', e=>readImgFiles(e.target.files));
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('dragover');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('dragover'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('dragover');readImgFiles(e.dataTransfer.files);});
+
+function readImgFiles(files){
+  Array.from(files).forEach(f=>{
+    if(!f.type.startsWith('image/'))return;
+    const r=new FileReader();
+    r.onload=e=>{pending.push({type:'photo',src:e.target.result,mt:'base64'});renderPreview();};
+    r.readAsDataURL(f);
+  });
+}
+
+function addImgUrl(){
+  const url=document.getElementById('imgUrl').value.trim();
+  if(!url){toast('Paste a link first',true);return;}
+  const gd=gdId(url);
+  const src=gd?`https://drive.google.com/uc?export=view&id=${gd}`:url;
+  pending.push({type:'photo',src,mt:'url'});
+  document.getElementById('imgUrl').value='';
+  renderPreview();
+}
+
+// Video file drop
+const vdz = document.getElementById('vidDropZone');
+document.getElementById('vidFile').addEventListener('change',e=>readVidFile(e.target.files[0]));
+vdz.addEventListener('dragover',e=>{e.preventDefault();vdz.classList.add('dragover');});
+vdz.addEventListener('dragleave',()=>vdz.classList.remove('dragover'));
+vdz.addEventListener('drop',e=>{e.preventDefault();vdz.classList.remove('dragover');readVidFile(e.dataTransfer.files[0]);});
+
+function readVidFile(f){
+  if(!f||!f.type.startsWith('video/')){toast('Select a video file',true);return;}
+  if(f.size>50*1024*1024){toast('Video too large — use YouTube link instead',true);return;}
+  const r=new FileReader();
+  r.onload=e=>{pending.push({type:'video',src:e.target.result,mt:'file'});renderPreview();};
+  r.readAsDataURL(f);
+}
+
+function addVidUrl(){
+  const url=document.getElementById('vidUrl').value.trim();
+  if(!url){toast('Paste a link first',true);return;}
+  const id=ytId(url);
+  if(id){
+    // Use allorigins proxy to fetch thumbnail as base64 — bypasses CORS block
+    const thumbSrc = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(thumbSrc)}`;
+    pending.push({type:'video',src:`https://www.youtube.com/embed/${id}`,origUrl:url,mt:'youtube',thumb:thumbSrc,proxyThumb:proxyUrl,ytId:id});
+    document.getElementById('vidUrl').value='';renderPreview();return;
+  }
+  const gd=gdId(url);
+  if(gd){
+    pending.push({type:'video',src:`https://drive.google.com/file/d/${gd}/preview`,mt:'gdrive'});
+    document.getElementById('vidUrl').value='';renderPreview();return;
+  }
+  pending.push({type:'video',src:url,mt:'url'});
+  document.getElementById('vidUrl').value='';renderPreview();
+}
+
+function removePending(i){pending.splice(i,1);renderPreview();}
+
+function renderPreview(){
+  const strip=document.getElementById('previewStrip');
+  const meta=document.getElementById('metaForm');
+  const addR=document.getElementById('addRow');
+  strip.innerHTML='';
+  if(!pending.length){meta.style.display='none';addR.style.display='none';return;}
+  meta.style.display='grid';addR.style.display='flex';
+  pending.forEach((item,i)=>{
+    const d=document.createElement('div');
+    d.className='preview-thumb';
+    if(item.type==='photo'){
+      d.innerHTML=`<img src="${item.src}"/><button class="rm-btn" onclick="removePending(${i})">✕</button>`;
+    } else {
+      const th=item.thumb||'';
+      d.innerHTML=th
+        ?`<img src="${th}"/><span class="vbadge">▶ YT</span><button class="rm-btn" onclick="removePending(${i})">✕</button>`
+        :`<div style="width:100%;height:100%;background:rgba(242,101,34,.15);display:flex;align-items:center;justify-content:center;font-size:1.8rem">🎬</div><span class="vbadge">VIDEO</span><button class="rm-btn" onclick="removePending(${i})">✕</button>`;
+    }
+    strip.appendChild(d);
+  });
+}
+
+function saveMedia(){
+  if(!pending.length){toast('Nothing selected',true);return;}
+  const cat=document.getElementById('catSel').value;
+  const cap=document.getElementById('capInput').value.trim();
+  const all=load();
+  pending.forEach(item=>all.push({id:Date.now()+Math.random(),...item,cat,caption:cap}));
+  save(all);
+  const n=pending.length;
+  pending=[];document.getElementById('capInput').value='';
+  renderPreview();renderGrid();updateStats();
+  toast(`✅ ${n} item${n!==1?'s':''} added!`);
+}
+
+function deleteItem(id){
+  save(load().filter(p=>String(p.id)!==String(id)));
+  renderGrid();updateStats();toast('🗑 Removed');
+}
+
+function clearAll(){
+  if(!confirm('Delete ALL photos and videos?'))return;
+  localStorage.removeItem(KEY);renderGrid();updateStats();toast('🗑 All cleared');
+}
+
+function filter(cat,el){
+  curFilter=cat;
+  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');renderGrid();
+}
+
+function renderGrid(){
+  const g=document.getElementById('mgrid');
+  const all=load();
+  const shown=curFilter==='all'?all:all.filter(p=>p.cat===curFilter);
+  g.innerHTML='';
+  if(!shown.length){g.innerHTML='<div class="empty"><div style="font-size:2.5rem">📭</div><div style="margin-top:.5rem">No items yet</div></div>';return;}
+  shown.forEach(item=>{
+    const c=document.createElement('div');c.className='mcard';
+    let med='';
+    if(item.type==='video'){
+      if(item.mt==='youtube'&&item.thumb)
+        med=`<div class="mcard-media"><img src="${item.thumb}"/><span class="mbadge">▶ YouTube</span></div>`;
+      else if(item.mt==='gdrive')
+        med=`<div class="mcard-media">🎬<span class="mbadge">Drive</span></div>`;
+      else
+        med=`<div class="mcard-media"><video src="${item.src}" muted></video><span class="mbadge">▶ Video</span></div>`;
+    } else {
+      med=`<div class="mcard-media"><img src="${item.src}" onerror="this.parentElement.innerHTML='🖼️'"/></div>`;
+    }
+    c.innerHTML=`${med}<div class="mcard-info"><div class="mcard-label">${item.caption||'No caption'}</div><div class="mcard-cat">${CATS[item.cat]||item.cat}</div></div><div class="mcard-actions"><button class="btn btn-red" onclick="deleteItem('${item.id}')">🗑 Delete</button></div>`;
+    g.appendChild(c);
+  });
+}
+
+function updateStats(){
+  const all=load();
+  document.getElementById('nTotal').textContent=all.length;
+  document.getElementById('nPhoto').textContent=all.filter(p=>p.type==='photo').length;
+  document.getElementById('nVideo').textContent=all.filter(p=>p.type==='video').length;
+}
+
+function renderItem(item){
+  if(item.type==='video'){
+    if(item.mt==='youtube'||item.mt==='gdrive'||item.mt==='url'){
+      return `<div class="gallery-item gallery-video-item fade-in"><iframe src="${item.src}" frameborder="0" allowfullscreen loading="lazy" style="width:100%;height:100%;border:0;"></iframe><div class="gp-overlay-label">${item.caption||CATS[item.cat]||''}</div></div>`;
+    }
+    return `<div class="gallery-item gallery-video-item fade-in"><video src="${item.src}" controls style="width:100%;height:100%;object-fit:cover;"></video><div class="gp-overlay-label">${item.caption||CATS[item.cat]||''}</div></div>`;
+  }
+  return `<div class="gallery-item fade-in"><img src="${item.src}" alt="${item.caption||''}" style="width:100%;height:100%;object-fit:cover;" loading="lazy"/><div class="gp-overlay"><span>${item.caption||CATS[item.cat]||''}</span></div></div>`;
+}
+
+function genCode(){
+  const all=load();
+  if(!all.length){toast('No items to export',true);return;}
+  const cats={};
+  Object.keys(CATS).forEach(c=>cats[c]=[]);
+  all.forEach(i=>{if(cats[i.cat])cats[i.cat].push(i);});
+  const allCards=all.map(renderItem).join('');
+  const catPanels=Object.entries(cats).map(([cat,list])=>`<div class="gallery-panel" id="${cat}"><div class="gallery-grid">${list.length?list.map(renderItem).join(''):'<p style="color:var(--grey);padding:2rem">No items yet.</p>'}</div></div>`).join('\n');
+  const code=`<!-- MANAGED GALLERY START -->\n<div class="gallery-panel active" id="all"><div class="gallery-grid">${allCards}</div></div>\n${catPanels}\n<!-- MANAGED GALLERY END -->`;
+  const ta=document.getElementById('exportArea');
+  const cb=document.getElementById('copyBtn');
+  ta.value=code;ta.style.display='block';cb.style.display='inline-flex';
+  toast('✅ Code ready — click Copy!');
+  ta.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function copyCode(){
+  document.getElementById('exportArea').select();
+  document.execCommand('copy');toast('📋 Copied to clipboard!');
+}
+
+document.getElementById('imgUrl').addEventListener('keydown',e=>{if(e.key==='Enter')addImgUrl();});
+document.getElementById('vidUrl').addEventListener('keydown',e=>{if(e.key==='Enter')addVidUrl();});
+
+renderGrid();updateStats();
+</script>
+
+<!-- ========== AUTH SCRIPT ========== -->
+<script>
+  // ── CHANGE THIS PASSWORD TO YOUR OWN ──
+  const ADMIN_PASSWORD = 'SP@Admin2025';
+  const SESSION_KEY = 'sp_admin_auth';
+  const MAX_ATTEMPTS = 5;
+  let attempts = 0;
+
+  // Check if already authenticated in this session
+  if (sessionStorage.getItem(SESSION_KEY) === 'granted') {
+    document.getElementById('loginGate').style.display = 'none';
+    document.getElementById('appContent').style.display = 'block';
+  }
+
+  function checkPw() {
+    const input = document.getElementById('pwInput').value;
+    const errEl = document.getElementById('loginError');
+    const attEl = document.getElementById('attemptsMsg');
+
+    if (input === ADMIN_PASSWORD) {
+      sessionStorage.setItem(SESSION_KEY, 'granted');
+      document.getElementById('loginGate').style.display = 'none';
+      document.getElementById('appContent').style.display = 'block';
+    } else {
+      attempts++;
+      errEl.style.display = 'block';
+      document.getElementById('pwInput').value = '';
+      const remaining = MAX_ATTEMPTS - attempts;
+      if (remaining <= 0) {
+        errEl.textContent = '🚫 Too many failed attempts. Please close and reopen the page.';
+        document.getElementById('pwInput').disabled = true;
+        document.querySelector('.login-btn').disabled = true;
+        attEl.textContent = '';
+      } else {
+        errEl.textContent = 'Incorrect password. Please try again.';
+        attEl.textContent = `${remaining} attempt${remaining !== 1 ? 's' : ''} remaining`;
+      }
+    }
+  }
+</script>
 </body>
 </html>
