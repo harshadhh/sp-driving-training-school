@@ -158,6 +158,7 @@ function injectFooter() {
         <a href="about.html">About</a>
         <a href="courses.html">Courses</a>
         <a href="sp-admin-panel.html" style="opacity:.2;font-size:.72rem;letter-spacing:.04em;" title="Admin">⚙</a>
+        <a href="gallery-manager.html" style="opacity:.45;font-size:.72rem;font-weight:700;letter-spacing:.04em;color:var(--orange);" title="Gallery Manager">🖼 Gallery Manager</a>
       </div>
     </div>
   </footer>

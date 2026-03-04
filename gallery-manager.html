@@ -171,67 +171,93 @@
 
     <!-- PHOTO -->
     <div id="modePhoto">
-      <div class="upload-zone" id="dropZone">
-        <input type="file" id="imgFile" accept="image/*" multiple />
-        <div class="upload-icon">📸</div>
-        <div class="uz-title">Drag &amp; Drop Photos Here</div>
-        <div class="uz-sub">Or click this box to pick from your phone / computer</div>
+
+      <!-- WHY you must use imgbb -->
+      <div style="background:rgba(242,101,34,.08);border:1.5px solid rgba(242,101,34,.3);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1.25rem;">
+        <div style="font-weight:800;color:var(--orange);font-size:.85rem;margin-bottom:.4rem;">⚠️ Important — Read This First</div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.7;">
+          If you drag a photo directly here, it saves only on <strong style="color:white;">this browser on this device</strong>. Nobody else will see it.<br/>
+          <strong style="color:white;">To make photos visible to everyone on the website: upload to imgbb.com first → paste the link below.</strong>
+        </div>
       </div>
-      <div class="divider"><span>OR paste an image link (imgbb / Google Drive)</span></div>
+
+      <!-- Step by step imgbb guide -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1.25rem;">
+        <div style="font-weight:800;color:white;font-size:.88rem;margin-bottom:.85rem;">📸 How to add a photo (1 minute)</div>
+        <div style="display:flex;flex-direction:column;gap:.65rem;">
+          <div style="display:flex;gap:.8rem;align-items:flex-start;">
+            <div style="min-width:22px;height:22px;border-radius:50%;background:var(--orange);color:white;font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;">1</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.55;">Go to <a href="https://imgbb.com" target="_blank" style="color:var(--orange);font-weight:700;">imgbb.com</a> → click <strong style="color:white;">Start Uploading</strong> → pick your photo</div>
+          </div>
+          <div style="display:flex;gap:.8rem;align-items:flex-start;">
+            <div style="min-width:22px;height:22px;border-radius:50%;background:var(--orange);color:white;font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;">2</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.55;">After upload → click <strong style="color:white;">Viewer link</strong> → right-click the image → <strong style="color:white;">Copy image address</strong></div>
+          </div>
+          <div style="display:flex;gap:.8rem;align-items:flex-start;">
+            <div style="min-width:22px;height:22px;border-radius:50%;background:var(--orange);color:white;font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;">3</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.55;">Paste that link below → select category → click <strong style="color:white;">Add to Gallery ✅</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:.5rem;font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);">Paste Image Link from imgbb</div>
       <div class="url-row">
-        <input type="text" id="imgUrl" placeholder="Paste image link here — e.g. https://i.ibb.co/abc/photo.jpg" />
+        <input type="text" id="imgUrl" placeholder="https://i.ibb.co/xxxx/photo.jpg" onkeydown="if(event.key==='Enter')addImgUrl()" />
         <button class="btn btn-orange" onclick="addImgUrl()">Add →</button>
       </div>
-      <div class="hint">Free: upload photo at <strong>imgbb.com</strong> → copy the "Direct link" → paste above</div>
+      <div style="margin-top:.55rem;font-size:.75rem;color:rgba(255,255,255,.3);">🔗 The link must start with <strong style="color:rgba(255,255,255,.45);">https://</strong> so the photo is visible to everyone</div>
     </div>
 
     <!-- VIDEO -->
     <div id="modeVideo" style="display:none">
 
-      <!-- WHY FILE UPLOAD DOESN'T WORK explanation -->
-      <div style="background:rgba(242,101,34,.08);border:1.5px solid rgba(242,101,34,.25);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;">
-        <div style="font-weight:800;color:var(--orange);font-size:.85rem;margin-bottom:.5rem;">⚠️ Why can't I upload a video file directly?</div>
-        <div style="font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.65;">
-          Browsers only allow ~5MB in local storage — video files are much bigger, so they silently fail.<br/>
-          <strong style="color:rgba(255,255,255,.75);">Solution: Upload your video to Cloudinary (free) → paste the link below. Takes 2 minutes.</strong>
+      <div style="background:rgba(242,101,34,.08);border:1.5px solid rgba(242,101,34,.3);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1.25rem;">
+        <div style="font-weight:800;color:var(--orange);font-size:.85rem;margin-bottom:.4rem;">⚠️ Important — Read This First</div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.7;">
+          You cannot upload a video file directly — browsers only allow 5MB storage. Videos are much bigger.<br/>
+          <strong style="color:white;">Use one of the 2 options below. Both are free and work on every browser for every visitor.</strong>
         </div>
       </div>
 
-      <!-- STEP BY STEP CLOUDINARY GUIDE -->
-      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;">
-        <div style="font-weight:800;color:white;font-size:.88rem;margin-bottom:1rem;">📹 How to add a video (2 minutes)</div>
-        <div style="display:flex;flex-direction:column;gap:.75rem;">
-          <div style="display:flex;gap:.85rem;align-items:flex-start;">
-            <div style="min-width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:.05rem;">1</div>
-            <div style="font-size:.82rem;color:rgba(255,255,255,.65);line-height:1.55;">Go to <a href="https://cloudinary.com/users/register/free" target="_blank" style="color:var(--orange);font-weight:700;">cloudinary.com</a> → sign up free (no credit card)</div>
-          </div>
-          <div style="display:flex;gap:.85rem;align-items:flex-start;">
-            <div style="min-width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:.05rem;">2</div>
-            <div style="font-size:.82rem;color:rgba(255,255,255,.65);line-height:1.55;">Click <strong style="color:white;">Media Library</strong> → <strong style="color:white;">Upload</strong> → pick your video from phone or laptop</div>
-          </div>
-          <div style="display:flex;gap:.85rem;align-items:flex-start;">
-            <div style="min-width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:.05rem;">3</div>
-            <div style="font-size:.82rem;color:rgba(255,255,255,.65);line-height:1.55;">After upload, click the video → click <strong style="color:white;">Copy URL</strong> (ends in .mp4)</div>
-          </div>
-          <div style="display:flex;gap:.85rem;align-items:flex-start;">
-            <div style="min-width:24px;height:24px;border-radius:50%;background:var(--orange);color:white;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:.05rem;">4</div>
-            <div style="font-size:.82rem;color:rgba(255,255,255,.65);line-height:1.55;">Paste that URL below → select category → click Add ✅</div>
-          </div>
+      <!-- OPTION 1: YouTube -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1rem;">
+        <div style="display:flex;align-items:center;gap:.65rem;margin-bottom:.8rem;">
+          <div style="background:#FF0000;border-radius:8px;padding:.3rem .6rem;font-size:.72rem;font-weight:800;color:white;">▶ YOUTUBE</div>
+          <div style="font-weight:800;color:white;font-size:.85rem;">Option 1 — YouTube Link (Easiest)</div>
         </div>
-        <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.07);font-size:.78rem;color:rgba(255,255,255,.35);">
-          Also works with: <strong style="color:rgba(255,255,255,.5);">YouTube links</strong> · <strong style="color:rgba(255,255,255,.5);">Google Drive links</strong> · <strong style="color:rgba(255,255,255,.5);">Any direct .mp4 URL</strong>
+        <div style="font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.65;margin-bottom:.75rem;">
+          Upload your video to YouTube → paste the link here. Video opens on YouTube when clicked. <strong style="color:rgba(255,255,255,.75);">Takes 2 minutes.</strong>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.5rem;font-size:.8rem;color:rgba(255,255,255,.5);">
+          <div>1. Go to <a href="https://youtube.com" target="_blank" style="color:var(--orange);font-weight:700;">youtube.com</a> → click your profile → <strong style="color:white;">Upload video</strong></div>
+          <div>2. Pick your video → set visibility to <strong style="color:white;">Public</strong> or <strong style="color:white;">Unlisted</strong></div>
+          <div>3. After upload → copy the page URL (youtube.com/watch?v=…) → paste below</div>
         </div>
       </div>
 
-      <!-- URL INPUT -->
-      <div style="margin-bottom:.5rem;font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);">Paste Video Link</div>
+      <!-- OPTION 2: Cloudinary -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1.25rem;">
+        <div style="display:flex;align-items:center;gap:.65rem;margin-bottom:.8rem;">
+          <div style="background:#3448C5;border-radius:8px;padding:.3rem .6rem;font-size:.72rem;font-weight:800;color:white;">☁ CLOUDINARY</div>
+          <div style="font-weight:800;color:white;font-size:.85rem;">Option 2 — Cloudinary Link (Plays on your site)</div>
+        </div>
+        <div style="font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.65;margin-bottom:.75rem;">
+          Upload to Cloudinary → video plays directly on your website with full controls. <strong style="color:rgba(255,255,255,.75);">Best experience.</strong>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.5rem;font-size:.8rem;color:rgba(255,255,255,.5);">
+          <div>1. Go to <a href="https://cloudinary.com/users/register/free" target="_blank" style="color:var(--orange);font-weight:700;">cloudinary.com</a> → sign up free</div>
+          <div>2. Click <strong style="color:white;">Media Library → Upload</strong> → pick your video</div>
+          <div>3. After upload → click the video → click <strong style="color:white;">Copy URL</strong> → it ends in .mp4</div>
+          <div>4. Paste that .mp4 URL below ✅</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:.5rem;font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);">Paste Video Link (YouTube or Cloudinary)</div>
       <div class="url-row">
-        <input type="text" id="vidUrl" placeholder="https://res.cloudinary.com/…/video.mp4  or YouTube URL" />
+        <input type="text" id="vidUrl" placeholder="youtube.com/watch?v=…   or   https://res.cloudinary.com/…/video.mp4" onkeydown="if(event.key==='Enter')addVidUrl()" />
         <button class="btn btn-orange" onclick="addVidUrl()">Add →</button>
       </div>
-      <div style="margin-top:.6rem;font-size:.75rem;color:rgba(255,255,255,.3);">
-        💡 Easiest: paste a normal <strong style="color:rgba(255,255,255,.45);">YouTube URL</strong> — no need to upload the video file
-      </div>
+      <div style="margin-top:.55rem;font-size:.75rem;color:rgba(255,255,255,.3);">Both options are <strong style="color:rgba(255,255,255,.45);">100% free</strong> and visible to every visitor on every device 🌍</div>
     </div>
 
     <div class="preview-strip" id="previewStrip"></div>
