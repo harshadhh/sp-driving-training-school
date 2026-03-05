@@ -866,9 +866,42 @@ body {
   color: var(--grey); padding: .7rem 1.4rem;
   border-bottom: 3px solid transparent; margin-bottom: -2px;
   transition: var(--trans); border-radius: 8px 8px 0 0;
+  white-space: nowrap;
 }
 .gallery-tab:hover { color: var(--orange); }
 .gallery-tab.active { color: var(--orange); border-bottom-color: var(--orange); background: var(--orange-lt); }
+
+@media (max-width: 700px) {
+  .gallery-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: .35rem;
+    padding-bottom: 0;
+    margin-bottom: 1.5rem;
+  }
+  .gallery-tabs::-webkit-scrollbar { display: none; }
+  .gallery-tab {
+    font-size: .78rem;
+    padding: .55rem .9rem;
+    flex-shrink: 0;
+    border-radius: 50px;
+    border-bottom: none;
+    margin-bottom: 0;
+    border: 2px solid var(--light);
+  }
+  .gallery-tab.active {
+    background: var(--orange);
+    color: white;
+    border-color: var(--orange);
+  }
+  .gallery-tab.active .tab-count {
+    background: rgba(255,255,255,.3);
+    color: white;
+  }
+}
 .gallery-panel { display: none; }
 .gallery-panel.active { display: block; }
 .gallery-grid {
