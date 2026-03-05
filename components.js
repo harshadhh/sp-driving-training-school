@@ -8,7 +8,7 @@ const WA_NUM = "918055385572";
 const WA_MSG = encodeURIComponent("Hi! I want to book a free trial lesson at SP Driving School.");
 const ADDRESS = "Prasun Savoy Corner, Dhanori Road, Vishrantwadi, Pune – 411015";
 
-const LOGO_SVG = `<img src="logo-new.jpg" alt="SP Driving School" style="height:52px;max-width:220px;object-fit:contain;" />`;
+const LOGO_SVG = `<img src="logo-new.jpg" alt="SP Driving School" style="height:42px;max-width:180px;object-fit:contain;" />`;
 
 const NAV_ITEMS = [
   { label: "Home",     href: "index.html"   },
@@ -47,7 +47,7 @@ function injectNav() {
       </a>
       <ul class="nav-links">${links}</ul>
       <div class="nav-right">
-        <a href="tel:${PHONE}" class="nav-cta">
+        <a href="tel:${PHONE}" class="nav-cta nav-cta-desktop">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.07 12 19.79 19.79 0 011 3.18 2 2 0 013 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
           080553 85572
         </a>

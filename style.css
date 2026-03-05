@@ -103,6 +103,7 @@ body {
 .nav-links a.active { color: var(--orange); background: var(--orange-lt); }
 
 .nav-right { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; }
+.nav-cta-desktop { display: flex; }
 .nav-cta {
   display: flex; align-items: center; gap: .4rem;
   background: var(--orange); color: white;
@@ -1087,6 +1088,7 @@ body {
 @media (max-width: 900px) {
   .nav-links { display: none !important; }
   .hamburger { display: flex !important; }
+  .nav-cta-desktop { display: none !important; }
   .hero-inner { grid-template-columns: 1fr; }
   .hero-visual { display: none; }
   .hero-sub { max-width: 100%; }
