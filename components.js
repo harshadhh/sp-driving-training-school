@@ -98,8 +98,7 @@ function injectFooter() {
         <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.3rem;">
           ${LOGO_SVG}
           <div>
-            <div class="footer-name">SP DRIVING SCHOOL</div>
-            <div class="footer-tagline">Learn to fly…!</div>
+
           </div>
         </div>
         <p>Pune's most trusted driving school. Personalised 1-on-1 coaching with 12+ years of experience. Ghat road specialist.</p>
