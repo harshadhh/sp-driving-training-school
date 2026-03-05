@@ -133,11 +133,13 @@ body {
 .mobile-nav {
   display: none;
   position: fixed; top: var(--nav-h); left: 0; right: 0;
-  background: white; z-index: 850;
+  background: white; z-index: 9000;
   padding: 1rem 1.5rem 1.5rem;
-  box-shadow: var(--shadow-lg);
-  border-top: 1px solid var(--light);
+  box-shadow: 0 8px 30px rgba(0,0,0,.15);
+  border-top: 2px solid var(--orange);
   flex-direction: column; gap: .4rem;
+  max-height: calc(100vh - var(--nav-h));
+  overflow-y: auto;
 }
 .mobile-nav.open { display: flex; }
 .mobile-nav a {
