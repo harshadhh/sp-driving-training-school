@@ -230,13 +230,19 @@
 </div><!-- /app -->
 
 <script>
-const PASS = 'SP@Admin2025';
-if(sessionStorage.getItem('sp_auth')==='1'){unlock();}
-function tryLogin(){
-  if(document.getElementById('pwInput').value===PASS){sessionStorage.setItem('sp_auth','1');unlock();}
+// Auth
+const _h='ead3630a7f53ebd9c6c8532bb7bf7d6a78fb55bbc0fc696ca32273a4521865ff';
+if(sessionStorage.getItem('_spx')==='ok'){_u();}
+async function tryLogin(){
+  const v=document.getElementById('pwInput').value;
+  if(!v)return;
+  const b=new TextEncoder().encode(v);
+  const hb=await crypto.subtle.digest('SHA-256',b);
+  const h=Array.from(new Uint8Array(hb)).map(x=>x.toString(16).padStart(2,'0')).join('');
+  if(h===_h){sessionStorage.setItem('_spx','ok');_u();}
   else{document.getElementById('pwErr').style.display='block';document.getElementById('pwInput').value='';document.getElementById('pwInput').focus();}
 }
-function unlock(){
+function _u(){
   document.getElementById('gate').style.display='none';
   document.getElementById('app').style.display='block';
 }
