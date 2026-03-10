@@ -148,7 +148,7 @@ function injectFooter() {
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 SP Driving Training School, Pune. All rights reserved.</p>
+      <p>© 2026 SP Driving Training School, Pune. All rights reserved. | Designed by <strong>PEAKMEDIA STUDIO</strong></p>
       <div class="footer-bottom-links">
         <a href="contact.html">Contact</a>
         <a href="about.html">About</a>
